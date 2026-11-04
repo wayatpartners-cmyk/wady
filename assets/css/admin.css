@@ -128,3 +128,5 @@ html[dir="ltr"] .switch input:checked + span::after { transform: translateX(18px
   .grid2, .grid3 { grid-template-columns: 1fr; }
   .topbar .btn--ghost { padding: 0 14px; }
 }
+
+.link-btn { background: none; border: 0; color: inherit; opacity: .7; text-decoration: underline; cursor: pointer; font: inherit; font-size: 13px; margin-top: 10px; }

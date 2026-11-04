@@ -10,7 +10,7 @@ const CATS = (window.CATEGORIES || []).filter(c => c.id !== "all");
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-const show = id => ["#setupScreen", "#loginScreen", "#appScreen"].forEach(s => { $(s).hidden = s !== id; });
+const show = id => ["#setupScreen", "#loginScreen", "#passwordScreen", "#appScreen"].forEach(s => { $(s).hidden = s !== id; });
 const catName = id => CATS.find(c => c.id === id)?.ar || id;
 const money = n => `${Number(n || 0).toFixed(2).replace(/\.00$/, "")} د.أ`;
 
@@ -23,6 +23,9 @@ let removeExisting = false;  // admin removed the current image
 /* ---------- Boot ---------- */
 (async function init() {
   if (!CFG.supabaseUrl || !CFG.supabaseAnonKey || !window.supabase) { show("#setupScreen"); return; }
+  // opened from an invite / password-reset e-mail: let her choose a password first
+  // (read before createClient, which clears the link tokens from the address bar)
+  const fromEmailLink = /type=(invite|recovery)/.test(location.hash);
   sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey);
 
   $("#f_category").innerHTML = CATS.map(c => `<option value="${c.id}">${esc(c.ar)}</option>`).join("");
@@ -30,7 +33,8 @@ let removeExisting = false;  // admin removed the current image
   bind();
 
   const { data } = await sb.auth.getSession();
-  if (data.session) await enter(); else show("#loginScreen");
+  if (data.session && fromEmailLink) show("#passwordScreen");
+  else if (data.session) await enter(); else show("#loginScreen");
 })();
 
 async function enter() {
@@ -240,6 +244,26 @@ async function toggle(p, field, value) {
 
 /* ---------- Events ---------- */
 function bind() {
+  $("#passwordForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const btn = $("#passwordBtn");
+    $("#passwordError").textContent = "";
+    btn.disabled = true;
+    const { error } = await sb.auth.updateUser({ password: $("#newPassword").value });
+    btn.disabled = false;
+    if (error) { $("#passwordError").textContent = "تعذّر الحفظ — جرّبي كلمة سر أطول (٨ أحرف على الأقل)."; return; }
+    $("#newPassword").value = "";
+    history.replaceState(null, "", location.pathname);
+    await enter();
+  });
+
+  $("#forgotBtn").addEventListener("click", async () => {
+    const email = $("#email").value.trim();
+    if (!email) { $("#loginError").textContent = "اكتبي بريدك الإلكتروني أولاً، ثم اضغطي «نسيتِ كلمة السر؟»."; return; }
+    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: location.origin + "/admin" });
+    $("#loginError").textContent = error ? "تعذّر الإرسال، حاولي بعد قليل." : "أرسلنا لكِ رابطاً على بريدك لاختيار كلمة سر جديدة.";
+  });
+
   $("#loginForm").addEventListener("submit", async e => {
     e.preventDefault();
     const btn = $("#loginBtn");

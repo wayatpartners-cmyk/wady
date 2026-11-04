@@ -34,6 +34,21 @@
       <label class="field"><span>كلمة السر</span><input type="password" id="password" autocomplete="current-password" required></label>
       <button class="btn btn--primary btn--block" type="submit" id="loginBtn">تسجيل الدخول</button>
       <p class="error" id="loginError" role="alert"></p>
+      <button class="link-btn" type="button" id="forgotBtn">نسيتِ كلمة السر؟</button>
+    </form>
+  </section>
+
+  <!-- Choose a password (opened from the invite / reset e-mail) -->
+  <section class="screen center" id="passwordScreen" hidden>
+    <form class="box login" id="passwordForm">
+      <div class="login__logo">
+        <img src="assets/img/logo.png" alt="" onerror="this.remove()">
+      </div>
+      <h1>اختاري كلمة السر</h1>
+      <p class="muted">ستستخدمينها لتسجيل الدخول إلى لوحة تحكم وادي كلاي.</p>
+      <label class="field"><span>كلمة السر الجديدة (٨ أحرف على الأقل)</span><input type="password" id="newPassword" autocomplete="new-password" minlength="8" required></label>
+      <button class="btn btn--primary btn--block" type="submit" id="passwordBtn">حفظ والدخول</button>
+      <p class="error" id="passwordError" role="alert"></p>
     </form>
   </section>
 
