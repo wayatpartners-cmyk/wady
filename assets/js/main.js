@@ -322,7 +322,7 @@ function normalise(p) {
 let PRODUCT_LIST = (window.PRODUCTS || []).map(normalise);
 
 async function loadProducts() {
-  if (!CONFIG.supabaseUrl || !CONFIG.supabaseAnonKey) return false;
+  if (CONFIG.useLocalProducts || !CONFIG.supabaseUrl || !CONFIG.supabaseAnonKey) return false;
   try {
     const url = `${CONFIG.supabaseUrl.replace(/\/$/, "")}/rest/v1/products?select=*&is_active=eq.true&order=sort_order.asc,created_at.desc`;
     const res = await fetch(url, { headers: { apikey: CONFIG.supabaseAnonKey, Authorization: `Bearer ${CONFIG.supabaseAnonKey}` } });
