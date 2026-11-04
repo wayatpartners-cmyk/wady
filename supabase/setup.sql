@@ -19,7 +19,7 @@ create table if not exists public.products (
   gifts_ar     text,
   gifts_en     text,
   category     text not null default 'family'
-               check (category in ('family', 'lifestyle', 'personal', 'accessories')),
+               check (category in ('family', 'lifestyle', 'personal', 'accessories', 'offers')),
   price        numeric(10,2) not null default 0 check (price >= 0),
   old_price    numeric(10,2) not null default 0 check (old_price >= 0),
   image_url    text,

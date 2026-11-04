@@ -1,6 +1,8 @@
 /* ============================================================
    Wadi Clay — main script
-   Settings live in assets/js/config.js
+   Settings live in assets/js/config.js, products in products.js.
+   Arabic copy lives in index.html (the page's source language);
+   I18N.en holds the English version of every [data-i18n] text.
    ============================================================ */
 
 const CONFIG = Object.assign({ whatsapp: "", instagram: "#", facebook: "#", supabaseUrl: "", supabaseAnonKey: "" }, window.SITE_CONFIG || {});
@@ -9,130 +11,104 @@ CONFIG.currency = { ar: "د.أ", en: "JOD" };
 /* ---------- Translations ---------- */
 const I18N = {
   ar: {
-    "brand": "وادي كلاي",
-    "nav.benefits": "فوائد الفخار", "nav.collection": "المنتجات", "nav.story": "قصتنا", "nav.guide": "طريقة الاستخدام", "nav.contact": "تواصل",
-    "hero.eyebrow": "فخار صحي مصنوع باليد · Crafted by Nature",
-    "hero.t1": "مصنوع من", "hero.t2": "تيراكوتا", "hero.t3": "إسبانية",
-    "hero.lead": "فخاريات مشغولة باليد تبرّد الماء طبيعياً بلا كهرباء، وتمنحه طعماً أعذب — كما شرب أجدادنا، بتصميم يليق ببيتك اليوم.",
-    "hero.shop": "تسوّق المنتجات", "hero.wa": "اطلب عبر واتساب",
-    "trust.1": "الدفع عند الاستلام", "trust.2": "توصيل لكل المحافظات", "trust.3": "كفالة ذهبية ١٠٠٪",
-    "marquee": "تيراكوتا إسبانية ✦ زيولايت أردني ✦ تبريد طبيعي ✦ بلا بلاستيك ✦ صُنع باليد ✦ الدفع عند الاستلام ✦ Crafted by Nature ✦",
-    "ben.eyebrow": "تركيبة مميزة", "ben.title": "سرّ الماء الأطيب في التركيبة",
-    "ben.lead": "مزيج طبيعي مدروس، ثمرة سنوات من البحث والدراسات — صُمّم ليصلك ماء أنقى وأبرد وأطيب.",
-    "blend.1": "تيراكوتا أوروبية فاخرة", "blend.1p": "خامة مختارة من إسبانيا وإيطاليا.",
-    "blend.2": "زيولايت أردني نقي ونادر", "blend.2p": "من كنوز الأردن الطبيعية.",
-    "blend.3": "نظام طبيعي للفلترة والتنقية", "blend.3p": "ثمرة سنوات من البحث والدراسات.",
-    "ben.sub": "مع وادي كلاي بتستمتع بـ",
-    "ben.1": "ماء قلوي متوازن", "ben.1p": "ماء قلوي متوازن وغني بالأكسجين.",
-    "ben.2": "تنقية طبيعية", "ben.2p": "تنقية طبيعية وتوازن للأملاح والمعادن.",
-    "ben.3": "أعذب وأبرد", "ben.3p": "طعم أعذب وبرودة طبيعية بلا كهرباء.",
-    "ben.4": "حماية طبيعية", "ben.4p": "خصائص مضادة للبكتيريا والفيروسات.",
-    "gu.eyebrow": "كفالتنا ذهبية", "gu.title": "راحتك وثقتك هي الأساس",
-    "gu.p": "نضمن لك الأداء والجودة العالية، وحقك بالتبديل أو الترجيع محفوظ «بكلمة وحدة» وفوراً.",
-    "gu.1": "بضاعتنا مكفولة ١٠٠٪", "gu.2": "تبديل أو ترجيع فوري", "gu.3": "الدفع عند الاستلام",
-    "col.eyebrow": "منتجاتنا", "col.title": "اختر فخارتك",
-    "story.eyebrow": "قصتنا", "story.title": "من الطبيعة صُنعت، وإليها ننتمي",
-    "story.p1": "«وادي كلاي» وُلدت من إيمان بسيط: أن أجمل الأشياء وأصحّها هي التي تصنعها الطبيعة وتشكّلها يد إنسان صبور. لذلك شعارنا شجرة تحملها يدان — Crafted by Nature.",
-    "story.p2": "نمزج تيراكوتا أوروبية فاخرة من إسبانيا وإيطاليا مع زيولايت أردني نقي، نشكّلها ببطء ونحرقها على ٩٥٠ درجة لتصبح قوية ونظيفة وآمنة للماء — ثم تصلك مغلّفة كهدية.",
-    "stat.fire": "درجة حرارة الحرق", "stat.natural": "خامة طبيعية", "stat.gov": "محافظة نوصل لها",
-    "proc.eyebrow": "الحِرفة", "proc.title": "من حفنة طين إلى فخارة تعيش معك",
-    "proc.s1": "اختيار الطين", "proc.s1p": "نختار خامات طينية نقية وننقّيها ونتركها ترتاح حتى تصبح ليّنة ومطواعة.",
-    "proc.s2": "التشكيل باليد", "proc.s2p": "تدور العجلة وتتحرك الأيدي بصبر، فتولد الفخارة من دائرة واحدة.",
-    "proc.s3": "التجفيف", "proc.s3p": "تجفّ القطعة ببطء في الظل لأيام، كي تبقى متماسكة بلا تشقق.",
-    "proc.s4": "الحرق العالي", "proc.s4p": "حرق على حرارة عالية يجعل الفخارة قوية ونظيفة وجاهزة للماء.",
-    "proc.s5": "التغليف والتوصيل", "proc.s5p": "نغلّف كل قطعة بعناية كأنها هدية، ونوصلها لباب بيتك والدفع عند الاستلام.",
-    "guide.eyebrow": "طريقة الاستخدام", "guide.title": "فخارتك وصلت؟ ابدأ من هنا",
-    "guide.1": "انقع الفخارة بالماء ١٢–٢٤ ساعة قبل أول استخدام.",
-    "guide.2": "اسكب الماء الأول والثاني، ثم املأها واستمتع.",
-    "guide.3": "ضعها في مكان فيه تهوية وبعيداً عن الشمس المباشرة.",
-    "guide.4": "نظّفها بالماء وفرشاة ناعمة فقط — بدون صابون.",
-    "faq.q1": "ليش الفخارة \"بتعرق\" من برّا؟", "faq.a1": "هذا طبيعي وهو سرّ التبريد: قطرات صغيرة تخرج عبر مسامّ الطين وتتبخر فتبرّد الماء. ضع صحناً تحتها.",
-    "faq.q2": "كم مرة لازم أغيّر الماء؟", "faq.a2": "ننصح بتغيير الماء يومياً، وتنظيف الفخارة مرة أسبوعياً.",
-    "faq.q3": "كيف بتم الطلب والدفع؟", "faq.a3": "اختار القطع وأرسل طلبك عبر واتساب، نتواصل معك لتأكيد العنوان، والدفع عند الاستلام.",
-    "faq.q4": "شو إذا ما عجبتني الفخارة أو وصلت فيها مشكلة؟", "faq.a4": "بضاعتنا مكفولة ١٠٠٪ — وحقك بالتبديل أو الترجيع محفوظ «بكلمة وحدة» وفوراً.",
-    "rev.eyebrow": "قالوا عنّا",
-    "rev.1": "«من أول يوم صرنا نشرب من الفخارة بدل الثلاجة. الماء بارد وطعمه غير.»", "rev.1n": "— رنا، عمّان",
-    "rev.2": "«طلبت فخارة هدية لأمي، وصلت بنفس الأسبوع بتغليف بيجنن.»", "rev.2n": "— محمد، إربد",
-    "rev.3": "«الشغل اليدوي واضح بكل تفصيلة. قطعة فخمة على طاولة المكتب.»", "rev.3n": "— سارة، الزرقاء",
-    "gal.eyebrow": "من المشغل", "gal.title": "لحظات من بين الطين والنار", "gal.ig": "تابعنا على إنستغرام",
-    "ct.eyebrow": "تواصل معنا", "ct.title": "جاهز لماءٍ أبرد وأطيب؟ راسلنا الآن.", "ct.wa": "راسلنا على واتساب",
-    "ct.loc": "الموقع", "ct.locv": "الأردن — توصيل لكل المحافظات",
-    "ct.pay": "الدفع", "ct.payv": "نقداً عند الاستلام", "ct.follow": "تابعنا",
-    "footer.made": "صُنع بحب، من الطين إلى القلب.",
-    "cart.add": "أضف إلى الطلب", "cart.quick": "أضف للطلب +", "cart.title": "طلبك",
-    "cart.name": "الاسم", "cart.city": "المدينة / العنوان", "cart.total": "المجموع",
-    "cart.send": "إرسال الطلب عبر واتساب",
-    "cart.note": "سيفتح واتساب برسالة جاهزة فيها طلبك، ونرد عليك لتأكيد التوصيل. الدفع عند الاستلام.",
-    "cart.empty": "سلّتك فارغة — اختر فخارتك من المنتجات.", "cart.remove": "إزالة",
+    "cart.quick": "أضف للطلب +",
+    "cart.empty": "سلّتك فارغة — اختر فخارتك من المجموعة.", "cart.remove": "إزالة",
     "cart.added": "أُضيفت إلى طلبك ✓", "cart.needItems": "أضف قطعة واحدة على الأقل",
-    "stock.out": "نفد من المخزون", "stock.outBtn": "غير متوفر حالياً", "gift.label": "مع هدية", "gift.title": "الهدية مع المنتج",
+    "stock.out": "نفد من المخزون", "stock.outBtn": "غير متوفر حالياً", "cart.add": "أضف إلى الطلب",
+    "gift.label": "الملحقات المرفقة", "photo.soon": "الصورة قريباً",
     "wa.hello": "مرحباً وادي كلاي 👋", "wa.order": "أرغب بطلب:",
     "wa.total": "المجموع", "wa.name": "الاسم", "wa.city": "العنوان", "wa.pay": "الدفع عند الاستلام",
     "wa.general": "مرحباً وادي كلاي 👋 حابب أستفسر عن منتجاتكم.",
+    "wa.engrave": "مرحباً وادي كلاي 👋 حابب أعرف تفاصيل وأسعار خدمة الحفر بالليزر على الفخارة.",
     "menu": "القائمة", "cartLabel": "سلة الطلب",
     "title": "وادي كلاي | فخار صحي لتبريد وتنقية الماء في الأردن — Wadi Clay"
   },
   en: {
     "brand": "Wadi Clay",
-    "nav.benefits": "Why clay", "nav.collection": "Shop", "nav.story": "Our Story", "nav.guide": "How to use", "nav.contact": "Contact",
-    "hero.eyebrow": "Handmade healthy pottery · Crafted by Nature",
-    "hero.t1": "Crafted from", "hero.t2": "Spanish", "hero.t3": "terracotta",
-    "hero.lead": "Hand-thrown clay that cools water naturally — no electricity — and gives it a sweeter taste. The way our grandparents drank, designed for today's home.",
-    "hero.shop": "Shop now", "hero.wa": "Order on WhatsApp",
-    "trust.1": "Cash on delivery", "trust.2": "Delivery across Jordan", "trust.3": "100% golden guarantee",
-    "marquee": "Spanish terracotta ✦ Jordanian zeolite ✦ Natural cooling ✦ Plastic-free ✦ Handmade ✦ Cash on delivery ✦ Crafted by Nature ✦",
-    "ben.eyebrow": "A unique blend", "ben.title": "The secret of better water is in the blend",
-    "ben.lead": "A carefully studied natural blend — the result of years of research — made to give you purer, cooler, better-tasting water.",
-    "blend.1": "Premium European terracotta", "blend.1p": "Selected from Spain and Italy.",
-    "blend.2": "Pure, rare Jordanian zeolite", "blend.2p": "One of Jordan's natural treasures.",
-    "blend.3": "A natural filtration system", "blend.3p": "The fruit of years of research and study.",
-    "ben.sub": "With Wadi Clay you enjoy",
-    "ben.1": "Balanced alkaline water", "ben.1p": "Balanced alkaline water, rich in oxygen.",
-    "ben.2": "Natural purification", "ben.2p": "Natural purification and a healthy balance of salts and minerals.",
-    "ben.3": "Sweeter & cooler", "ben.3p": "A sweeter taste and natural cooling — no electricity.",
-    "ben.4": "Natural protection", "ben.4p": "Antibacterial and antiviral properties.",
+    "nav.why": "Why Wadi Clay", "nav.collection": "Collection", "nav.benefits": "Benefits", "nav.how": "How it works", "nav.guide": "Care & FAQ", "nav.contact": "Contact",
+    "hero.eyebrow": "Healthy, handmade clay",
+    "hero.t1": "Crafted by nature,", "hero.t2": "for purer,", "hero.t3": "cooler water",
+    "hero.lead": "Innovation in clay-making, with distinctive properties that elevate the way you drink water — pure Spanish terracotta, shaped by hand and fired at 900°C, for a healthier experience in every sip.",
+    "hero.shop": "Explore the collection", "hero.story": "Why Wadi Clay?", "hero.cap": "Ghaith — 15 L", "hero.scroll": "Scroll",
+    "trust.1": "Cash on delivery", "trust.2": "Governorates, free delivery", "trust.3": "Golden guarantee",
+    "marquee": "Spanish terracotta ✦ Handmade with care ✦ Fired at 900°C ✦ Natural cooling, no electricity ✦ Alkaline, oxygen-rich water ✦ Plastic-free ✦ Crafted by Nature ✦",
+
+    "why.eyebrow": "Why Wadi Clay?", "why.title": "More than pottery… an identity made to last.",
+    "why.p": "From the purity of Spanish terracotta clay to a specialised blend developed from long years of expertise in water science, Wadi Clay unites authentic materials, precise handcraft and care for the finest details — to give you a different, healthier experience in every sip.",
+    "stat.fire": "Firing temperature", "stat.natural": "Handmade", "stat.gov": "Governorates we deliver to",
+
+    "pil.eyebrow": "What sets us apart", "pil.title": "Five pillars behind every Wadi Clay piece",
+    "pil.1": "Spanish terracotta clay", "pil.1s": "A natural origin… quality built from the ground up.",
+    "pil.1p": "Wadi Clay vessels are made from pure, natural Spanish terracotta, chosen for its natural porosity that cools water and for properties that let it be shaped and fired at high temperatures — authentic, durable and made for everyday use.",
+    "pil.2": "A blend of selected materials", "pil.2s": "A studied harmony… for outstanding performance.",
+    "pil.2p": "Our clay is enhanced with carefully selected materials in a specialised blend that combines precise composition with quality performance, giving the pottery its unique identity.",
+    "pil.3": "Masterful handcraft", "pil.3s": "Every piece shaped with care… never a copy.",
+    "pil.3p": "Each vessel goes through stages of precise hand-shaping and detailing, where craft skill meets attention to the smallest detail — so every piece leaves with its own character and finish.",
+    "pil.4": "High-temperature electric firing", "pil.4s": "A precise technique… quality made with care.",
+    "pil.4p": "We fire electrically at temperatures up to 900°C, using technology that allows precise control of the firing conditions for a cohesive, highly durable body. It is a clean, precisely controlled method that requires costly equipment and operation.",
+    "pil.5": "Quality guarantee", "pil.5s": "Trust that starts in the workshop.",
+    "pil.5p": "We follow strict manufacturing and quality-control standards, so your vessel arrives with quality materials and careful detail — backed by a guarantee covering quality, performance, filtration and cooling.",
+
+    "col.eyebrow": "The collection", "col.title": "The Wadi Clay collection",
+    "col.lead": "Essential designs, family sizes, offers and accessories — every vessel comes with its own accessories.",
+
+    "eng.eyebrow": "A personal service", "eng.title": "Laser engraving", "eng.sub": "Personal details that immortalise the finest meanings.",
+    "eng.p1": "Give your vessel a personal touch by engraving the names, phrases and designs you choose, with precision in every detail. Whether for yourself or as a personalised gift, it stays a piece with special meaning and a lasting memory.",
+    "eng.p2": "Discover examples of our laser-engraving work and personalise your vessel with a name or phrase that means something — a one-of-a-kind piece and an exceptional gift whose value lasts.",
+    "eng.note": "Laser engraving is priced separately and added to the product price. Message us on WhatsApp for details and prices.",
+    "eng.btn": "Ask about engraving on WhatsApp",
+
+    "ben.eyebrow": "Exclusive benefits", "ben.title": "The exclusive benefits of Wadi Clay",
+    "ben.lead": "Innovation in clay-making, with distinctive properties that elevate the way you drink water.",
+    "ben.1": "Water purification", "ben.1p": "An integrated filtration system that purifies water of pollutants, impurities, heavy metals, gases and organic matter, improving its quality.",
+    "ben.2": "Boosted alkalinity", "ben.2p": "An exclusive blend that raises the water's pH and enhances its alkaline nature, supporting general health and immunity.",
+    "ben.3": "Double the natural oxygen", "ben.3p": "An innovative technique that doubles the natural dissolved oxygen in water, giving it distinctive properties.",
+    "ben.4": "Balanced minerals and salts", "ben.4p": "A studied composition that balances the minerals and salts in water, enhancing its mineral profile.",
+    "ben.5": "Antibacterial and antiviral", "ben.5p": "Carefully selected materials give Wadi Clay vessels antibacterial and antiviral properties.",
+    "ben.6": "Natural cooling, no electricity", "ben.6p": "The natural porosity of clay cools water naturally, without electricity or refrigeration.",
+    "ben.7": "Sustainability", "ben.7p": "Durable materials and fine craftsmanship make Wadi Clay a sustainable choice for repeated daily use, while reducing reliance on plastic bottles.",
+    "ben.cta": "A healthy investment that lasts for years.", "ben.ctaBtn": "Choose your vessel",
+
+    "how.eyebrow": "How it works", "how.title": "How Wadi Clay pottery works", "how.lead": "From the natural properties of clay to a healthier drinking experience",
+    "how.1": "Natural filtration", "how.1p": "The fine pores in the clay body, together with the properties of the materials used, help filter water and reduce impurities.",
+    "how.2": "Keeping water", "how.2p": "Water rests inside a carefully made vessel, ready for daily use, in a design that unites function and authenticity.",
+    "how.3": "Evaporative cooling", "how.3p": "Natural porosity lets tiny amounts of water reach the outer surface, where it evaporates in the air — cooling the water inside naturally, with no electricity.",
+    "how.4": "Natural material properties", "how.4p": "Wadi Clay relies on natural Spanish terracotta, carefully chosen for its physical properties and porous structure.",
+
+    "guide.eyebrow": "Care", "guide.title": "Use and care instructions",
+    "guide.1": "First use", "guide.1p": "Before the very first use only, rinse the vessel with water, then soak it in water for 3 hours.",
+    "guide.2": "Daily use", "guide.2p": "We recommend filtered water, refreshed regularly.",
+    "guide.3": "Cleaning and care", "guide.3p": "Wash with water only, avoiding detergents and chemicals. Never expose it to fire.",
+    "guide.4": "Monthly cleaning", "guide.4p": "Once a month, soak the vessel in vinegar to remove build-up, then rinse well with water before using it again.",
+    "faq.eyebrow": "Frequently asked questions",
+    "faq.q1": "How is Wadi Clay different from traditional pottery?", "faq.a1": "Wadi Clay is made from natural Spanish terracotta and a special blend of carefully selected materials, shaped by hand and fired at up to 900°C with a refined finish. Traditional pottery has neither this composition nor the same advanced process.",
+    "faq.q2": "What makes Wadi Clay's materials special?", "faq.a2": "We combine natural Spanish clay with selected materials in a studied composition, and take care over every detail of handcraft and finishing — for vessels that are high-quality, practical and distinctive.",
+    "faq.q3": "How long does a Wadi Clay vessel last?", "faq.a3": "With correct use and by following the care and cleaning instructions, Wadi Clay vessels last a long time and keep their quality and performance.",
+    "faq.q4": "Can I use filtered or unfiltered water?", "faq.a4": "Yes, both — but we recommend filtered water for the best experience.",
+    "faq.q5": "How long does purification take?", "faq.a5": "Pre-filtered water needs about 20 minutes, while unfiltered water may need about two hours, depending on the water used.",
+
     "gu.eyebrow": "Our golden guarantee", "gu.title": "Your comfort and trust come first",
     "gu.p": "We guarantee performance and top quality — and your right to exchange or return is honoured instantly, no questions asked.",
-    "gu.1": "100% guaranteed", "gu.2": "Instant exchange or return", "gu.3": "Cash on delivery",
-    "col.eyebrow": "Our products", "col.title": "Choose your clay",
-    "story.eyebrow": "Our Story", "story.title": "Made by nature, and we belong to it",
-    "story.p1": "Wadi Clay was born from a simple belief: the most beautiful and healthy things are made by nature and shaped by patient hands. That's why our emblem is a tree held by two hands — Crafted by Nature.",
-    "story.p2": "We blend premium European terracotta from Spain and Italy with pure Jordanian zeolite, shape it slowly and fire it at 950°C so it becomes strong, clean and water-safe — then we wrap it for you like a gift.",
-    "stat.fire": "Firing temperature", "stat.natural": "Natural material", "stat.gov": "Governorates we deliver to",
-    "proc.eyebrow": "The Craft", "proc.title": "From a handful of clay to a piece that lives with you",
-    "proc.s1": "Choosing the clay", "proc.s1p": "We select pure clay, refine it and let it rest until it is soft and willing.",
-    "proc.s2": "Shaping by hand", "proc.s2p": "The wheel turns, the hands move patiently, and the vessel is born from a single circle.",
-    "proc.s3": "Drying", "proc.s3p": "Each piece dries slowly in the shade for days so it keeps its form without cracking.",
-    "proc.s4": "High firing", "proc.s4p": "High-temperature firing makes the piece strong, clean and ready for water.",
-    "proc.s5": "Wrapping & delivery", "proc.s5p": "We wrap every piece like a gift and bring it to your door — pay on delivery.",
-    "guide.eyebrow": "How to use", "guide.title": "Your clay has arrived? Start here",
-    "guide.1": "Soak it in water for 12–24 hours before first use.",
-    "guide.2": "Pour out the first two fills, then fill it up and enjoy.",
-    "guide.3": "Keep it somewhere airy, away from direct sunlight.",
-    "guide.4": "Clean with water and a soft brush only — no soap.",
-    "faq.q1": "Why does the clay \"sweat\" on the outside?", "faq.a1": "That's normal — it's the secret of cooling: tiny droplets seep through the pores and evaporate, cooling the water. Keep a plate underneath.",
-    "faq.q2": "How often should I change the water?", "faq.a2": "We recommend fresh water daily and a gentle clean once a week.",
-    "faq.q3": "How do ordering and payment work?", "faq.a3": "Pick your pieces and send the order on WhatsApp. We'll confirm your address — you pay cash on delivery.",
-    "faq.q4": "What if I am not happy with my piece?", "faq.a4": "Everything is 100% guaranteed — exchange or return instantly, no questions asked.",
-    "rev.eyebrow": "Kind words",
-    "rev.1": "“Since day one we drink from the clay instead of the fridge. The water is cool and tastes different.”", "rev.1n": "— Rana, Amman",
-    "rev.2": "“I ordered one as a gift for my mother. It arrived the same week, beautifully wrapped.”", "rev.2n": "— Mohammad, Irbid",
-    "rev.3": "“The handwork shows in every detail. A gorgeous piece on my desk.”", "rev.3n": "— Sara, Zarqa",
+    "gu.1": "100% guaranteed", "gu.2": "Instant exchange or return", "gu.3": "Cash on delivery", "gu.4": "Free delivery within 24 hours",
+
     "gal.eyebrow": "From the workshop", "gal.title": "Moments between clay and fire", "gal.ig": "Follow us on Instagram",
-    "ct.eyebrow": "Get in touch", "ct.title": "Ready for cooler, sweeter water? Message us.", "ct.wa": "Message us on WhatsApp",
-    "ct.loc": "Location", "ct.locv": "Jordan — delivery to every governorate",
-    "ct.pay": "Payment", "ct.payv": "Cash on delivery", "ct.follow": "Follow",
+    "ct.eyebrow": "Order & contact", "ct.title": "Wadi Clay, closer to you.", "ct.lead": "To order or ask a question, reach us on any of these channels:",
+    "ct.wa": "Message us on WhatsApp", "ct.phone": "Phone & WhatsApp", "ct.del": "Delivery",
+    "ct.delv": "Free to every area of Jordan, within 24 hours of order confirmation", "ct.delx": "Exception: delivery for offer items is 2 JOD.",
+    "ct.follow": "Follow us",
     "footer.made": "Made with love, from clay to heart.",
+    "gift.title": "Included accessories",
     "cart.add": "Add to order", "cart.quick": "Add to order +", "cart.title": "Your order",
     "cart.name": "Name", "cart.city": "City / address", "cart.total": "Total",
     "cart.send": "Send order on WhatsApp",
     "cart.note": "WhatsApp will open with your order ready to send; we'll reply to confirm delivery. Cash on delivery.",
-    "cart.empty": "Your order is empty — pick a piece from the shop.", "cart.remove": "Remove",
+    "cart.empty": "Your order is empty — pick a piece from the collection.", "cart.remove": "Remove",
     "cart.added": "Added to your order ✓", "cart.needItems": "Add at least one piece",
-    "stock.out": "Out of stock", "stock.outBtn": "Currently unavailable", "gift.label": "Free gift", "gift.title": "Comes with a free gift",
+    "stock.out": "Out of stock", "stock.outBtn": "Currently unavailable", "gift.label": "Included", "photo.soon": "Photo coming soon",
     "wa.hello": "Hello Wadi Clay 👋", "wa.order": "I'd like to order:",
     "wa.total": "Total", "wa.name": "Name", "wa.city": "Address", "wa.pay": "Cash on delivery",
     "wa.general": "Hello Wadi Clay 👋 I'd like to ask about your products.",
+    "wa.engrave": "Hello Wadi Clay 👋 I'd like details and prices for laser engraving on a vessel.",
     "menu": "Menu", "cartLabel": "Order basket",
     "title": "Wadi Clay | Healthy Clay Water Vessels in Jordan — وادي كلاي"
   }
@@ -150,11 +126,12 @@ const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").match
 const hasGSAP = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
 
 let lang = store.get("wadi-lang", "ar") === "en" ? "en" : "ar";
-const t = k => (I18N[lang][k] ?? I18N.ar[k] ?? k);
-const money = n => lang === "ar" ? `${n} ${CONFIG.currency.ar}` : `${CONFIG.currency.en} ${n}`;
+const t = k => (I18N[lang][k] ?? I18N.ar[k] ?? I18N.en[k] ?? k);
+const fmt = n => (Number.isInteger(n) ? String(n) : n.toFixed(2));
+const money = n => lang === "ar" ? `${fmt(n)} ${CONFIG.currency.ar}` : `${CONFIG.currency.en} ${fmt(n)}`;
 
 /* ============================================================
-   Pottery illustrations (placeholders until real photos arrive)
+   Pottery illustrations (stand-ins until a product has a photo)
    ============================================================ */
 const GLAZES = {
   terracotta: { base: "#B5552B", light: "#E09A70", dark: "#6E2E12", pat: "#F3E2CB" },
@@ -286,49 +263,37 @@ function vessel(shape = "jar", glaze = "terracotta") {
   </svg>`;
 }
 
-/* Scenes: a pottery piece on a warm backdrop — stand-ins for real workshop photos */
-function scene(shape, glaze, bg = ["#C9875D", "#7A3B1C"], ratio = 1.25) {
-  const w = 400, h = Math.round(w * ratio), id = `sc${++uid}`;
-  const vw = 230, vh = vw * 1.2;
-  return `
-  <svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${bg[0]}"/><stop offset="1" stop-color="${bg[1]}"/></linearGradient>
-      <radialGradient id="${id}l" cx=".7" cy=".2" r=".7"><stop offset="0" stop-color="#FFE9C7" stop-opacity=".55"/><stop offset="1" stop-color="#FFE9C7" stop-opacity="0"/></radialGradient>
-    </defs>
-    <rect width="${w}" height="${h}" fill="url(#${id})"/>
-    <rect width="${w}" height="${h}" fill="url(#${id}l)"/>
-    <rect y="${h * .72}" width="${w}" height="${h * .28}" fill="#000" opacity=".14"/>
-    <ellipse cx="${w / 2}" cy="${h * .72 + 4}" rx="${vw * .42}" ry="12" fill="#000" opacity=".28"/>
-    <svg x="${(w - vw) / 2}" y="${h * .72 - vh + 8}" width="${vw}" height="${vh}" viewBox="0 0 200 240">${vessel(shape, glaze).replace(/^[\s\S]*?<svg[^>]*>|<\/svg>\s*$/g, "")}</svg>
-  </svg>`;
-}
-
-/* Line icons for the craft steps */
+/* Line art for the five pillars */
+const LINE = 'fill="none" stroke="#B5652F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"';
 const STEP_ART = {
-  clay: `<svg viewBox="0 0 200 160" fill="none" stroke="#C9A46A" stroke-width="2" stroke-linecap="round"><path d="M30 130q20-70 70-74 50 4 70 74z"/><path d="M58 104q22-10 42-4M96 84q20-6 34 6" opacity=".6"/><path d="M20 140h160"/><circle cx="150" cy="40" r="4" fill="#C9A46A"/><circle cx="40" cy="60" r="2.5" fill="#C9A46A"/></svg>`,
-  wheel: `<svg viewBox="0 0 200 160" fill="none" stroke="#C9A46A" stroke-width="2" stroke-linecap="round"><ellipse cx="100" cy="128" rx="80" ry="16"/><path d="M76 120q-8-30 12-44 0-14-6-20h36q-6 6-6 20 20 14 12 44z"/><path d="M40 70q16 6 22 22M160 70q-16 6-22 22" stroke-dasharray="3 6"/><path class="spin" d="M100 128m-50 0a50 10 0 1 0 100 0" stroke-dasharray="4 8"/></svg>`,
-  sun: `<svg viewBox="0 0 200 160" fill="none" stroke="#C9A46A" stroke-width="2" stroke-linecap="round"><circle cx="140" cy="50" r="18"/><g class="rays"><path d="M140 18v-8M140 90v-8M108 50h-8M180 50h-8M117 27l-6-6M169 79l-6-6M163 27l6-6M111 79l6-6"/></g><path d="M40 136q-4-34 14-46-2-10-6-14h28q-4 4-6 14 18 12 14 46z"/><path d="M20 140h160"/></svg>`,
-  fire: `<svg viewBox="0 0 200 160" fill="none" stroke="#C9A46A" stroke-width="2" stroke-linecap="round"><path d="M50 140V70q50-50 100 0v70z"/><path d="M72 140v-40a28 28 0 0 1 56 0v40"/><path class="flame" d="M100 136c-16-6-18-22-6-34 0 10 6 12 8 8 4-8 0-16-4-22 18 8 24 30 10 46" fill="rgba(201,164,106,.18)"/><path d="M30 140h140"/></svg>`,
-  gift: `<svg viewBox="0 0 200 160" fill="none" stroke="#C9A46A" stroke-width="2" stroke-linecap="round"><rect x="50" y="64" width="100" height="72" rx="4"/><path d="M44 64h112v-18H44zM100 46v90"/><path d="M100 46c-10-20-40-20-30 0M100 46c10-20 40-20 30 0"/><path d="M20 140h160"/></svg>`
+  clay: `<svg viewBox="0 0 200 160" ${LINE}><path d="M30 130q20-70 70-74 50 4 70 74z"/><path d="M58 104q22-10 42-4M96 84q20-6 34 6" opacity=".55"/><path d="M20 140h160" stroke="#C29A5B"/><circle cx="150" cy="40" r="4" fill="#C29A5B" stroke="none"/><circle cx="40" cy="60" r="2.5" fill="#C29A5B" stroke="none"/></svg>`,
+  blend: `<svg viewBox="0 0 200 160" ${LINE}><circle cx="78" cy="78" r="34"/><circle cx="122" cy="78" r="34"/><circle cx="100" cy="112" r="34" stroke="#C29A5B"/><path class="spin" d="M100 92m-8 0a8 8 0 1 0 16 0a8 8 0 1 0-16 0" fill="#C29A5B" stroke="none"/></svg>`,
+  wheel: `<svg viewBox="0 0 200 160" ${LINE}><ellipse cx="100" cy="128" rx="80" ry="16"/><path d="M76 120q-8-30 12-44 0-14-6-20h36q-6 6-6 20 20 14 12 44z"/><path d="M40 70q16 6 22 22M160 70q-16 6-22 22" stroke-dasharray="3 6" stroke="#C29A5B"/><path class="spin" d="M100 128m-50 0a50 10 0 1 0 100 0" stroke-dasharray="4 8" stroke="#C29A5B"/></svg>`,
+  fire: `<svg viewBox="0 0 200 160" ${LINE}><rect x="50" y="40" width="100" height="100" rx="6"/><rect x="66" y="56" width="68" height="62" rx="3" stroke="#C29A5B"/><path class="flame" d="M100 112c-14-5-15-19-5-29 0 8 5 10 7 7 3-7 0-14-4-19 16 7 21 26 9 41" fill="rgba(181,101,47,.16)"/><path d="M70 128h18M112 128h18"/><text x="100" y="34" text-anchor="middle" font-size="13" fill="#C29A5B" stroke="none" font-family="Cormorant Garamond,serif">900°</text></svg>`,
+  quality: `<svg viewBox="0 0 200 160" ${LINE}><path d="M100 22 60 38v34c0 30 18 50 40 60 22-10 40-30 40-60V38z"/><path d="m82 78 12 12 24-26" stroke="#C29A5B" stroke-width="2"/><circle class="rays" cx="100" cy="80" r="70" stroke-dasharray="2 9" stroke="#C29A5B" opacity=".6"/></svg>`
 };
 
-/* Icons for the benefits section */
+/* Icons for the benefits */
+const ICO = 'fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"';
 const BEN_ICONS = {
-  ph: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M32 6C22 22 14 31 14 40a18 18 0 0 0 36 0c0-9-8-18-18-34z"/><text x="32" y="45" text-anchor="middle" font-size="13" font-family="Inter,sans-serif" fill="currentColor" stroke="none" font-weight="600">pH</text></svg>`,
-  filter: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 12h48L38 34v16l-12 6V34z"/><path d="M20 20h24" opacity=".5"/></svg>`,
-  shield: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M32 6 10 14v16c0 14 9.5 24 22 28 12.5-4 22-14 22-28V14z"/><path d="m22 32 7 7 13-14"/></svg>`,
-  cool: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M32 6v52M10 19l44 26M54 19 10 45"/><path d="M26 10l6 6 6-6M26 54l6-6 6 6M10 27l8-2-2-8M54 37l-8 2 2 8M54 27l-8-2 2-8M10 37l8 2-2 8"/></svg>`,
-  taste: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M32 6C22 22 14 31 14 40a18 18 0 0 0 36 0c0-9-8-18-18-34z"/><path d="M24 42a8 8 0 0 0 8 8"/></svg>`,
-  leaf: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 52C12 24 30 10 54 10c0 26-16 42-42 42z"/><path d="M12 52 38 26"/></svg>`,
-  hand: `<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M24 14h16v4q-2 2-2 4 12 4 12 18 0 12-10 18H24q-10-6-10-18 0-14 12-18 0-2-2-4z"/><path d="M8 50q10 10 24 8M56 50q-10 10-24 8"/></svg>`
+  filter: `<svg viewBox="0 0 64 64" ${ICO}><path d="M8 12h48L38 34v16l-12 6V34z"/><path d="M20 20h24" opacity=".5"/></svg>`,
+  ph: `<svg viewBox="0 0 64 64" ${ICO}><path d="M32 6C22 22 14 31 14 40a18 18 0 0 0 36 0c0-9-8-18-18-34z"/><text x="32" y="46" text-anchor="middle" font-size="13" font-family="Manrope,sans-serif" fill="currentColor" stroke="none" font-weight="600">pH</text></svg>`,
+  oxygen: `<svg viewBox="0 0 64 64" ${ICO}><circle cx="24" cy="38" r="14"/><circle cx="44" cy="20" r="8"/><circle cx="48" cy="44" r="5"/><text x="24" y="43" text-anchor="middle" font-size="13" font-family="Manrope,sans-serif" fill="currentColor" stroke="none" font-weight="600">O₂</text></svg>`,
+  balance: `<svg viewBox="0 0 64 64" ${ICO}><path d="M32 8v48M18 56h28M12 18h40"/><path d="M12 18 4 34a8 8 0 0 0 16 0zM52 18l-8 16a8 8 0 0 0 16 0z"/></svg>`,
+  shield: `<svg viewBox="0 0 64 64" ${ICO}><path d="M32 6 10 14v16c0 14 9.5 24 22 28 12.5-4 22-14 22-28V14z"/><path d="m22 32 7 7 13-14"/></svg>`,
+  cool: `<svg viewBox="0 0 64 64" ${ICO}><path d="M32 6v52M10 19l44 26M54 19 10 45"/><path d="M26 10l6 6 6-6M26 54l6-6 6 6M10 27l8-2-2-8M54 37l-8 2 2 8M54 27l-8-2 2-8M10 37l8 2-2 8"/></svg>`,
+  leaf: `<svg viewBox="0 0 64 64" ${ICO}><path d="M12 52C12 24 30 10 54 10c0 26-16 42-42 42z"/><path d="M12 52 38 26"/></svg>`
 };
+
+/* Gem leaves from the emblem (hero + intro sparkle) */
+const GEM_COLORS = ["#2F6B4A", "#C98A2B", "#9C3B22", "#D8B56A", "#7A5A3A", "#3E8A5E", "#E0A040"];
+const gemSVG = c => `<svg viewBox="0 0 20 36"><defs><linearGradient id="g${c.slice(1)}" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset=".35" stop-color="${c}"/><stop offset="1" stop-color="${c}" stop-opacity=".85"/></linearGradient></defs><path d="M10 0C17 9 17 27 10 36 3 27 3 9 10 0Z" fill="url(#g${c.slice(1)})"/><path d="M10 0v36M4 12l6 6 6-6" stroke="#fff" stroke-opacity=".35" stroke-width=".7" fill="none"/></svg>`;
 
 /* ============================================================
    Products: Supabase (admin panel) with a local fallback
    ============================================================ */
 let activeCat = "all";
-const SHAPE_BY_CAT = { family: "zeer", lifestyle: "bottle", personal: "vase", accessories: "mug" };
+const SHAPE_BY_CAT = { family: "zeer", lifestyle: "bottle", personal: "vase", offers: "bottle", accessories: "mug" };
 
 // field in the current language, falling back to Arabic
 const L = (p, f) => (p[`${f}_${lang}`] || p[`${f}_ar`] || "");
@@ -336,14 +301,20 @@ const safeUrl = u => (typeof u === "string" && /^(https:\/\/|assets\/)/.test(u) 
 const hasSale = p => Number(p.old_price) > Number(p.price);
 
 function normalise(p) {
+  // a photo uploaded from the admin panel (https) wins; otherwise use the product's local photo set
+  const set = (window.PRODUCT_GALLERY || {})[p.name_en] || [];
+  const own = safeUrl(p.image_url || p.img || "");
+  const uploaded = /^https:/.test(own) ? own : "";
+  const gallery = uploaded ? [uploaded, ...set] : set.length ? set : own ? [own] : [];
   return {
     ...p,
     id: String(p.id),
     price: Number(p.price) || 0,
     old_price: Number(p.old_price) || 0,
     in_stock: p.in_stock !== false,
-    image_url: safeUrl(p.image_url || p.img || ""),
-    shape: p.shape || SHAPE_BY_CAT[p.category] || "jar",
+    image_url: gallery[0] || "",
+    gallery,
+    shape: p.shape || (/صحن|plate/i.test(p.name_en || p.name_ar) ? "bowl" : SHAPE_BY_CAT[p.category] || "jar"),
     glaze: p.glaze || "terracotta"
   };
 }
@@ -357,7 +328,7 @@ async function loadProducts() {
     const res = await fetch(url, { headers: { apikey: CONFIG.supabaseAnonKey, Authorization: `Bearer ${CONFIG.supabaseAnonKey}` } });
     if (!res.ok) throw new Error(res.status);
     const rows = await res.json();
-    if (!Array.isArray(rows)) return false;
+    if (!Array.isArray(rows) || !rows.length) return false;
     PRODUCT_LIST = rows.map(normalise);
     return true;
   } catch (err) {
@@ -369,21 +340,65 @@ async function loadProducts() {
 /* ============================================================
    Rendering
    ============================================================ */
+const groupsInUse = () => CATEGORIES.filter(c => c.id !== "all" && PRODUCT_LIST.some(p => p.category === c.id));
+
 function renderFilters() {
-  const used = new Set(PRODUCT_LIST.map(p => p.category));
-  $("#filters").innerHTML = CATEGORIES.filter(c => c.id === "all" || used.has(c.id)).map(c =>
+  const cats = [CATEGORIES[0], ...groupsInUse()];
+  $("#filters").innerHTML = cats.map(c =>
     `<button class="filter ${c.id === activeCat ? "is-active" : ""}" data-cat="${c.id}" role="tab" aria-selected="${c.id === activeCat}">${esc(c[lang])}</button>`
   ).join("");
 }
 
 function productArt(p) {
-  return p.image_url ? `<img src="${esc(p.image_url)}" alt="${esc(L(p, "name"))}" loading="lazy">` : vessel(p.shape, p.glaze);
+  return p.image_url
+    ? `<img src="${esc(p.image_url)}" alt="${esc(L(p, "name"))} — وادي كلاي" loading="lazy">`
+    : `<div class="card__ph">${vessel(p.shape, p.glaze)}<small>${t("photo.soon")}</small></div>`;
 }
 
 function priceHTML(p) {
   return hasSale(p)
     ? `<span class="price"><s>${money(p.old_price)}</s> ${money(p.price)}</span>`
     : `<span class="price">${money(p.price)}</span>`;
+}
+
+function cardHTML(p) {
+  const off = hasSale(p) ? Math.round((1 - p.price / p.old_price) * 100) : 0;
+  const tag = !p.in_stock ? `<span class="card__tag card__tag--out">${t("stock.out")}</span>`
+    : L(p, "tag") ? `<span class="card__tag">${esc(L(p, "tag"))}</span>` : "";
+  return `
+    <article class="card ${p.in_stock ? "" : "is-out"}" data-id="${esc(p.id)}" tabindex="0" aria-label="${esc(L(p, "name"))}">
+      <div class="card__media ${p.image_url ? "has-photo" : ""}">
+        ${tag}
+        ${off > 0 && p.in_stock ? `<span class="card__off">-${off}%</span>` : ""}
+        <div class="card__art">${productArt(p)}</div>
+        ${p.in_stock ? `<button class="card__quick" type="button" data-add="${esc(p.id)}">${t("cart.quick")}</button>` : ""}
+      </div>
+      <div class="card__info">
+        <div><h3>${esc(L(p, "name"))}</h3>${L(p, "capacity") ? `<small>${esc(L(p, "capacity"))}</small>` : ""}</div>
+        ${priceHTML(p)}
+      </div>
+      ${L(p, "gifts") ? `<p class="card__gift"><span aria-hidden="true">✦</span> ${t("gift.label")}: ${esc(L(p, "gifts"))}</p>` : ""}
+    </article>`;
+}
+
+/* One block per category, each with its own heading and intro text */
+function renderGrid() {
+  const texts = window.CATEGORY_TEXT || {};
+  $("#grid").innerHTML = groupsInUse().map((c, i) => {
+    const items = PRODUCT_LIST.filter(p => p.category === c.id);
+    const tx = texts[c.id] || {};
+    const small = c.id === "accessories";
+    return `
+    <div class="group ${activeCat !== "all" && activeCat !== c.id ? "is-hidden" : ""}" data-group="${c.id}">
+      <div class="group__head">
+        <span class="group__num">${String(i + 1).padStart(2, "0")}</span>
+        <h3>${esc(c[lang])}</h3>
+        ${tx[lang] ? `<p>${esc(tx[lang])}</p>` : ""}
+      </div>
+      <div class="grid ${small ? "grid--small" : ""}">${items.map(cardHTML).join("")}</div>
+      ${tx[`note_${lang}`] ? `<p class="group__note">${esc(tx[`note_${lang}`])}</p>` : ""}
+    </div>`;
+  }).join("");
 }
 
 /* Structured data (schema.org) so Google understands the store and its products.
@@ -394,9 +409,9 @@ function updateSchema() {
   const abs = u => (u ? new URL(u, home).href : undefined);
   const store = {
     "@type": "Store", "@id": home + "#store", name: "Wadi Clay", alternateName: "وادي كلاي",
-    description: "فخاريات ماء مصنوعة يدوياً من تيراكوتا أوروبية وزيولايت أردني — تبريد وتنقية طبيعية للماء.",
+    description: "فخاريات ماء مصنوعة يدوياً من طين التيراكوتا الإسباني وتوليفة خامات مختارة — تنقية وتبريد طبيعي للماء.",
     url: home, logo: abs("assets/img/logo.png"), image: abs("assets/img/og-image.jpg"),
-    telephone: "+" + CONFIG.whatsapp, priceRange: "JOD 18 - 99",
+    telephone: "+" + CONFIG.whatsapp, priceRange: "JOD 1 - 99",
     paymentAccepted: "Cash on delivery", currenciesAccepted: "JOD",
     address: { "@type": "PostalAddress", addressCountry: "JO" },
     areaServed: { "@type": "Country", name: "Jordan" },
@@ -423,40 +438,17 @@ function updateSchema() {
   el.textContent = JSON.stringify({ "@context": "https://schema.org", "@graph": [store, list] });
 }
 
-function renderGrid() {
-  if (!PRODUCT_LIST.length) { $("#grid").innerHTML = ""; return; }
-  $("#grid").innerHTML = PRODUCT_LIST.map(p => {
-    const off = hasSale(p) ? Math.round((1 - p.price / p.old_price) * 100) : 0;
-    const tag = !p.in_stock ? `<span class="card__tag card__tag--out">${t("stock.out")}</span>`
-      : L(p, "tag") ? `<span class="card__tag">${esc(L(p, "tag"))}</span>` : "";
-    return `
-    <article class="card ${activeCat !== "all" && p.category !== activeCat ? "is-hidden" : ""} ${p.in_stock ? "" : "is-out"}" data-id="${esc(p.id)}" tabindex="0" aria-label="${esc(L(p, "name"))}">
-      <div class="card__media ${p.image_url ? "has-photo" : ""}">
-        ${tag}
-        ${off > 0 && p.in_stock ? `<span class="card__off">-${off}%</span>` : ""}
-        <div class="card__art">${productArt(p)}</div>
-        ${p.in_stock ? `<button class="card__quick" type="button" data-add="${esc(p.id)}">${t("cart.quick")}</button>` : ""}
-      </div>
-      <div class="card__info">
-        <div><h3>${esc(L(p, "name"))}</h3><small>${esc(L(p, "capacity"))}</small></div>
-        ${priceHTML(p)}
-      </div>
-      ${L(p, "gifts") ? `<p class="card__gift"><span aria-hidden="true">🎁</span> ${t("gift.label")}: ${esc(L(p, "gifts"))}</p>` : ""}
-    </article>`;
-  }).join("");
-}
-
 const IMG = n => `assets/img/products/${n}.jpg`;
 function renderStatic() {
-  // Hero: real product photo in an arch frame
-  $(".hero__stage").classList.add("is-photo");
-  $("#heroVessel").innerHTML = `<img src="${IMG("ghaith-15")}" alt="موزّع ماء فخار غيث ١٥ لتر من وادي كلاي" fetchpriority="high">`;
-  $(".story__img--a").innerHTML = `<img src="${IMG("naqaa")}" alt="فخارة نقاء من تيراكوتا — وادي كلاي" loading="lazy">`;
-  $(".story__img--b").innerHTML = `<img src="${IMG("nada")}" alt="مج ندى الفخاري مع صحن ترشيح" loading="lazy">`;
   $$(".step__art").forEach(el => { el.innerHTML = STEP_ART[el.dataset.art] || ""; });
   $$(".benefit__ico").forEach(el => { el.innerHTML = BEN_ICONS[el.dataset.ico] || ""; });
 
-  const gallery = [["rawaq", "فخارة رواق ١٥٠٠ مل"], ["ghaith-6", "موزّع ماء غيث ٦ لتر"], ["irwaa", "قارورة إرواء ١٣٠٠ مل"], ["qarora", "القارورة ١٢ لتر مع مضخة"], ["thara", "فخارة ثرى ٩٠٠ مل مع شنطة"], ["naqaa", "فخارة نقاء ١٤٠٠ مل"], ["rahhal", "تمبلر رحّال ٨٠٠ مل"], ["ghaith-15", "موزّع ماء غيث ١٥ لتر"]];
+  // floating gem leaves around the hero visual
+  const spots = [[8, 18, 16, -18, 1.1], [42, 9, 11, 24, .7], [92, 22, 14, 12, 1.4], [86, 62, 18, -30, 1.8], [50, 88, 12, 40, .9], [3, 70, 10, 8, 1.3], [64, 4, 9, -8, .6], [30, 52, 8, 30, .5]];
+  $("#heroGems").innerHTML = spots.map(([x, y, s, r, depth], i) =>
+    `<span class="gem" data-depth="${depth}" style="left:${x}%;top:${y}%;--s:${s}px;--r:${r}deg;--d:${4 + (i % 3)}s;--dl:-${i * .7}s">${gemSVG(GEM_COLORS[i % GEM_COLORS.length])}</span>`).join("");
+
+  const gallery = [["wc-mood-2", "ماء بارد يُسكب من زير غيث في كوب فخار"], ["wc-qarora-2", "مضخة القارورة العائلية الذكية"], ["wc-irwa-premium-1", "إرواء بريميوم"], ["wc-mood-4", "زير غيث يتعرّق — تبريد طبيعي"], ["wc-engrave-2", "حفر بالليزر على الفخار"], ["wc-riwaq-1", "رواق"], ["wc-mood-3", "غطاء زير غيث"], ["wc-cup-naqaa-1", "كوب نقاء"], ["wc-qarora-5", "شعار وادي كلاي محفور على القارورة"], ["wc-irwa-curvy-1", "إرواء كيرفي"], ["wc-ghaith-3", "حنفية الستانلس ستيل"], ["wc-naqaa-1", "نقاء"]];
   $("#masonry").innerHTML = gallery.map(([n, alt]) => `<figure><img src="${IMG(n)}" alt="${alt} — وادي كلاي" loading="lazy"></figure>`).join("");
 }
 
@@ -471,7 +463,9 @@ function applyLang() {
   html.lang = lang;
   html.dir = lang === "ar" ? "rtl" : "ltr";
   $$("[data-i18n]").forEach(el => {
-    el.textContent = t(el.dataset.i18n);
+    if (el.dataset.ar === undefined) el.dataset.ar = el.textContent.trim();   // Arabic source text from the HTML
+    const key = el.dataset.i18n;
+    el.textContent = lang === "ar" ? (I18N.ar[key] ?? el.dataset.ar) : (I18N.en[key] ?? el.dataset.ar);
     if (el.classList.contains("split")) splitWords(el);
   });
   $("#langBtn").textContent = lang === "ar" ? "EN" : "ع";
@@ -575,8 +569,18 @@ function openModal(id) {
   const p = byId(id); if (!p) return;
   modalProduct = p; modalQty = 1; lastFocus = document.activeElement;
   const media = $("#modalMedia");
-  media.innerHTML = productArt(p);
+  const alt = esc(L(p, "name"));
+  media.innerHTML = p.gallery.length
+    ? `<img class="modal__main" src="${esc(p.gallery[0])}" alt="${alt} — وادي كلاي">` +
+      (p.gallery.length > 1 ? `<div class="modal__thumbs">${p.gallery.map((u, i) =>
+        `<button type="button" class="${i ? "" : "is-active"}" data-shot="${esc(u)}" aria-label="${i + 1}"><img src="${esc(u)}" alt="" loading="lazy"></button>`).join("")}</div>` : "")
+    : productArt(p);
   media.classList.toggle("has-photo", !!p.image_url);
+  $$("[data-shot]", media).forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation();
+    $(".modal__main", media).src = b.dataset.shot;
+    $$("[data-shot]", media).forEach(x => x.classList.toggle("is-active", x === b));
+  }));
   $("#modalCat").textContent = CATEGORIES.find(c => c.id === p.category)?.[lang] || "";
   $("#modalName").textContent = L(p, "name");
   $("#modalSize").textContent = L(p, "capacity");
@@ -627,11 +631,8 @@ function bindEvents() {
     if (filter) {
       activeCat = filter.dataset.cat;
       renderFilters();
-      $$(".card").forEach(c => {
-        const show = activeCat === "all" || byId(c.dataset.id)?.category === activeCat;
-        c.classList.toggle("is-hidden", !show);
-      });
-      if (hasGSAP && !reduceMotion) gsap.fromTo(".card:not(.is-hidden)", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .8, stagger: .06, ease: "expo.out" });
+      $$(".group").forEach(g => g.classList.toggle("is-hidden", activeCat !== "all" && g.dataset.group !== activeCat));
+      if (hasGSAP && !reduceMotion) gsap.fromTo(".group:not(.is-hidden) .card", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .8, stagger: .05, ease: "expo.out" });
       if (hasGSAP) ScrollTrigger.refresh();
       return;
     }
@@ -643,8 +644,8 @@ function bindEvents() {
     if (dec) { const id = dec.dataset.dec; cart[id]--; if (cart[id] <= 0) delete cart[id]; saveCart(); return; }
     const rm = e.target.closest("[data-remove]"); if (rm) { delete cart[rm.dataset.remove]; saveCart(); return; }
 
-    const wa = e.target.closest(".js-wa");
-    if (wa) { e.preventDefault(); window.open(waLink(t("wa.general")), "_blank", "noopener"); return; }
+    const wa = e.target.closest(".js-wa, .js-wa-engrave");
+    if (wa) { e.preventDefault(); window.open(waLink(t(wa.classList.contains("js-wa-engrave") ? "wa.engrave" : "wa.general")), "_blank", "noopener"); return; }
 
     const anchor = e.target.closest('a[href^="#"]');
     if (anchor && anchor.getAttribute("href").length > 1) {
@@ -676,7 +677,7 @@ function bindEvents() {
     lang = lang === "ar" ? "en" : "ar";
     store.set("wadi-lang", lang);
     applyLang();
-    if (hasGSAP) { buildProcessScroll(); ScrollTrigger.refresh(); }
+    if (hasGSAP) { buildProcessScroll(); animateCards(); ScrollTrigger.refresh(); }
   });
 
   $("#menuBtn").addEventListener("click", () => {
@@ -689,7 +690,7 @@ function bindEvents() {
   $$(".js-ig").forEach(a => { a.href = CONFIG.instagram; });
   $$(".js-fb").forEach(a => { a.href = CONFIG.facebook; });
 
-  // Header: solid after scroll, hides on scroll down
+  // Header: glassy after scroll, hides on scroll down
   let lastY = 0;
   const onScroll = () => {
     const y = window.scrollY;
@@ -707,22 +708,6 @@ function closeMenu() {
     $("#nav").classList.remove("is-open");
     lockScroll(false);
   }
-}
-
-/* ---------- Reviews slider ---------- */
-function initReviews() {
-  const slides = $$(".review"), dots = $("#reviewDots");
-  let i = 0, timer;
-  dots.innerHTML = slides.map((_, k) => `<button type="button" aria-label="${k + 1}"></button>`).join("");
-  const go = n => {
-    i = (n + slides.length) % slides.length;
-    slides.forEach((s, k) => s.classList.toggle("is-active", k === i));
-    $$("button", dots).forEach((d, k) => { d.classList.remove("is-active"); if (k === i) { void d.offsetWidth; d.classList.add("is-active"); } });
-    clearTimeout(timer);
-    timer = setTimeout(() => go(i + 1), 6000);
-  };
-  $$("button", dots).forEach((d, k) => d.addEventListener("click", () => go(k)));
-  go(0);
 }
 
 /* ============================================================
@@ -745,6 +730,20 @@ function initPointerFX() {
     b.addEventListener("mouseleave", () => { b.style.transform = ""; });
   });
 
+  // Hero depth parallax: arches, caption, badge and gems drift with the mouse
+  const hero = $("#hero"), layers = $$("[data-depth]", hero);
+  let mx = 0, my = 0, ax = 0, ay = 0, running = false;
+  hero.addEventListener("mousemove", e => {
+    const r = hero.getBoundingClientRect();
+    mx = (e.clientX - r.left) / r.width - .5; my = (e.clientY - r.top) / r.height - .5;
+    if (!running) { running = true; requestAnimationFrame(tick); }
+  });
+  function tick() {
+    ax += (mx - ax) * .08; ay += (my - ay) * .08;
+    layers.forEach(l => { const d = +l.dataset.depth; l.style.translate = `${ax * d * -28}px ${ay * d * -22}px`; });
+    if (Math.abs(mx - ax) > .001 || Math.abs(my - ay) > .001) requestAnimationFrame(tick); else running = false;
+  }
+
   // Card tilt
   document.addEventListener("mousemove", e => {
     const card = e.target.closest?.(".card");
@@ -753,21 +752,21 @@ function initPointerFX() {
     const m = $(".card__media", card), r = m.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
     m.classList.add("tilting");
-    m.style.transform = `rotateY(${px * 8}deg) rotateX(${-py * 8}deg)`;
+    m.style.transform = `perspective(900px) rotateY(${px * 6}deg) rotateX(${-py * 6}deg)`;
   });
 }
 
 let processTween = null;
 function buildProcessScroll() {
-  if (processTween) { processTween.scrollTrigger?.kill(); processTween.kill(); processTween = null; gsap.set("#processTrack", { x: 0 }); }
-  if (reduceMotion || window.innerWidth <= 860) return;
+  if (processTween) { processTween.scrollTrigger?.kill(); processTween.kill(); processTween = null; gsap.set("#processTrack", { x: 0 }); gsap.set("#processFill", { scaleX: 0 }); }
+  if (reduceMotion || window.innerWidth <= 920) return;
   const track = $("#processTrack");
   const dist = () => Math.max(0, track.scrollWidth - document.documentElement.clientWidth);
   const dir = document.documentElement.dir === "rtl" ? 1 : -1;
-  processTween = gsap.to(track, {
-    x: () => dir * dist(), ease: "none",
-    scrollTrigger: { trigger: "#process", start: "top top", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 }
-  });
+  processTween = gsap.timeline({
+    scrollTrigger: { trigger: "#pillars", start: "top top", end: () => "+=" + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 }
+  }).to(track, { x: () => dir * dist(), ease: "none" }, 0)
+    .fromTo("#processFill", { scaleX: 0 }, { scaleX: 1, ease: "none" }, 0);
 }
 
 function initMotion() {
@@ -782,25 +781,23 @@ function initMotion() {
     gsap.ticker.lagSmoothing(0);
   }
 
-  // Hero parallax
-  gsap.to(".hero__stage", { yPercent: 18, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-  gsap.to(".hero__sun", { yPercent: 40, scale: 1.2, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-  gsap.to(".dune--1", { y: -30, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-  gsap.to(".hero__content", { yPercent: -12, opacity: .2, ease: "none", scrollTrigger: { trigger: ".hero", start: "center center", end: "bottom top", scrub: true } });
+  // Hero scroll parallax
+  const heroST = { trigger: ".hero", start: "top top", end: "bottom top", scrub: true };
+  gsap.to(".hero__arch--main", { yPercent: 10, ease: "none", scrollTrigger: heroST });
+  gsap.to(".hero__arch--side", { yPercent: -24, ease: "none", scrollTrigger: heroST });
+  gsap.to(".hero__arch--main img", { scale: 1.12, ease: "none", scrollTrigger: heroST });
+  gsap.to(".hero__text", { yPercent: -10, opacity: .25, ease: "none", scrollTrigger: { trigger: ".hero", start: "center center", end: "bottom top", scrub: true } });
 
-  // Section titles: word-by-word rise
+  // Word-by-word title rise, kickers slide, paragraphs fade up
   $$(".split").forEach(el => {
-    gsap.from($$(".wi", el), { yPercent: 110, duration: 1.1, ease: "expo.out", stagger: .06, scrollTrigger: { trigger: el, start: "top 85%" } });
+    gsap.from($$(".wi", el), { yPercent: 110, duration: 1.1, ease: "expo.out", stagger: .05, scrollTrigger: { trigger: el, start: "top 86%" } });
   });
-  $$(".eyebrow:not(.hero__eyebrow)").forEach(el => gsap.from(el, { opacity: 0, x: document.documentElement.dir === "rtl" ? 30 : -30, duration: 1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
-  $$(".fade-up").forEach(el => gsap.from(el, { y: 40, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
+  $$(".kicker:not(.hero__kicker)").forEach(el => gsap.from(el, { opacity: 0, x: document.documentElement.dir === "rtl" ? 30 : -30, duration: 1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 92%" } }));
+  $$(".fade-up").forEach(el => gsap.from(el, { y: 36, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
 
-  // Image curtain reveals
-  $$(".reveal-img").forEach((el, i) => {
-    gsap.fromTo(el, { clipPath: "inset(100% 0% 0% 0%)" }, { clipPath: "inset(0% 0% 0% 0%)", duration: 1.5, delay: i * .15, ease: "expo.inOut", scrollTrigger: { trigger: ".story", start: "top 70%" } });
-    gsap.fromTo(el.firstElementChild, { scale: 1.35 }, { scale: 1, duration: 1.8, delay: i * .15, ease: "expo.out", scrollTrigger: { trigger: ".story", start: "top 70%" } });
-  });
-  gsap.to(".story__img--b", { yPercent: -18, ease: "none", scrollTrigger: { trigger: ".story", start: "top bottom", end: "bottom top", scrub: true } });
+  // Emblem band: logo rises and the halo breathes
+  gsap.fromTo(".story__emblem img", { scale: .86, opacity: 0, y: 60 }, { scale: 1, opacity: 1, y: 0, duration: 1.8, ease: "expo.out", scrollTrigger: { trigger: "#why", start: "top 70%" } });
+  gsap.to(".story__emblem", { yPercent: -10, ease: "none", scrollTrigger: { trigger: "#why", start: "top bottom", end: "bottom top", scrub: true } });
 
   // Counters
   $$(".counter").forEach(el => {
@@ -810,15 +807,29 @@ function initMotion() {
       onUpdate: () => { el.textContent = Math.round(o.v).toLocaleString("en-US") + suffix; } });
   });
 
-  animateCards();
+  // Image curtain reveals (arches)
+  $$(".engrave__arch, .how__arch").forEach(el => {
+    gsap.fromTo(el, { clipPath: "inset(100% 0% 0% 0% round 999px 999px 6px 6px)" }, { clipPath: "inset(0% 0% 0% 0% round 999px 999px 6px 6px)", duration: 1.6, ease: "expo.inOut", scrollTrigger: { trigger: el, start: "top 78%" } });
+    gsap.fromTo(el.firstElementChild, { scale: 1.3 }, { scale: 1, duration: 2, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 78%" } });
+  });
 
-  // Process
+  // Laser engraving: the beam sweeps, then the words "burn" in
+  gsap.timeline({ scrollTrigger: { trigger: ".engrave__visual", start: "top 60%" } })
+    .fromTo(".engrave__beam", { opacity: 0, scaleX: .1 }, { opacity: 1, scaleX: 1, duration: .5, ease: "power2.out" }, .4)
+    .to(".engrave__beam", { opacity: 0, duration: .6 }, 2.8);
+
+  // Benefits: cells cascade
+  ScrollTrigger.batch(".benefit", { start: "top 90%", once: true, onEnter: b => gsap.fromTo(b, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: .08, ease: "expo.out" }) });
+  gsap.from(".how__dot", { scale: 0, duration: .9, stagger: .15, ease: "back.out(3)", scrollTrigger: { trigger: ".how__layout", start: "top 70%" } });
+
+  animateCards();
   buildProcessScroll();
-  if (window.innerWidth <= 860) $$(".step").forEach(s => gsap.from(s, { y: 50, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: s, start: "top 88%" } }));
+  if (window.innerWidth <= 920) $$(".step").forEach(s => gsap.from(s, { y: 50, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: s, start: "top 88%" } }));
 
   // Gallery + contact
   ScrollTrigger.batch(".masonry figure", { start: "top 92%", once: true, onEnter: b => gsap.fromTo(b, { y: 60, opacity: 0, scale: .96 }, { y: 0, opacity: 1, scale: 1, duration: 1.2, stagger: .08, ease: "expo.out" }) });
-  gsap.from(".contact__inner", { scale: .9, borderRadius: "120px", duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".contact", start: "top 85%" } });
+  gsap.from(".contact__inner", { scale: .94, duration: 1.4, ease: "expo.out", scrollTrigger: { trigger: ".contact", start: "top 85%" } });
+  gsap.fromTo(".footer__word", { yPercent: 40, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 1.6, ease: "expo.out", scrollTrigger: { trigger: ".footer", start: "top 95%" } });
 
   let resizeT;
   window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => { buildProcessScroll(); ScrollTrigger.refresh(); }, 250); });
@@ -830,28 +841,54 @@ function animateCards() {
   if (!hasGSAP || reduceMotion) return;
   cardTriggers.forEach(st => st.kill());
   cardTriggers = ScrollTrigger.batch(".card", {
-    start: "top 90%", once: true,
-    onEnter: b => gsap.fromTo(b, { y: 80, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, stagger: .1, ease: "expo.out" })
+    start: "top 92%", once: true,
+    onEnter: b => gsap.fromTo(b, { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, stagger: .08, ease: "expo.out" })
   });
 }
 
-/* Loader out + hero intro */
+/* ============================================================
+   Intro: the tree grows from its roots, the gems glint,
+   then the two panels part like a curtain.
+   Full intro on the first visit of a session, a short one after.
+   ============================================================ */
+function heroIn(tl, at) {
+  tl.from(".hero__title .word", { yPercent: 115, duration: 1.3, stagger: .1, ease: "expo.out" }, at)
+    .from(".hero__kicker, .hero__lead, .hero__cta, .hero__trust", { y: 30, opacity: 0, duration: 1, stagger: .08, ease: "expo.out" }, `${at}+=.2`)
+    .from(".hero__arch--main", { clipPath: "inset(100% 0% 0% 0% round 999px 999px 6px 6px)", duration: 1.6, ease: "expo.inOut" }, at - .2)
+    .from(".hero__arch--main img", { scale: 1.35, duration: 2.2, ease: "expo.out" }, "<")
+    .from(".hero__arch--side", { clipPath: "inset(100% 0% 0% 0% round 999px 999px 6px 6px)", duration: 1.4, ease: "expo.inOut" }, at + .2)
+    .from(".hero__caption", { y: 30, opacity: 0, duration: 1, ease: "expo.out" }, at + .8)
+    .from(".badge", { scale: 0, rotate: -120, opacity: 0, duration: 1.3, ease: "back.out(1.6)" }, at + .6)
+    .from(".gem", { scale: 0, opacity: 0, duration: 1, stagger: .07, ease: "back.out(2.4)" }, at + .7)
+    .from(".header > *", { y: -24, opacity: 0, duration: .9, stagger: .08, ease: "expo.out" }, at + .2);
+}
+
 function intro() {
-  const loader = $("#loader");
-  const done = () => { document.body.classList.remove("is-loading"); loader.remove(); if (hasGSAP) ScrollTrigger.refresh(); };
+  const el = $("#intro");
+  const done = () => { document.body.classList.remove("is-loading"); el.remove(); if (hasGSAP) ScrollTrigger.refresh(); };
 
-  if (!hasGSAP || reduceMotion) { loader.style.transition = "opacity .5s"; loader.style.opacity = 0; setTimeout(done, 500); return; }
+  if (!hasGSAP || reduceMotion) { el.style.transition = "opacity .5s"; el.style.opacity = 0; setTimeout(done, 500); return; }
 
+  const seen = sessionStorage.getItem("wadi-intro") === "1";
+  try { sessionStorage.setItem("wadi-intro", "1"); } catch { /* private mode */ }
   const tl = gsap.timeline({ onComplete: done });
-  tl.to(loader, { yPercent: -100, duration: 1.1, ease: "expo.inOut" })
-    .from(".hero__title .word", { yPercent: 115, duration: 1.3, stagger: .1, ease: "expo.out" }, "-=.45")
-    .from(".hero__eyebrow, .hero__lead, .hero__cta", { y: 30, opacity: 0, duration: 1, stagger: .1, ease: "expo.out" }, "-=1")
-    .from(".hero__vessel", { clipPath: "inset(100% 0% 0% 0% round 999px 999px 28px 28px)", duration: 1.6, ease: "expo.inOut" }, "-=1.3")
-    .from(".hero__vessel img", { scale: 1.3, duration: 2, ease: "expo.out" }, "<")
-    .from(".hero__wheel", { scaleX: 0, opacity: 0, duration: 1, ease: "expo.out" }, "<")
-    .from(".badge", { scale: 0, rotate: -90, opacity: 0, duration: 1.2, ease: "back.out(1.6)" }, "-=1")
-    .from(".header > *", { y: -30, opacity: 0, duration: .9, stagger: .08, ease: "expo.out" }, "-=1.1")
-    .from(".hero__dunes", { yPercent: 40, opacity: 0, duration: 1.4, ease: "expo.out" }, "-=1.2");
+
+  if (!seen) {
+    tl.to(".intro__logo img", { clipPath: "inset(0% 0 0 0)", duration: 1.6, ease: "power2.inOut" })
+      .fromTo(".intro__logo img", { scale: .92, filter: "blur(6px)" }, { scale: 1, filter: "blur(0px)", duration: 1.6, ease: "expo.out" }, 0)
+      .fromTo(".intro__glow", { opacity: 0, scale: .2 }, { opacity: 1, scale: 9, duration: .5, ease: "power2.out", yoyo: true, repeat: 1 }, 1.25)
+      .from(".intro__name > *", { y: 20, opacity: 0, duration: .9, stagger: .12, ease: "expo.out" }, .5)
+      .to(".intro__bar i", { scaleX: 1, duration: 1.7, ease: "power1.inOut" }, 0)
+      .to(".intro__center", { y: -30, opacity: 0, duration: .7, ease: "power3.in" }, 2.05)
+      .to(".intro__panel--a", { yPercent: -100, duration: 1.1, ease: "expo.inOut" }, 2.45)
+      .to(".intro__panel--b", { yPercent: 100, duration: 1.1, ease: "expo.inOut" }, 2.45);
+    heroIn(tl, 2.85);
+  } else {
+    tl.to(".intro__center", { opacity: 0, duration: .2 })
+      .to(".intro__panel--a", { yPercent: -100, duration: .9, ease: "expo.inOut" }, .1)
+      .to(".intro__panel--b", { yPercent: 100, duration: .9, ease: "expo.inOut" }, .1);
+    heroIn(tl, .45);
+  }
 }
 
 /* ============================================================
@@ -861,7 +898,6 @@ $("#year").textContent = new Date().getFullYear();
 renderStatic();
 applyLang();
 bindEvents();
-initReviews();
 initPointerFX();
 initMotion();
 
@@ -877,8 +913,7 @@ loadProducts().then(ok => {
   if (hasGSAP) ScrollTrigger.refresh();
 });
 
-const MIN_LOADER = 2100, started = performance.now();
 let introStarted = false;
-const startIntro = () => { if (introStarted) return; introStarted = true; setTimeout(intro, Math.max(0, MIN_LOADER - (performance.now() - started))); };
+const startIntro = () => { if (introStarted) return; introStarted = true; intro(); };
 if (document.readyState === "complete") startIntro(); else window.addEventListener("load", startIntro);
-setTimeout(startIntro, 4500); // safety net if a font or CDN is slow
+setTimeout(startIntro, 3500); // safety net if a font or CDN is slow
