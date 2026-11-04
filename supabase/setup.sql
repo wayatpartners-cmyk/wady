@@ -135,3 +135,8 @@ select * from (values
    'تمبلر فخار بغطاء، رفيق السفر والسيارة والجامعة — ماء بارد طبيعياً من غير بلاستيك.', 'A lidded clay tumbler for travel, the car or campus.')
 ) as v(name_ar, name_en, capacity_ar, capacity_en, price, category, gifts_ar, gifts_en, tag_ar, tag_en, image_url, sort_order, desc_ar, desc_en)
 where not exists (select 1 from public.products);
+
+-- 6) Data API access (new projects don't expose tables automatically)
+grant usage on schema public to anon, authenticated;
+grant select on public.products to anon, authenticated;
+grant insert, update, delete on public.products to authenticated;
