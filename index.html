@@ -39,23 +39,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/style.css">
-  <noscript><style>.intro { display: none !important; } body.is-loading { overflow: auto; }</style></noscript>
+  
 </head>
-<body class="is-loading">
-
-  <!-- ========== Intro: the tree grows ========== -->
-  <div class="intro" id="intro" aria-hidden="true">
-    <div class="intro__panel intro__panel--a"></div>
-    <div class="intro__panel intro__panel--b"></div>
-    <div class="intro__center">
-      <div class="intro__logo">
-        <img src="assets/img/logo.png" alt="" width="596" height="590">
-        <span class="intro__glow"></span>
-      </div>
-      <p class="intro__name"><span>وادي كلاي</span><small>Crafted by Nature</small></p>
-      <span class="intro__bar"><i></i></span>
-    </div>
-  </div>
+<body>
 
   <div class="grain" aria-hidden="true"></div>
   <div class="cursor" aria-hidden="true"></div>
@@ -63,7 +49,7 @@
   <!-- ========== Header ========== -->
   <header class="header" id="header">
     <a href="#top" class="brand" aria-label="Wadi Clay">
-      <img class="brand__logo" src="assets/img/logo-sm.png" alt="شعار وادي كلاي Wadi Clay" width="160" height="158">
+      <span class="brand__seal"><img class="brand__logo" src="assets/img/logo-3d-sm.png" alt="شعار وادي كلاي Wadi Clay" width="160" height="160"></span>
       <span class="brand__text"><b data-i18n="brand">وادي كلاي</b><small>WADI CLAY</small></span>
     </a>
     <nav class="nav" id="nav">
@@ -86,47 +72,60 @@
 
   <main id="top">
 
-    <!-- ========== Hero ========== -->
+    <!-- ========== Hero: featured product, clean store ========== -->
     <section class="hero" id="hero">
       <div class="hero__wash" aria-hidden="true"></div>
-      <div class="gems" id="heroGems" aria-hidden="true"></div>
 
       <div class="hero__text">
         <p class="kicker hero__kicker"><span class="kicker__line" aria-hidden="true"></span><span data-i18n="hero.eyebrow">فخار صحي مشغول باليد</span></p>
         <h1 class="hero__title">
           <span class="sr-only">وادي كلاي — فخار صحي لتبريد وتنقية الماء: </span>
           <span class="line"><span class="word" data-i18n="hero.t1">صنع من الطبيعة</span></span>
-          <span class="line"><span class="word accent" data-i18n="hero.t2">لماءٍ أنقى</span></span>
-          <span class="line"><span class="word" data-i18n="hero.t3">وأبرد وأطيب</span></span>
+          <span class="line"><span class="word accent" data-i18n="hero.t2">لماءٍ أنقى</span> <span class="word" data-i18n="hero.t3">وأبرد وأطيب</span></span>
         </h1>
-        <p class="hero__lead" data-i18n="hero.lead">ابتكار في صناعة الفخار، وخصائص مميزة ترتقي بتجربة شرب المياه — طين تيراكوتا إسباني نقي، يُشكّل يدوياً ويُخبز على 900°م، لتجربة صحية مختلفة في كل رشفة.</p>
-        <div class="hero__cta">
-          <a href="#collection" class="btn btn--primary magnetic"><span data-i18n="hero.shop">اكتشف المجموعة</span><i class="btn__arrow" aria-hidden="true"></i></a>
-          <a href="#why" class="link-line"><span data-i18n="hero.story">لماذا وادي كلاي؟</span></a>
+        <p class="hero__lead" data-i18n="hero.lead2">طين تيراكوتا إسباني نقي، يُشكّل يدوياً ويُخبز على 900°م — ماء أبرد وأنقى بلا كهرباء ولا بلاستيك.</p>
+
+        <div class="feature" id="feature">
+          <div class="feature__info">
+            <small class="feature__label" data-i18n="feat.label">الأكثر طلباً</small>
+            <h2 class="feature__name" id="featName">زير غيث</h2>
+            <p class="feature__meta" id="featMeta">15 لتر · قاعدة فخار، حنفية ستانلس، صحن ترشيح، كوب</p>
+          </div>
+          <p class="feature__price" id="featPrice">99 د.أ</p>
         </div>
+
+        <div class="hero__cta">
+          <button type="button" class="btn btn--primary btn--lg magnetic" id="featOrder"><span data-i18n="feat.order">اطلب الآن</span><i class="btn__arrow" aria-hidden="true"></i></button>
+          <a href="#collection" class="btn btn--outline btn--lg"><span data-i18n="hero.shop">تصفّح المجموعة</span></a>
+        </div>
+
         <ul class="hero__trust">
-          <li><b>COD</b><span data-i18n="trust.1">الدفع عند الاستلام</span></li>
-          <li><b>12</b><span data-i18n="trust.2">توصيل لكل المحافظات</span></li>
-          <li><b>100%</b><span data-i18n="trust.3">كفالة ذهبية</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><span data-i18n="trust.2">توصيل مجاني خلال 24 ساعة</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><span data-i18n="trust.1">الدفع عند الاستلام</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v6c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="trust.3">كفالة ذهبية 100%</span></li>
         </ul>
       </div>
 
-      <div class="hero__visual" id="heroVisual">
-        <figure class="hero__arch hero__arch--main" data-depth="0.4">
-          <img src="assets/img/products/wc-ghaith-1.jpg" alt="زير غيث ١٥ لتر من وادي كلاي" width="1000" height="1250" fetchpriority="high">
-        </figure>
-        <figure class="hero__arch hero__arch--side" data-depth="0.9">
-          <img src="assets/img/products/wc-qarora-1.jpg" alt="القارورة العائلية ١٢ لتر مع مضخة ذكية" width="1000" height="1250">
-        </figure>
-        <p class="hero__caption" data-depth="0.6"><span>N° 01</span><b data-i18n="hero.cap">غيث — ١٥ لتر</b></p>
-        <svg class="badge" viewBox="0 0 200 200" direction="ltr" aria-hidden="true" data-depth="1.2">
-          <defs><path id="badgeCircle" d="M100 100m-80 0a80 80 0 1 1 160 0a80 80 0 1 1-160 0"/></defs>
-          <text><textPath href="#badgeCircle" textLength="498" lengthAdjust="spacing">WADI CLAY · CRAFTED BY NATURE · EST. JORDAN · </textPath></text>
-          <path class="badge__gem" d="M100 74c10 10 10 42 0 52-10-10-10-42 0-52z"/>
-        </svg>
+      <div class="hero__visual">
+        <div class="stage" id="stage">
+          <img class="stage__img is-active" src="assets/img/products/wc-ghaith-1.jpg" alt="زير غيث 15 لتر من وادي كلاي" width="1000" height="1250" fetchpriority="high">
+          <img class="stage__img" alt="" width="1000" height="1250">
+          <span class="stage__badge" id="stageBadge" data-i18n="feat.badge">صناعة يدوية</span>
+        </div>
+        <div class="picker" id="picker" role="tablist" aria-label="منتجات مميزة"></div>
       </div>
+    </section>
 
-      <a href="#marquee" class="scroll-cue" aria-label="Scroll"><span data-i18n="hero.scroll">اكتشف</span><i></i></a>
+    <!-- ========== Bestsellers ========== -->
+    <section class="best section" id="best">
+      <div class="section-head section-head--row">
+        <div>
+          <p class="kicker"><span class="kicker__line" aria-hidden="true"></span><span data-i18n="best.eyebrow">اختيارات عملائنا</span></p>
+          <h2 class="section-title" data-i18n="best.title">الأكثر مبيعاً</h2>
+        </div>
+        <a href="#collection" class="link-line"><span data-i18n="best.all">كل المنتجات</span></a>
+      </div>
+      <div class="grid grid--best" id="bestGrid"></div>
     </section>
 
     <!-- ========== Marquee ========== -->

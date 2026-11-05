@@ -29,8 +29,8 @@ const I18N = {
     "hero.eyebrow": "Healthy, handmade clay",
     "hero.t1": "Crafted by nature,", "hero.t2": "for purer,", "hero.t3": "cooler water",
     "hero.lead": "Innovation in clay-making, with distinctive properties that elevate the way you drink water — pure Spanish terracotta, shaped by hand and fired at 900°C, for a healthier experience in every sip.",
-    "hero.shop": "Explore the collection", "hero.story": "Why Wadi Clay?", "hero.cap": "Ghaith — 15 L", "hero.scroll": "Scroll",
-    "trust.1": "Cash on delivery", "trust.2": "Governorates, free delivery", "trust.3": "Golden guarantee",
+    "hero.shop": "Browse the collection", "hero.lead2": "Pure Spanish terracotta, shaped by hand and fired at 900°C — cooler, purer water with no electricity and no plastic.", "feat.label": "Most ordered", "feat.order": "Order now", "feat.badge": "Handmade", "best.eyebrow": "Our customers' picks", "best.title": "Bestsellers", "best.all": "All products", "hero.story": "Why Wadi Clay?", "hero.cap": "Ghaith — 15 L", "hero.scroll": "Scroll",
+    "trust.1": "Cash on delivery", "trust.2": "Free delivery within 24 hours", "trust.3": "100% golden guarantee",
     "marquee": "Spanish terracotta ✦ Handmade with care ✦ Fired at 900°C ✦ Natural cooling, no electricity ✦ Alkaline, oxygen-rich water ✦ Plastic-free ✦ Crafted by Nature ✦",
 
     "why.eyebrow": "Why Wadi Clay?", "why.title": "More than pottery… an identity made to last.",
@@ -444,8 +444,8 @@ function renderStatic() {
   $$(".benefit__ico").forEach(el => { el.innerHTML = BEN_ICONS[el.dataset.ico] || ""; });
 
   // floating gem leaves around the hero visual
-  const spots = [[8, 18, 16, -18, 1.1], [42, 9, 11, 24, .7], [92, 22, 14, 12, 1.4], [86, 62, 18, -30, 1.8], [50, 88, 12, 40, .9], [3, 70, 10, 8, 1.3], [64, 4, 9, -8, .6], [30, 52, 8, 30, .5]];
-  $("#heroGems").innerHTML = spots.map(([x, y, s, r, depth], i) =>
+  const spots = [[6, 22, 16, -18, 1.1], [14, 64, 11, 24, .7], [91, 26, 14, 12, 1.4], [84, 70, 18, -30, 1.8], [24, 12, 9, 40, .9], [4, 84, 10, 8, 1.3], [74, 12, 10, -8, .6], [95, 52, 8, 30, .5]];
+  if ($("#heroGems")) $("#heroGems").innerHTML = spots.map(([x, y, s, r, depth], i) =>
     `<span class="gem" data-depth="${depth}" style="left:${x}%;top:${y}%;--s:${s}px;--r:${r}deg;--d:${4 + (i % 3)}s;--dl:-${i * .7}s">${gemSVG(GEM_COLORS[i % GEM_COLORS.length])}</span>`).join("");
 
   const gallery = [["wc-mood-2", "ماء بارد يُسكب من زير غيث في كوب فخار"], ["wc-qarora-2", "مضخة القارورة العائلية الذكية"], ["wc-irwa-premium-1", "إرواء بريميوم"], ["wc-mood-4", "زير غيث يتعرّق — تبريد طبيعي"], ["wc-engrave-2", "حفر بالليزر على الفخار"], ["wc-riwaq-1", "رواق"], ["wc-mood-3", "غطاء زير غيث"], ["wc-cup-naqaa-1", "كوب نقاء"], ["wc-qarora-5", "شعار وادي كلاي محفور على القارورة"], ["wc-irwa-curvy-1", "إرواء كيرفي"], ["wc-ghaith-3", "حنفية الستانلس ستيل"], ["wc-naqaa-1", "نقاء"]];
@@ -474,6 +474,7 @@ function applyLang() {
   document.title = t("title");
   renderFilters();
   renderGrid();
+  renderHero();
   renderCart();
 }
 
@@ -783,10 +784,7 @@ function initMotion() {
 
   // Hero scroll parallax
   const heroST = { trigger: ".hero", start: "top top", end: "bottom top", scrub: true };
-  gsap.to(".hero__arch--main", { yPercent: 10, ease: "none", scrollTrigger: heroST });
-  gsap.to(".hero__arch--side", { yPercent: -24, ease: "none", scrollTrigger: heroST });
-  gsap.to(".hero__arch--main img", { scale: 1.12, ease: "none", scrollTrigger: heroST });
-  gsap.to(".hero__text", { yPercent: -10, opacity: .25, ease: "none", scrollTrigger: { trigger: ".hero", start: "center center", end: "bottom top", scrub: true } });
+  gsap.to(".stage", { yPercent: 6, ease: "none", scrollTrigger: heroST });
 
   // Word-by-word title rise, kickers slide, paragraphs fade up
   $$(".split").forEach(el => {
@@ -847,48 +845,76 @@ function animateCards() {
 }
 
 /* ============================================================
-   Intro: the tree grows from its roots, the gems glint,
-   then the two panels part like a curtain.
-   Full intro on the first visit of a session, a short one after.
+   Hero: a featured product with its price and an order button.
+   The picker swaps between a few hero products; the page opens
+   straight away (no loading screen), with a short entrance.
    ============================================================ */
-function heroIn(tl, at) {
-  tl.from(".hero__title .word", { yPercent: 115, duration: 1.3, stagger: .1, ease: "expo.out" }, at)
-    .from(".hero__kicker, .hero__lead, .hero__cta, .hero__trust", { y: 30, opacity: 0, duration: 1, stagger: .08, ease: "expo.out" }, `${at}+=.2`)
-    .from(".hero__arch--main", { clipPath: "inset(100% 0% 0% 0% round 999px 999px 6px 6px)", duration: 1.6, ease: "expo.inOut" }, at - .2)
-    .from(".hero__arch--main img", { scale: 1.35, duration: 2.2, ease: "expo.out" }, "<")
-    .from(".hero__arch--side", { clipPath: "inset(100% 0% 0% 0% round 999px 999px 6px 6px)", duration: 1.4, ease: "expo.inOut" }, at + .2)
-    .from(".hero__caption", { y: 30, opacity: 0, duration: 1, ease: "expo.out" }, at + .8)
-    .from(".badge", { scale: 0, rotate: -120, opacity: 0, duration: 1.3, ease: "back.out(1.6)" }, at + .6)
-    .from(".gem", { scale: 0, opacity: 0, duration: 1, stagger: .07, ease: "back.out(2.4)" }, at + .7)
-    .from(".header > *", { y: -24, opacity: 0, duration: .9, stagger: .08, ease: "expo.out" }, at + .2);
+const FEATURED = [
+  { en: "Ghaith Zeer", cap: /15/ },
+  { en: "Family Qarora" },
+  { en: "Irwa Premium" },
+  { en: "Riwaq" }
+];
+const BESTSELLERS = [
+  { en: "Ghaith Zeer", cap: /15/ }, { en: "Family Qarora" }, { en: "Riwaq" }, { en: "Irwa Classic" }
+];
+const findProduct = f => PRODUCT_LIST.find(p => p.name_en === f.en && (!f.cap || f.cap.test(p.capacity_en || p.capacity_ar || "")));
+
+let featIndex = 0, featTimer = null;
+function featured() { return FEATURED.map(findProduct).filter(Boolean); }
+
+function renderFeature(i, animate = true) {
+  const list = featured();
+  if (!list.length) return;
+  featIndex = (i + list.length) % list.length;
+  const p = list[featIndex];
+  const box = $("#feature");
+  const apply = () => {
+    $("#featName").textContent = L(p, "name");
+    $("#featMeta").textContent = [L(p, "capacity"), L(p, "gifts")].filter(Boolean).join(" · ");
+    $("#featPrice").innerHTML = hasSale(p) ? `<s>${money(p.old_price)}</s> ${money(p.price)}` : money(p.price);
+    box.classList.remove("is-swapping");
+  };
+  if (animate) { box.classList.add("is-swapping"); setTimeout(apply, 260); } else apply();
+
+  // cross-fade the stage photo
+  const imgs = $$(".stage__img"), cur = imgs.find(x => x.classList.contains("is-active")) || imgs[0], next = imgs.find(x => x !== cur);
+  if (animate && cur.getAttribute("src") !== p.image_url) {
+    next.src = p.image_url; next.alt = L(p, "name") + " — وادي كلاي";
+    const show = () => { cur.classList.remove("is-active"); next.classList.add("is-active"); };
+    next.complete ? requestAnimationFrame(show) : next.addEventListener("load", show, { once: true });
+  } else if (!animate) { cur.src = p.image_url; cur.alt = L(p, "name") + " — وادي كلاي"; }
+
+  $$("#picker button").forEach((b, k) => { b.classList.toggle("is-active", k === featIndex); b.setAttribute("aria-selected", k === featIndex); });
+  clearTimeout(featTimer);
+  if (!reduceMotion) featTimer = setTimeout(() => renderFeature(featIndex + 1), 6000);
 }
 
-function intro() {
-  const el = $("#intro");
-  const done = () => { document.body.classList.remove("is-loading"); el.remove(); if (hasGSAP) ScrollTrigger.refresh(); };
+function renderHero() {
+  const list = featured();
+  $("#picker").innerHTML = list.map((p, k) =>
+    `<button type="button" role="tab" aria-label="${esc(L(p, "name"))}" data-feat="${k}"><img src="${esc(p.gallery[0] || p.image_url)}" alt="" loading="lazy"></button>`).join("");
+  renderFeature(featIndex, false);
+  $("#bestGrid").innerHTML = BESTSELLERS.map(findProduct).filter(Boolean).map(cardHTML).join("");
+}
 
-  if (!hasGSAP || reduceMotion) { el.style.transition = "opacity .5s"; el.style.opacity = 0; setTimeout(done, 500); return; }
+function bindHero() {
+  $("#picker").addEventListener("click", e => { const b = e.target.closest("[data-feat]"); if (b) renderFeature(+b.dataset.feat); });
+  $("#featOrder").addEventListener("click", () => {
+    const p = featured()[featIndex]; if (!p) return;
+    addToCart(p.id); openDrawer();
+  });
+  // pause the rotation while the visitor is looking at the hero product
+  $(".hero__visual").addEventListener("mouseenter", () => clearTimeout(featTimer));
+  $(".hero__visual").addEventListener("mouseleave", () => { if (!reduceMotion) featTimer = setTimeout(() => renderFeature(featIndex + 1), 4000); });
+}
 
-  const seen = sessionStorage.getItem("wadi-intro") === "1";
-  try { sessionStorage.setItem("wadi-intro", "1"); } catch { /* private mode */ }
-  const tl = gsap.timeline({ onComplete: done });
-
-  if (!seen) {
-    tl.to(".intro__logo img", { clipPath: "inset(0% 0 0 0)", duration: 1.6, ease: "power2.inOut" })
-      .fromTo(".intro__logo img", { scale: .92, filter: "blur(6px)" }, { scale: 1, filter: "blur(0px)", duration: 1.6, ease: "expo.out" }, 0)
-      .fromTo(".intro__glow", { opacity: 0, scale: .2 }, { opacity: 1, scale: 9, duration: .5, ease: "power2.out", yoyo: true, repeat: 1 }, 1.25)
-      .from(".intro__name > *", { y: 20, opacity: 0, duration: .9, stagger: .12, ease: "expo.out" }, .5)
-      .to(".intro__bar i", { scaleX: 1, duration: 1.7, ease: "power1.inOut" }, 0)
-      .to(".intro__center", { y: -30, opacity: 0, duration: .7, ease: "power3.in" }, 2.05)
-      .to(".intro__panel--a", { yPercent: -100, duration: 1.1, ease: "expo.inOut" }, 2.45)
-      .to(".intro__panel--b", { yPercent: 100, duration: 1.1, ease: "expo.inOut" }, 2.45);
-    heroIn(tl, 2.85);
-  } else {
-    tl.to(".intro__center", { opacity: 0, duration: .2 })
-      .to(".intro__panel--a", { yPercent: -100, duration: .9, ease: "expo.inOut" }, .1)
-      .to(".intro__panel--b", { yPercent: 100, duration: .9, ease: "expo.inOut" }, .1);
-    heroIn(tl, .45);
-  }
+function heroEntrance() {
+  if (!hasGSAP || reduceMotion) return;
+  gsap.timeline({ defaults: { ease: "expo.out" } })
+    .from(".stage", { y: 40, opacity: 0, scale: .97, duration: 1.2 }, 0)
+    .from(".hero__title .word", { yPercent: 110, duration: 1.1, stagger: .08 }, .1)
+    .from(".hero__kicker, .hero__lead, .feature, .hero__cta, .hero__trust, .picker", { y: 24, opacity: 0, duration: .9, stagger: .07 }, .3);
 }
 
 /* ============================================================
@@ -898,8 +924,10 @@ $("#year").textContent = new Date().getFullYear();
 renderStatic();
 applyLang();
 bindEvents();
+bindHero();
 initPointerFX();
 initMotion();
+heroEntrance();
 
 // Live products from the admin panel (if Supabase is configured)
 updateSchema();
@@ -908,12 +936,8 @@ loadProducts().then(ok => {
   updateSchema();
   renderFilters();
   renderGrid();
+  renderHero();
   renderCart();
   animateCards();
   if (hasGSAP) ScrollTrigger.refresh();
 });
-
-let introStarted = false;
-const startIntro = () => { if (introStarted) return; introStarted = true; intro(); };
-if (document.readyState === "complete") startIntro(); else window.addEventListener("load", startIntro);
-setTimeout(startIntro, 3500); // safety net if a font or CDN is slow
