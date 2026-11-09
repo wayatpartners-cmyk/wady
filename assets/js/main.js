@@ -404,7 +404,7 @@ function updateSchema() {
     "@type": "Store", "@id": home + "#store", name: "Wadi Clay", alternateName: "وادي كلاي",
     description: "فخاريات ماء مصنوعة يدوياً من طين التيراكوتا الإسباني وتوليفة خامات مختارة — تنقية وتبريد طبيعي للماء.",
     url: home, logo: abs("assets/img/logo.png"), image: abs("assets/img/og-image.jpg"),
-    telephone: "+" + CONFIG.whatsapp, priceRange: "JOD 1 - 99",
+    telephone: "+" + CONFIG.whatsapp, priceRange: "JOD 18 - 99",
     paymentAccepted: "Cash on delivery", currenciesAccepted: "JOD",
     address: { "@type": "PostalAddress", addressCountry: "JO" },
     areaServed: { "@type": "Country", name: "Jordan" },
@@ -618,7 +618,7 @@ function bindEvents() {
   document.addEventListener("click", e => {
     const add = e.target.closest("[data-add]");
     if (add) { e.stopPropagation(); addToCart(add.dataset.add); return; }
-    const card = e.target.closest(".card");
+    const card = e.target.closest(".card, .pcard");
     if (card) { openModal(card.dataset.id); return; }
 
     const filter = e.target.closest(".filter");
@@ -658,7 +658,7 @@ function bindEvents() {
       if ($("#drawer").classList.contains("is-open")) closeDrawer();
       closeMenu();
     }
-    if (e.key === "Enter" && e.target.classList?.contains("card")) openModal(e.target.dataset.id);
+    if (e.key === "Enter" && (e.target.classList?.contains("card") || e.target.classList?.contains("pcard"))) openModal(e.target.dataset.id);
   });
 
   $("#qtyPlus").addEventListener("click", () => { modalQty++; $("#qtyVal").textContent = modalQty; });
@@ -713,7 +713,7 @@ function initPointerFX() {
   let cx = 0, cy = 0, x = 0, y = 0;
   window.addEventListener("mousemove", e => { cx = e.clientX; cy = e.clientY; cursor.style.opacity = 1; });
   (function loop() { x += (cx - x) * .18; y += (cy - y) * .18; cursor.style.transform = `translate(${x}px, ${y}px)`; requestAnimationFrame(loop); })();
-  document.addEventListener("mouseover", e => cursor.classList.toggle("is-big", !!e.target.closest("a, button, .card")));
+  document.addEventListener("mouseover", e => cursor.classList.toggle("is-big", !!e.target.closest("a, button, .card, .pcard")));
 
   // Magnetic buttons
   $$(".magnetic").forEach(b => {
