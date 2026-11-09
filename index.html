@@ -41,7 +41,13 @@
   <link rel="stylesheet" href="assets/css/style.css">
   
 </head>
-<body>
+<body class="is-loading">
+
+  <!-- ========== Loader: the emblem as on the first site ========== -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <img class="loader__logo" src="assets/img/logo-3d.png" alt="" width="600" height="600">
+    <p class="loader__name"><span>وادي كلاي</span><small>WADI CLAY · CRAFTED BY NATURE</small></p>
+  </div>
 
   <div class="grain" aria-hidden="true"></div>
   <div class="cursor" aria-hidden="true"></div>
@@ -54,10 +60,10 @@
     </a>
     <nav class="nav" id="nav">
       <a href="#why" data-i18n="nav.why">لماذا وادي كلاي</a>
-      <a href="#collection" data-i18n="nav.collection">المجموعة</a>
       <a href="#benefits" data-i18n="nav.benefits">الفوائد</a>
       <a href="#how" data-i18n="nav.how">آلية العمل</a>
       <a href="#guide" data-i18n="nav.guide">العناية والأسئلة</a>
+      <a href="#collection" data-i18n="nav.collection">المجموعة</a>
       <a href="#contact" data-i18n="nav.contact">تواصل</a>
     </nav>
     <div class="header__actions">
@@ -172,11 +178,81 @@
       </div>
     </section>
 
+    <!-- ========== Exclusive benefits ========== -->
+    <section class="benefits section" id="benefits">
+      <div class="section-head">
+        <p class="kicker"><span class="kicker__num">03</span><span data-i18n="ben.eyebrow">الفوائد الحصرية</span></p>
+        <h2 class="section-title split" data-i18n="ben.title">الفوائد الحصرية لوادي كلاي</h2>
+        <p class="section-lead fade-up" data-i18n="ben.lead">ابتكار في صناعة الفخار، وخصائص مميزة ترتقي بتجربة شرب المياه.</p>
+      </div>
+      <ul class="benefits__grid">
+        <li class="benefit"><span class="benefit__num">01</span><div class="benefit__ico" data-ico="filter"></div><h3 data-i18n="ben.1">تنقية المياه</h3><p data-i18n="ben.1p">نظام فلترة متكامل يعمل على تنقية المياه من الملوثات والشوائب والمعادن الثقيلة والغازات والمواد العضوية وتحسين جودتها.</p></li>
+        <li class="benefit"><span class="benefit__num">02</span><div class="benefit__ico" data-ico="ph"></div><h3 data-i18n="ben.2">تعزيز قلوية المياه</h3><p data-i18n="ben.2p">تركيبة حصرية تعمل على رفع درجة حموضة المياه (pH) وتعزيز طبيعتها القلوية لتحسين الصحة العامة وتقوية المناعة.</p></li>
+        <li class="benefit"><span class="benefit__num">03</span><div class="benefit__ico" data-ico="oxygen"></div><h3 data-i18n="ben.3">مضاعفة نسبة الأكسجين الطبيعي</h3><p data-i18n="ben.3p">تقنية مبتكرة تضاعف نسبة الأكسجين الطبيعي الذائب في المياه، لتمنحها خصائص مميزة.</p></li>
+        <li class="benefit"><span class="benefit__num">04</span><div class="benefit__ico" data-ico="balance"></div><h3 data-i18n="ben.4">موازنة المعادن والأملاح</h3><p data-i18n="ben.4p">تركيبة مدروسة تعمل على موازنة المعادن والأملاح في المياه، بما يعزز خصائصها المعدنية.</p></li>
+        <li class="benefit"><span class="benefit__num">05</span><div class="benefit__ico" data-ico="shield"></div><h3 data-i18n="ben.5">خصائص مضادة للبكتيريا والفيروسات</h3><p data-i18n="ben.5p">خامات مختارة بعناية تمنح فخارات وادي كلاي خصائص مضادة للبكتيريا والفيروسات.</p></li>
+        <li class="benefit"><span class="benefit__num">06</span><div class="benefit__ico" data-ico="cool"></div><h3 data-i18n="ben.6">تبريد طبيعي دون كهرباء</h3><p data-i18n="ben.6p">تتيح المسامية الطبيعية للفخار تبريد المياه بطريقة طبيعية، دون الحاجة إلى الكهرباء أو أجهزة التبريد.</p></li>
+        <li class="benefit"><span class="benefit__num">07</span><div class="benefit__ico" data-ico="leaf"></div><h3 data-i18n="ben.7">الاستدامة</h3><p data-i18n="ben.7p">خامات متينة وصناعة متقنة تجعل فخارات وادي كلاي خيارًا مستدامًا للاستخدام اليومي المتكرر، مع تقليل الاعتماد على العبوات البلاستيكية.</p></li>
+        <li class="benefit benefit--cta">
+          <p class="benefit__quote" data-i18n="ben.cta">استثمار صحي يدوم لسنوات.</p>
+          <a href="#collection" class="link-line"><span data-i18n="ben.ctaBtn">اختر فخارتك</span></a>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ========== How it works ========== -->
+    <section class="how section" id="how">
+      <div class="section-head section-head--center">
+        <p class="kicker kicker--center"><span class="kicker__num">04</span><span data-i18n="how.eyebrow">آلية العمل</span></p>
+        <h2 class="section-title split" data-i18n="how.title">آلية عمل فخار وادي كلاي</h2>
+        <p class="section-lead fade-up" data-i18n="how.lead">من خصائص الطين الطبيعية إلى تجربة شرب صحية</p>
+      </div>
+      <div class="how__layout">
+        <div class="how__col">
+          <article class="how__item fade-up"><span class="how__dot" aria-hidden="true"></span><h3 data-i18n="how.1">الترشيح الطبيعي</h3><p data-i18n="how.1p">تساهم المسامات الدقيقة في بنية الفخار، إلى جانب خصائص الخامات المستخدمة، في ترشيح المياه والحد من الشوائب.</p></article>
+          <article class="how__item fade-up"><span class="how__dot" aria-hidden="true"></span><h3 data-i18n="how.2">حفظ المياه</h3><p data-i18n="how.2p">تُحفظ المياه داخل الفخارة المصنوعة بعناية، لتكون جاهزة للاستخدام اليومي، ضمن تصميم يجمع بين الوظيفة والأصالة.</p></article>
+        </div>
+        <figure class="how__visual">
+          <div class="how__arch"><img src="assets/img/products/wc-mood-4.jpg" alt="زير غيث يتعرّق — التبريد الطبيعي بالتبخر" width="1000" height="1250" loading="lazy"></div>
+          <div class="how__drops" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <svg class="how__ring" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="196"/></svg>
+        </figure>
+        <div class="how__col">
+          <article class="how__item fade-up"><span class="how__dot" aria-hidden="true"></span><h3 data-i18n="how.3">التبريد بالتبخر</h3><p data-i18n="how.3p">تسمح المسامية الطبيعية للفخار بنفاذ كميات دقيقة من الماء إلى سطحه الخارجي، حيث تتبخر بفعل الهواء، مما يعمل على تبريد المياه داخل الفخارة طبيعيًا دون الحاجة إلى الكهرباء.</p></article>
+          <article class="how__item fade-up"><span class="how__dot" aria-hidden="true"></span><h3 data-i18n="how.4">خصائص الخامة الطبيعية</h3><p data-i18n="how.4p">تعتمد وادي كلاي على التيراكوتا الإسبانية الطبيعية، المختارة بعناية للاستفادة من خصائصها الفيزيائية وبنيتها المسامية في صناعة الفخار.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== Care + FAQ ========== -->
+    <section class="guide section" id="guide">
+      <div class="guide__intro">
+        <p class="kicker"><span class="kicker__num">05</span><span data-i18n="guide.eyebrow">العناية</span></p>
+        <h2 class="section-title split" data-i18n="guide.title">تعليمات الاستخدام والعناية</h2>
+        <ol class="guide__steps">
+          <li class="fade-up"><b>01</b><div><h3 data-i18n="guide.1">الاستخدام الأول</h3><p data-i18n="guide.1p">عند استخدام الفخارة لأول مرة فقط، تُغسل بالماء، ثم تُنقع بالماء لمدة 3 ساعات قبل البدء باستخدامها.</p></div></li>
+          <li class="fade-up"><b>02</b><div><h3 data-i18n="guide.2">الاستخدام اليومي</h3><p data-i18n="guide.2p">يُفضّل استخدام الماء المفلتر وتجديد المياه بانتظام.</p></div></li>
+          <li class="fade-up"><b>03</b><div><h3 data-i18n="guide.3">التنظيف والعناية</h3><p data-i18n="guide.3p">تُغسل الفخارة بالماء فقط، مع تجنّب المنظفات والمواد الكيميائية. لا تُعرّض للنار.</p></div></li>
+          <li class="fade-up"><b>04</b><div><h3 data-i18n="guide.4">التنظيف الشهري</h3><p data-i18n="guide.4p">مرة كل شهر، تُنقع الفخارة بالخل لإزالة الترسبات المتراكمة، ثم تُشطف جيدًا بالماء قبل إعادة استخدامها.</p></div></li>
+        </ol>
+      </div>
+      <div class="faq-wrap">
+        <p class="kicker"><span class="kicker__line" aria-hidden="true"></span><span data-i18n="faq.eyebrow">الأسئلة الشائعة</span></p>
+        <div class="faq" id="faq">
+          <details class="faq__item"><summary><span class="faq__n">01</span><span data-i18n="faq.q1">ما الفرق بين فخار وادي كلاي والفخار التقليدي؟</span></summary><p data-i18n="faq.a1">يتميز فخار وادي كلاي بطين التيراكوتا الإسباني الطبيعي، وتوليفة خاصة من الخامات المختارة بعناية، تُشكّل يدويًا وتُخبز بدرجة حرارة تصل إلى 900 درجة مئوية، مع تشطيب متقن. بينما الفخار التقليدي لا يحتوي على هذه التركيبة الخاصة ولا يمر بنفس عملية التصنيع المتقدمة.</p></details>
+          <details class="faq__item"><summary><span class="faq__n">02</span><span data-i18n="faq.q2">ما الذي يميّز خامات فخارات وادي كلاي؟</span></summary><p data-i18n="faq.a2">نجمع بين الطين الإسباني الطبيعي وخامات مختارة ضمن تركيبة مدروسة، ونعتني بتفاصيل التصنيع اليدوي والتشطيب لنقدّم فخارات تجمع بين الجودة والعملية والتميّز.</p></details>
+          <details class="faq__item"><summary><span class="faq__n">03</span><span data-i18n="faq.q3">كم تدوم فخارة وادي كلاي؟</span></summary><p data-i18n="faq.a3">مع الاستخدام الصحيح والالتزام بتعليمات العناية والتنظيف، تدوم فخارات وادي كلاي طويلًا وتحافظ على جودتها وأدائها.</p></details>
+          <details class="faq__item"><summary><span class="faq__n">04</span><span data-i18n="faq.q4">هل يمكن استخدام الماء المفلتر أو غير المفلتر؟</span></summary><p data-i18n="faq.a4">نعم، يمكن استخدام النوعين، لكننا ننصح باستخدام الماء المفلتر للحصول على أفضل تجربة.</p></details>
+          <details class="faq__item"><summary><span class="faq__n">05</span><span data-i18n="faq.q5">كم تستغرق عملية تنقية المياه؟</span></summary><p data-i18n="faq.a5">تحتاج المياه المفلترة مسبقًا إلى نحو 20 دقيقة، بينما قد تحتاج المياه غير المفلترة إلى نحو ساعتين، وتختلف المدة بحسب نوعية المياه المستخدمة.</p></details>
+        </div>
+      </div>
+    </section>
+
     <!-- ========== Collection ========== -->
     <section class="collection section" id="collection">
       <div class="section-head section-head--row">
         <div class="section-head__main">
-          <p class="kicker"><span class="kicker__num">03</span><span data-i18n="col.eyebrow">المجموعة</span></p>
+          <p class="kicker"><span class="kicker__num">06</span><span data-i18n="col.eyebrow">المجموعة</span></p>
           <h2 class="section-title split" data-i18n="col.title">مجموعة وادي كلاي</h2>
           <p class="section-lead fade-up" data-i18n="col.lead">تصاميم أساسية، أحجام عائلية، عروض مختارة، وملحقات تكمل تجربتكم — مع ملحقات مرفقة بحسب كل فخارة.</p>
         </div>
@@ -213,76 +289,6 @@
           <p class="fade-up" data-i18n="eng.p2">اكتشفوا نماذج من أعمالنا في الحفر بالليزر، وخصّصوا فخارتكم باسم أو عبارة تحمل معنى خاصًا، لتصبح قطعة فريدة وهدية استثنائية تبقى قيمتها مع الزمن.</p>
           <p class="engrave__note fade-up" data-i18n="eng.note">خدمة الحفر بالليزر بسعر منفصل يُضاف على سعر المنتج. تواصل معنا عبر واتساب لمعرفة التفاصيل والأسعار.</p>
           <a href="#" class="btn btn--primary magnetic js-wa-engrave"><span data-i18n="eng.btn">اطلب الحفر عبر واتساب</span><i class="btn__arrow" aria-hidden="true"></i></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== Exclusive benefits ========== -->
-    <section class="benefits section" id="benefits">
-      <div class="section-head">
-        <p class="kicker"><span class="kicker__num">04</span><span data-i18n="ben.eyebrow">الفوائد الحصرية</span></p>
-        <h2 class="section-title split" data-i18n="ben.title">الفوائد الحصرية لوادي كلاي</h2>
-        <p class="section-lead fade-up" data-i18n="ben.lead">ابتكار في صناعة الفخار، وخصائص مميزة ترتقي بتجربة شرب المياه.</p>
-      </div>
-      <ul class="benefits__grid">
-        <li class="benefit"><span class="benefit__num">01</span><div class="benefit__ico" data-ico="filter"></div><h3 data-i18n="ben.1">تنقية المياه</h3><p data-i18n="ben.1p">نظام فلترة متكامل يعمل على تنقية المياه من الملوثات والشوائب والمعادن الثقيلة والغازات والمواد العضوية وتحسين جودتها.</p></li>
-        <li class="benefit"><span class="benefit__num">02</span><div class="benefit__ico" data-ico="ph"></div><h3 data-i18n="ben.2">تعزيز قلوية المياه</h3><p data-i18n="ben.2p">تركيبة حصرية تعمل على رفع درجة حموضة المياه (pH) وتعزيز طبيعتها القلوية لتحسين الصحة العامة وتقوية المناعة.</p></li>
-        <li class="benefit"><span class="benefit__num">03</span><div class="benefit__ico" data-ico="oxygen"></div><h3 data-i18n="ben.3">مضاعفة نسبة الأكسجين الطبيعي</h3><p data-i18n="ben.3p">تقنية مبتكرة تضاعف نسبة الأكسجين الطبيعي الذائب في المياه، لتمنحها خصائص مميزة.</p></li>
-        <li class="benefit"><span class="benefit__num">04</span><div class="benefit__ico" data-ico="balance"></div><h3 data-i18n="ben.4">موازنة المعادن والأملاح</h3><p data-i18n="ben.4p">تركيبة مدروسة تعمل على موازنة المعادن والأملاح في المياه، بما يعزز خصائصها المعدنية.</p></li>
-        <li class="benefit"><span class="benefit__num">05</span><div class="benefit__ico" data-ico="shield"></div><h3 data-i18n="ben.5">خصائص مضادة للبكتيريا والفيروسات</h3><p data-i18n="ben.5p">خامات مختارة بعناية تمنح فخارات وادي كلاي خصائص مضادة للبكتيريا والفيروسات.</p></li>
-        <li class="benefit"><span class="benefit__num">06</span><div class="benefit__ico" data-ico="cool"></div><h3 data-i18n="ben.6">تبريد طبيعي دون كهرباء</h3><p data-i18n="ben.6p">تتيح المسامية الطبيعية للفخار تبريد المياه بطريقة طبيعية، دون الحاجة إلى الكهرباء أو أجهزة التبريد.</p></li>
-        <li class="benefit"><span class="benefit__num">07</span><div class="benefit__ico" data-ico="leaf"></div><h3 data-i18n="ben.7">الاستدامة</h3><p data-i18n="ben.7p">خامات متينة وصناعة متقنة تجعل فخارات وادي كلاي خيارًا مستدامًا للاستخدام اليومي المتكرر، مع تقليل الاعتماد على العبوات البلاستيكية.</p></li>
-        <li class="benefit benefit--cta">
-          <p class="benefit__quote" data-i18n="ben.cta">استثمار صحي يدوم لسنوات.</p>
-          <a href="#collection" class="link-line"><span data-i18n="ben.ctaBtn">اختر فخارتك</span></a>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ========== How it works ========== -->
-    <section class="how section" id="how">
-      <div class="section-head section-head--center">
-        <p class="kicker kicker--center"><span class="kicker__num">05</span><span data-i18n="how.eyebrow">آلية العمل</span></p>
-        <h2 class="section-title split" data-i18n="how.title">آلية عمل فخار وادي كلاي</h2>
-        <p class="section-lead fade-up" data-i18n="how.lead">من خصائص الطين الطبيعية إلى تجربة شرب صحية</p>
-      </div>
-      <div class="how__layout">
-        <div class="how__col">
-          <article class="how__item fade-up"><span class="how__dot" aria-hidden="true"></span><h3 data-i18n="how.1">الترشيح الطبيعي</h3><p data-i18n="how.1p">تساهم المسامات الدقيقة في بنية الفخار، إلى جانب خصائص الخامات المستخدمة، في ترشيح المياه والحد من الشوائب.</p></article>
-          <article class="how__item fade-up"><span class="how__dot" aria-hidden="true"></span><h3 data-i18n="how.2">حفظ المياه</h3><p data-i18n="how.2p">تُحفظ المياه داخل الفخارة المصنوعة بعناية، لتكون جاهزة للاستخدام اليومي، ضمن تصميم يجمع بين الوظيفة والأصالة.</p></article>
-        </div>
-        <figure class="how__visual">
-          <div class="how__arch"><img src="assets/img/products/wc-mood-4.jpg" alt="زير غيث يتعرّق — التبريد الطبيعي بالتبخر" width="1000" height="1250" loading="lazy"></div>
-          <div class="how__drops" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-          <svg class="how__ring" viewBox="0 0 400 400" aria-hidden="true"><circle cx="200" cy="200" r="196"/></svg>
-        </figure>
-        <div class="how__col">
-          <article class="how__item fade-up"><span class="how__dot" aria-hidden="true"></span><h3 data-i18n="how.3">التبريد بالتبخر</h3><p data-i18n="how.3p">تسمح المسامية الطبيعية للفخار بنفاذ كميات دقيقة من الماء إلى سطحه الخارجي، حيث تتبخر بفعل الهواء، مما يعمل على تبريد المياه داخل الفخارة طبيعيًا دون الحاجة إلى الكهرباء.</p></article>
-          <article class="how__item fade-up"><span class="how__dot" aria-hidden="true"></span><h3 data-i18n="how.4">خصائص الخامة الطبيعية</h3><p data-i18n="how.4p">تعتمد وادي كلاي على التيراكوتا الإسبانية الطبيعية، المختارة بعناية للاستفادة من خصائصها الفيزيائية وبنيتها المسامية في صناعة الفخار.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== Care + FAQ ========== -->
-    <section class="guide section" id="guide">
-      <div class="guide__intro">
-        <p class="kicker"><span class="kicker__num">06</span><span data-i18n="guide.eyebrow">العناية</span></p>
-        <h2 class="section-title split" data-i18n="guide.title">تعليمات الاستخدام والعناية</h2>
-        <ol class="guide__steps">
-          <li class="fade-up"><b>01</b><div><h3 data-i18n="guide.1">الاستخدام الأول</h3><p data-i18n="guide.1p">عند استخدام الفخارة لأول مرة فقط، تُغسل بالماء، ثم تُنقع بالماء لمدة 3 ساعات قبل البدء باستخدامها.</p></div></li>
-          <li class="fade-up"><b>02</b><div><h3 data-i18n="guide.2">الاستخدام اليومي</h3><p data-i18n="guide.2p">يُفضّل استخدام الماء المفلتر وتجديد المياه بانتظام.</p></div></li>
-          <li class="fade-up"><b>03</b><div><h3 data-i18n="guide.3">التنظيف والعناية</h3><p data-i18n="guide.3p">تُغسل الفخارة بالماء فقط، مع تجنّب المنظفات والمواد الكيميائية. لا تُعرّض للنار.</p></div></li>
-          <li class="fade-up"><b>04</b><div><h3 data-i18n="guide.4">التنظيف الشهري</h3><p data-i18n="guide.4p">مرة كل شهر، تُنقع الفخارة بالخل لإزالة الترسبات المتراكمة، ثم تُشطف جيدًا بالماء قبل إعادة استخدامها.</p></div></li>
-        </ol>
-      </div>
-      <div class="faq-wrap">
-        <p class="kicker"><span class="kicker__line" aria-hidden="true"></span><span data-i18n="faq.eyebrow">الأسئلة الشائعة</span></p>
-        <div class="faq" id="faq">
-          <details class="faq__item"><summary><span class="faq__n">01</span><span data-i18n="faq.q1">ما الفرق بين فخار وادي كلاي والفخار التقليدي؟</span></summary><p data-i18n="faq.a1">يتميز فخار وادي كلاي بطين التيراكوتا الإسباني الطبيعي، وتوليفة خاصة من الخامات المختارة بعناية، تُشكّل يدويًا وتُخبز بدرجة حرارة تصل إلى 900 درجة مئوية، مع تشطيب متقن. بينما الفخار التقليدي لا يحتوي على هذه التركيبة الخاصة ولا يمر بنفس عملية التصنيع المتقدمة.</p></details>
-          <details class="faq__item"><summary><span class="faq__n">02</span><span data-i18n="faq.q2">ما الذي يميّز خامات فخارات وادي كلاي؟</span></summary><p data-i18n="faq.a2">نجمع بين الطين الإسباني الطبيعي وخامات مختارة ضمن تركيبة مدروسة، ونعتني بتفاصيل التصنيع اليدوي والتشطيب لنقدّم فخارات تجمع بين الجودة والعملية والتميّز.</p></details>
-          <details class="faq__item"><summary><span class="faq__n">03</span><span data-i18n="faq.q3">كم تدوم فخارة وادي كلاي؟</span></summary><p data-i18n="faq.a3">مع الاستخدام الصحيح والالتزام بتعليمات العناية والتنظيف، تدوم فخارات وادي كلاي طويلًا وتحافظ على جودتها وأدائها.</p></details>
-          <details class="faq__item"><summary><span class="faq__n">04</span><span data-i18n="faq.q4">هل يمكن استخدام الماء المفلتر أو غير المفلتر؟</span></summary><p data-i18n="faq.a4">نعم، يمكن استخدام النوعين، لكننا ننصح باستخدام الماء المفلتر للحصول على أفضل تجربة.</p></details>
-          <details class="faq__item"><summary><span class="faq__n">05</span><span data-i18n="faq.q5">كم تستغرق عملية تنقية المياه؟</span></summary><p data-i18n="faq.a5">تحتاج المياه المفلترة مسبقًا إلى نحو 20 دقيقة، بينما قد تحتاج المياه غير المفلترة إلى نحو ساعتين، وتختلف المدة بحسب نوعية المياه المستخدمة.</p></details>
         </div>
       </div>
     </section>

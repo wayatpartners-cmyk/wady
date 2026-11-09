@@ -927,7 +927,24 @@ bindEvents();
 bindHero();
 initPointerFX();
 initMotion();
-heroEntrance();
+// Opening screen with the emblem, as on the first site: ~2s on the first visit of a
+// session (tap to skip), a quick fade after that; then the hero comes in.
+(function loader() {
+  const el = $("#loader");
+  if (!el) { heroEntrance(); return; }
+  let seen = false;
+  try { seen = sessionStorage.getItem("wadi-loader") === "1"; sessionStorage.setItem("wadi-loader", "1"); } catch { /* private mode */ }
+  let gone = false;
+  const leave = () => {
+    if (gone) return; gone = true;
+    const done = () => { el.remove(); document.body.classList.remove("is-loading"); if (hasGSAP) ScrollTrigger.refresh(); };
+    if (hasGSAP && !reduceMotion) gsap.to(el, { yPercent: -100, duration: 1, ease: "expo.inOut", onComplete: done });
+    else { el.style.transition = "opacity .4s"; el.style.opacity = 0; setTimeout(done, 400); }
+    setTimeout(heroEntrance, hasGSAP && !reduceMotion ? 450 : 0);
+  };
+  el.addEventListener("click", leave);
+  setTimeout(leave, seen || reduceMotion ? 350 : 2100);
+})();
 
 // Live products from the admin panel (if Supabase is configured)
 updateSchema();
