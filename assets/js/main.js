@@ -663,7 +663,7 @@ function bindEvents() {
 
   $("#qtyPlus").addEventListener("click", () => { modalQty++; $("#qtyVal").textContent = modalQty; });
   $("#qtyMinus").addEventListener("click", () => { modalQty = Math.max(1, modalQty - 1); $("#qtyVal").textContent = modalQty; });
-  $("#modalAdd").addEventListener("click", () => { addToCart(modalProduct.id, modalQty); closeModal(); });
+  $("#modalAdd").addEventListener("click", () => { if (!modalProduct) return; addToCart(modalProduct.id, modalQty); closeModal(); });
   $("#cartBtn").addEventListener("click", openDrawer);
   $("#sendOrder").addEventListener("click", sendOrder);
 
@@ -928,7 +928,10 @@ initMotion();
   let gone = false;
   const leave = () => {
     if (gone) return; gone = true;
-    const done = () => { el.remove(); document.body.classList.remove("is-loading"); if (hasGSAP) ScrollTrigger.refresh(); };
+    let removed = false;
+    const done = () => { if (removed) return; removed = true; el.remove(); document.body.classList.remove("is-loading"); if (hasGSAP) ScrollTrigger.refresh(); };
+    // safety net: if the tab is in the background the animation is paused, so remove it anyway
+    setTimeout(done, 1400);
     if (hasGSAP && !reduceMotion) gsap.to(el, { yPercent: -100, duration: 1, ease: "expo.inOut", onComplete: done });
     else { el.style.transition = "opacity .4s"; el.style.opacity = 0; setTimeout(done, 400); }
     setTimeout(heroEntrance, hasGSAP && !reduceMotion ? 450 : 0);
