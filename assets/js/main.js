@@ -15,7 +15,7 @@ const I18N = {
     "cart.empty": "سلّتك فارغة — اختر فخارتك من المجموعة.", "cart.remove": "إزالة",
     "cart.added": "أُضيفت إلى طلبك ✓", "cart.needItems": "أضف قطعة واحدة على الأقل",
     "stock.out": "نفد من المخزون", "stock.outBtn": "غير متوفر حالياً", "cart.add": "أضف إلى الطلب",
-    "gift.label": "الملحقات المرفقة", "photo.soon": "الصورة قريباً",
+    "gift.label": "الهدية", "gift.title": "الهدية", "p.price": "السعر", "p.cur": "دينار", "p.gift": "الهدية", "photo.soon": "الصورة قريباً",
     "wa.hello": "مرحباً وادي كلاي 👋", "wa.order": "أرغب بطلب:",
     "wa.total": "المجموع", "wa.name": "الاسم", "wa.city": "العنوان", "wa.pay": "الدفع عند الاستلام",
     "wa.general": "مرحباً وادي كلاي 👋 حابب أستفسر عن منتجاتكم.",
@@ -104,7 +104,7 @@ const I18N = {
     "cart.note": "WhatsApp will open with your order ready to send; we'll reply to confirm delivery. Cash on delivery.",
     "cart.empty": "Your order is empty — pick a piece from the collection.", "cart.remove": "Remove",
     "cart.added": "Added to your order ✓", "cart.needItems": "Add at least one piece",
-    "stock.out": "Out of stock", "stock.outBtn": "Currently unavailable", "gift.label": "Included", "photo.soon": "Photo coming soon",
+    "stock.out": "Out of stock", "stock.outBtn": "Currently unavailable", "gift.label": "Gift", "gift.title": "Gift", "p.price": "Price", "p.cur": "JOD", "p.gift": "Gift", "photo.soon": "Photo coming soon",
     "wa.hello": "Hello Wadi Clay 👋", "wa.order": "I'd like to order:",
     "wa.total": "Total", "wa.name": "Name", "wa.city": "Address", "wa.pay": "Cash on delivery",
     "wa.general": "Hello Wadi Clay 👋 I'd like to ask about your products.",
@@ -301,10 +301,11 @@ const safeUrl = u => (typeof u === "string" && /^(https:\/\/|assets\/)/.test(u) 
 const hasSale = p => Number(p.old_price) > Number(p.price);
 
 function normalise(p) {
-  // a photo uploaded from the admin panel (https) wins; otherwise use the product's local photo set
-  const set = (window.PRODUCT_GALLERY || {})[p.name_en] || [];
+  // a photo uploaded from the admin panel (https) wins; otherwise the product's own photo set
+  const st = window.productStyle ? window.productStyle(p) : { gallery: [] };
   const own = safeUrl(p.image_url || p.img || "");
   const uploaded = /^https:/.test(own) ? own : "";
+  const set = st.gallery || [];
   const gallery = uploaded ? [uploaded, ...set] : set.length ? set : own ? [own] : [];
   return {
     ...p,
@@ -314,7 +315,9 @@ function normalise(p) {
     in_stock: p.in_stock !== false,
     image_url: gallery[0] || "",
     gallery,
-    shape: p.shape || (/صحن|plate/i.test(p.name_en || p.name_ar) ? "bowl" : SHAPE_BY_CAT[p.category] || "jar"),
+    color: st.color || "#4A2E1F",
+    wall: st.wall || "#E5D4BC",
+    shape: p.shape || SHAPE_BY_CAT[p.category] || "jar",
     glaze: p.glaze || "terracotta"
   };
 }
@@ -361,44 +364,34 @@ function priceHTML(p) {
     : `<span class="price">${money(p.price)}</span>`;
 }
 
-function cardHTML(p) {
-  const off = hasSale(p) ? Math.round((1 - p.price / p.old_price) * 100) : 0;
-  const tag = !p.in_stock ? `<span class="card__tag card__tag--out">${t("stock.out")}</span>`
-    : L(p, "tag") ? `<span class="card__tag">${esc(L(p, "tag"))}</span>` : "";
+/* poster-style text: "Name - capacity", diamond divider, price pill, gift pill */
+const ICON_TAG = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.4"/><path d="m9 16 5-6"/></svg>`;
+const ICON_GIFT = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="1.5"/><path d="M3 13h18M12 9v12M12 9C10 5 6 5 7 8c.6 1.6 5 1 5 1s4.4.6 5-1c1-3-3-3-5 1"/></svg>`;
+const fmtNum = n => (Number.isInteger(n) ? String(n) : n.toFixed(2));
+function posterText(p) {
+  const cap = L(p, "capacity"), gifts = L(p, "gifts");
+  const price = hasSale(p) ? `<s>${fmtNum(p.old_price)}</s> <b>${fmtNum(p.price)}</b>` : `<b>${fmtNum(p.price)}</b>`;
   return `
-    <article class="card ${p.in_stock ? "" : "is-out"}" data-id="${esc(p.id)}" tabindex="0" aria-label="${esc(L(p, "name"))}">
-      <div class="card__media ${p.image_url ? "has-photo" : ""}">
-        ${tag}
-        ${off > 0 && p.in_stock ? `<span class="card__off">-${off}%</span>` : ""}
-        <div class="card__art">${productArt(p)}</div>
-        ${p.in_stock ? `<button class="card__quick" type="button" data-add="${esc(p.id)}">${t("cart.quick")}</button>` : ""}
-      </div>
-      <div class="card__info">
-        <div><h3>${esc(L(p, "name"))}</h3>${L(p, "capacity") ? `<small>${esc(L(p, "capacity"))}</small>` : ""}</div>
-        ${priceHTML(p)}
-      </div>
-      ${L(p, "gifts") ? `<p class="card__gift"><span aria-hidden="true">✦</span> ${t("gift.label")}: ${esc(L(p, "gifts"))}</p>` : ""}
+    <div class="ptext">
+      <h3 class="ptext__title">${esc(L(p, "name"))}${cap ? ` <em>-</em> <b>${esc(cap)}</b>` : ""}</h3>
+      <div class="ptext__divider" aria-hidden="true"><i></i><span>✦</span><i></i></div>
+      <p class="ptext__row"><span class="ptext__ico">${ICON_TAG}</span><span class="ptext__val">${t("p.price")}: ${price} ${t("p.cur")}</span></p>
+      ${gifts ? `<p class="ptext__row"><span class="ptext__ico">${ICON_GIFT}</span><span class="ptext__val">${t("p.gift")}: ${esc(gifts)}</span></p>` : ""}
+    </div>`;
+}
+
+function cardHTML(p) {
+  return `
+    <article class="pcard ${p.in_stock ? "" : "is-out"} ${activeCat !== "all" && activeCat !== p.category ? "is-hidden" : ""}" data-id="${esc(p.id)}" data-cat="${esc(p.category)}" tabindex="0" aria-label="${esc(L(p, "name"))}" style="--pc:${esc(p.color)};--pw:${esc(p.wall)}">
+      ${posterText(p)}
+      <div class="pcard__media">${productArt(p)}</div>
+      ${p.in_stock ? `<button class="pcard__add" type="button" data-add="${esc(p.id)}">${t("cart.add")}</button>` : `<span class="pcard__out">${t("stock.out")}</span>`}
     </article>`;
 }
 
-/* One block per category, each with its own heading and intro text */
+/* The whole range as one gallery of small posters, in the posters' order */
 function renderGrid() {
-  const texts = window.CATEGORY_TEXT || {};
-  $("#grid").innerHTML = groupsInUse().map((c, i) => {
-    const items = PRODUCT_LIST.filter(p => p.category === c.id);
-    const tx = texts[c.id] || {};
-    const small = c.id === "accessories";
-    return `
-    <div class="group ${activeCat !== "all" && activeCat !== c.id ? "is-hidden" : ""}" data-group="${c.id}">
-      <div class="group__head">
-        <span class="group__num">${String(i + 1).padStart(2, "0")}</span>
-        <h3>${esc(c[lang])}</h3>
-        ${tx[lang] ? `<p>${esc(tx[lang])}</p>` : ""}
-      </div>
-      <div class="grid ${small ? "grid--small" : ""}">${items.map(cardHTML).join("")}</div>
-      ${tx[`note_${lang}`] ? `<p class="group__note">${esc(tx[`note_${lang}`])}</p>` : ""}
-    </div>`;
-  }).join("");
+  $("#grid").innerHTML = `<div class="grid grid--posters">${PRODUCT_LIST.map(cardHTML).join("")}</div>`;
 }
 
 /* Structured data (schema.org) so Google understands the store and its products.
@@ -632,8 +625,8 @@ function bindEvents() {
     if (filter) {
       activeCat = filter.dataset.cat;
       renderFilters();
-      $$(".group").forEach(g => g.classList.toggle("is-hidden", activeCat !== "all" && g.dataset.group !== activeCat));
-      if (hasGSAP && !reduceMotion) gsap.fromTo(".group:not(.is-hidden) .card", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .8, stagger: .05, ease: "expo.out" });
+      $$("#grid .pcard").forEach(c => c.classList.toggle("is-hidden", activeCat !== "all" && c.dataset.cat !== activeCat));
+      if (hasGSAP && !reduceMotion) gsap.fromTo("#grid .pcard:not(.is-hidden)", { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: .8, stagger: .05, ease: "expo.out" });
       if (hasGSAP) ScrollTrigger.refresh();
       return;
     }
@@ -838,7 +831,7 @@ let cardTriggers = [];
 function animateCards() {
   if (!hasGSAP || reduceMotion) return;
   cardTriggers.forEach(st => st.kill());
-  cardTriggers = ScrollTrigger.batch(".card", {
+  cardTriggers = ScrollTrigger.batch(".pcard", {
     start: "top 92%", once: true,
     onEnter: b => gsap.fromTo(b, { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, stagger: .08, ease: "expo.out" })
   });
@@ -849,35 +842,34 @@ function animateCards() {
    The picker swaps between a few hero products; the page opens
    straight away (no loading screen), with a short entrance.
    ============================================================ */
-const FEATURED = [
-  { en: "Ghaith Zeer", cap: /15/ },
-  { en: "Family Qarora" },
-  { en: "Irwa Premium" },
-  { en: "Riwaq" }
-];
 const BESTSELLERS = [
-  { en: "Ghaith Zeer", cap: /15/ }, { en: "Family Qarora" }, { en: "Riwaq" }, { en: "Irwa Classic" }
+  { en: "Ghaith", cap: /15/ }, { en: "Al Qarora" }, { en: "Irwaa" }, { en: "Riwaq" }
 ];
 const findProduct = f => PRODUCT_LIST.find(p => p.name_en === f.en && (!f.cap || f.cap.test(p.capacity_en || p.capacity_ar || "")));
 
+/* the hero is a live poster: every product in turn, in the posters' order */
 let featIndex = 0, featTimer = null;
-function featured() { return FEATURED.map(findProduct).filter(Boolean); }
+function featured() { return PRODUCT_LIST.filter(p => p.in_stock); }
 
 function renderFeature(i, animate = true) {
   const list = featured();
   if (!list.length) return;
   featIndex = (i + list.length) % list.length;
   const p = list[featIndex];
-  const box = $("#feature");
+  const hero = $("#hero"), box = $("#feature");
   const apply = () => {
+    hero.style.setProperty("--pc", p.color);
+    hero.style.setProperty("--pw", p.wall);
     $("#featName").textContent = L(p, "name");
-    $("#featMeta").textContent = [L(p, "capacity"), L(p, "gifts")].filter(Boolean).join(" · ");
-    $("#featPrice").innerHTML = hasSale(p) ? `<s>${money(p.old_price)}</s> ${money(p.price)}` : money(p.price);
+    $("#featCap").textContent = L(p, "capacity");
+    $("#featPrice").innerHTML = hasSale(p) ? `<s>${fmtNum(p.old_price)}</s> ${fmtNum(p.price)}` : fmtNum(p.price);
+    $("#featGifts").textContent = L(p, "gifts") || "—";
+    $("#featDesc").textContent = L(p, "desc");
     box.classList.remove("is-swapping");
   };
-  if (animate) { box.classList.add("is-swapping"); setTimeout(apply, 260); } else apply();
+  if (animate) { box.classList.add("is-swapping"); setTimeout(apply, 300); } else apply();
 
-  // cross-fade the stage photo
+  // cross-fade the product photo
   const imgs = $$(".stage__img"), cur = imgs.find(x => x.classList.contains("is-active")) || imgs[0], next = imgs.find(x => x !== cur);
   if (animate && cur.getAttribute("src") !== p.image_url) {
     next.src = p.image_url; next.alt = L(p, "name") + " — وادي كلاي";
@@ -887,13 +879,13 @@ function renderFeature(i, animate = true) {
 
   $$("#picker button").forEach((b, k) => { b.classList.toggle("is-active", k === featIndex); b.setAttribute("aria-selected", k === featIndex); });
   clearTimeout(featTimer);
-  if (!reduceMotion) featTimer = setTimeout(() => renderFeature(featIndex + 1), 6000);
+  if (!reduceMotion) featTimer = setTimeout(() => renderFeature(featIndex + 1), 6500);
 }
 
 function renderHero() {
   const list = featured();
   $("#picker").innerHTML = list.map((p, k) =>
-    `<button type="button" role="tab" aria-label="${esc(L(p, "name"))}" data-feat="${k}"><img src="${esc(p.gallery[0] || p.image_url)}" alt="" loading="lazy"></button>`).join("");
+    `<button type="button" role="tab" data-feat="${k}" style="--bc:${esc(p.color)}"><img src="${esc(p.image_url)}" alt="" loading="lazy"><span>${esc(L(p, "name"))} ${esc(L(p, "capacity"))}</span></button>`).join("");
   renderFeature(featIndex, false);
   $("#bestGrid").innerHTML = BESTSELLERS.map(findProduct).filter(Boolean).map(cardHTML).join("");
 }
@@ -904,17 +896,16 @@ function bindHero() {
     const p = featured()[featIndex]; if (!p) return;
     addToCart(p.id); openDrawer();
   });
-  // pause the rotation while the visitor is looking at the hero product
-  $(".hero__visual").addEventListener("mouseenter", () => clearTimeout(featTimer));
-  $(".hero__visual").addEventListener("mouseleave", () => { if (!reduceMotion) featTimer = setTimeout(() => renderFeature(featIndex + 1), 4000); });
+  // pause the rotation while the visitor is looking at the product
+  $(".hero__inner").addEventListener("mouseenter", () => clearTimeout(featTimer));
+  $(".hero__inner").addEventListener("mouseleave", () => { if (!reduceMotion) featTimer = setTimeout(() => renderFeature(featIndex + 1), 4000); });
 }
 
 function heroEntrance() {
   if (!hasGSAP || reduceMotion) return;
   gsap.timeline({ defaults: { ease: "expo.out" } })
-    .from(".stage", { y: 40, opacity: 0, scale: .97, duration: 1.2 }, 0)
-    .from(".hero__title .word", { yPercent: 110, duration: 1.1, stagger: .08 }, .1)
-    .from(".hero__kicker, .hero__lead, .feature, .hero__cta, .hero__trust, .picker", { y: 24, opacity: 0, duration: .9, stagger: .07 }, .3);
+    .from(".stage", { y: 40, opacity: 0, duration: 1.2 }, 0)
+    .from(".hero__brand, #feature > *, .hero__lead, .hero__cta, .hero__trust, .picker", { y: 22, opacity: 0, duration: .9, stagger: .06 }, .15);
 }
 
 /* ============================================================
