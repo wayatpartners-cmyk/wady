@@ -60,10 +60,10 @@
     </a>
     <nav class="nav" id="nav">
       <a href="#why" data-i18n="nav.why">لماذا وادي كلاي</a>
+      <a href="#collection" data-i18n="nav.shop">المتجر</a>
       <a href="#benefits" data-i18n="nav.benefits">الفوائد</a>
       <a href="#how" data-i18n="nav.how">آلية العمل</a>
       <a href="#guide" data-i18n="nav.guide">العناية والأسئلة</a>
-      <a href="#collection" data-i18n="nav.collection">المجموعة</a>
       <a href="#contact" data-i18n="nav.contact">تواصل</a>
     </nav>
     <div class="header__actions">
@@ -116,16 +116,30 @@
       <div class="picker" id="picker" role="tablist" aria-label="المنتجات"></div>
     </section>
 
-    <!-- ========== Bestsellers ========== -->
-    <section class="best section" id="best">
+    <!-- ========== Shop: pick, add to basket, send on WhatsApp ========== -->
+    <section class="shop section" id="collection">
       <div class="section-head section-head--row">
-        <div>
-          <p class="kicker"><span class="kicker__line" aria-hidden="true"></span><span data-i18n="best.eyebrow">اختيارات عملائنا</span></p>
-          <h2 class="section-title" data-i18n="best.title">الأكثر طلباً</h2>
+        <div class="section-head__main">
+          <p class="kicker"><span class="kicker__line" aria-hidden="true"></span><span data-i18n="shop.eyebrow">المتجر</span></p>
+          <h2 class="section-title" data-i18n="shop.title">اختر فخارتك واطلبها بدقيقة</h2>
+          <p class="section-lead" data-i18n="shop.lead">أضف المنتجات للسلة واختر الكمية، ثم أرسل طلبك عبر واتساب — توصيل مجاني خلال 24 ساعة والدفع عند الاستلام.</p>
         </div>
-        <a href="#collection" class="link-line"><span data-i18n="best.all">كل المنتجات</span></a>
+        <div class="filters" id="filters" role="tablist"></div>
       </div>
-      <div class="grid grid--best" id="bestGrid"></div>
+      <ol class="shop__steps" aria-label="طريقة الطلب">
+        <li><b>1</b><span data-i18n="shop.s1">اختر المنتج والكمية</span></li>
+        <li><b>2</b><span data-i18n="shop.s2">راجع سلتك وأدخل عنوانك</span></li>
+        <li><b>3</b><span data-i18n="shop.s3">أرسل الطلب عبر واتساب</span></li>
+      </ol>
+      <div class="groups" id="grid"></div>
+      <noscript>
+        <ul class="noscript-list">
+          <li>القارورة 12 لتر — 79 دينار</li><li>رحال 800 مل — 18 دينار</li><li>غيث 15 لتر — 99 دينار</li>
+          <li>إرواء 1300 مل — 20 دينار</li><li>نقاء 1400 مل — 22 دينار</li><li>ثرى 900 مل — 19 دينار</li>
+          <li>ندى 900 مل — 20 دينار</li><li>غيث 6 لتر — 59 دينار</li><li>رواق 1500 مل — 25 دينار</li>
+        </ul>
+        <p>للطلب عبر واتساب: <a href="https://wa.me/962797838721">0797838721</a></p>
+      </noscript>
     </section>
 
     <!-- ========== Marquee ========== -->
@@ -242,32 +256,6 @@
       </div>
     </section>
 
-    <!-- ========== Collection ========== -->
-    <section class="collection section" id="collection">
-      <div class="section-head section-head--row">
-        <div class="section-head__main">
-          <p class="kicker"><span class="kicker__num">06</span><span data-i18n="col.eyebrow">المجموعة</span></p>
-          <h2 class="section-title split" data-i18n="col.title">مجموعة وادي كلاي</h2>
-          <p class="section-lead fade-up" data-i18n="col.lead">تصاميم أساسية، أحجام عائلية، عروض مختارة، وملحقات تكمل تجربتكم — مع ملحقات مرفقة بحسب كل فخارة.</p>
-        </div>
-        <div class="filters" id="filters" role="tablist"></div>
-      </div>
-      <div class="groups" id="grid"></div>
-      <noscript>
-        <ul class="noscript-list">
-          <li>إرواء كلاسيك ١٣٠٠ مل — 20 د.أ (صحن فخار مخصص للترشيح، كوب فخار)</li>
-          <li>إرواء بريميوم ١٢٠٠ مل — 19.99 د.أ شامل التوصيل (صحن فخار، كوب فخار)</li>
-          <li>إرواء لاينز ١٠٠٠ مل — 18.99 د.أ شامل التوصيل (صحن فخار، كوب فخار)</li>
-          <li>إرواء كيرفي ١٣٠٠ مل — 19.99 د.أ شامل التوصيل (صحن فخار، كوب فخار)</li>
-          <li>نقاء ١٤٠٠ مل — 22 د.أ (صحن فخار مخصص للترشيح، كوب فخار)</li>
-          <li>رواق ١٥٠٠ مل — 25 د.أ (كوب فخار)</li>
-          <li>بترا ١٤٠٠ مل — 22 د.أ (صحن فخار مخصص للترشيح، كوب فخار)</li>
-          <li>رحال ١٠٠٠ مل — 18 د.أ (صحن فخار، كاسة فخار، شنطة مخصصة للحمل)</li>
-        </ul>
-        <p>للطلب عبر واتساب: <a href="https://wa.me/962797838721">0797838721</a></p>
-      </noscript>
-    </section>
-
     <!-- ========== Laser engraving ========== -->
     <section class="engrave" id="engrave">
       <div class="engrave__inner">
@@ -315,7 +303,7 @@
     <section class="gallery section" id="gallery">
       <div class="section-head section-head--row">
         <div>
-          <p class="kicker"><span class="kicker__num">07</span><span data-i18n="gal.eyebrow">من المشغل</span></p>
+          <p class="kicker"><span class="kicker__num">06</span><span data-i18n="gal.eyebrow">من المشغل</span></p>
           <h2 class="section-title split" data-i18n="gal.title">لحظات من بين الطين والنار</h2>
         </div>
         <a href="#" class="link-line js-ig" target="_blank" rel="noopener"><span data-i18n="gal.ig">تابعنا على إنستغرام</span></a>
@@ -337,7 +325,7 @@
         <div class="contact__grid">
           <div><small data-i18n="ct.phone">الهاتف وواتساب</small><p><a href="tel:+962797838721" dir="ltr">0797 838 721</a></p></div>
           <div><small data-i18n="ct.del">التوصيل</small><p data-i18n="ct.delv">مجاناً لجميع مناطق الأردن خلال 24 ساعة من تأكيد الطلب</p><p class="contact__fine" data-i18n="ct.delx">استثناء: توصيل فخارات العروض ديناران.</p></div>
-          <div><small data-i18n="ct.follow">تابعنا</small><p class="contact__handles" dir="ltr">Instagram · Wadi.Clay<br>Facebook · WadiClay</p><div class="social"><a href="#" class="js-ig" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a><a href="#" class="js-fb" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1Z"/></svg></a></div></div>
+          <div><small data-i18n="ct.follow">تابعنا</small><p class="contact__handles" dir="ltr"><a href="#" class="js-ig" target="_blank" rel="noopener">Instagram · Wadi.Clay</a><br><a href="#" class="js-fb" target="_blank" rel="noopener">Facebook · WADI CLAY</a></p><div class="social"><a href="#" class="js-ig" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"/></svg></a><a href="#" class="js-fb" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6V21h3.1Z"/></svg></a></div></div>
         </div>
       </div>
     </section>
@@ -375,24 +363,49 @@
     </div>
   </div>
 
-  <!-- Cart drawer -->
+  <!-- Cart drawer / checkout -->
   <aside class="drawer" id="drawer" aria-hidden="true">
     <div class="drawer__backdrop" data-close-cart></div>
     <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawerTitle">
       <div class="drawer__head">
-        <h3 id="drawerTitle" data-i18n="cart.title">طلبك</h3>
+        <h3 id="drawerTitle" data-i18n="cart.title">سلة الطلب</h3>
         <button class="icon-btn" data-close-cart aria-label="Close">✕</button>
       </div>
       <div class="drawer__items" id="cartItems"></div>
-      <div class="drawer__foot">
-        <label class="field"><span data-i18n="cart.name">الاسم</span><input id="custName" type="text" autocomplete="name"></label>
-        <label class="field"><span data-i18n="cart.city">المدينة / العنوان</span><input id="custCity" type="text" autocomplete="address-level2"></label>
-        <div class="drawer__total"><span data-i18n="cart.total">المجموع</span><b id="cartTotal">0</b></div>
-        <button class="btn btn--primary btn--block" id="sendOrder" type="button"><span data-i18n="cart.send">إرسال الطلب عبر واتساب</span></button>
+      <form class="drawer__foot" id="checkoutForm" novalidate>
+        <div class="drawer__sum">
+          <p><span data-i18n="cart.sub">المنتجات</span><b id="cartSub">0</b></p>
+          <p><span data-i18n="cart.delivery">التوصيل</span><b data-i18n="cart.free">مجاني</b></p>
+          <p class="drawer__total"><span data-i18n="cart.total">المجموع</span><b id="cartTotal">0</b></p>
+        </div>
+        <div class="checkout">
+          <label class="field"><span data-i18n="cart.name">الاسم *</span><input id="custName" type="text" autocomplete="name" required></label>
+          <label class="field"><span data-i18n="cart.phone">رقم الهاتف *</span><input id="custPhone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" placeholder="07XXXXXXXX" required></label>
+          <label class="field"><span data-i18n="cart.gov">المحافظة *</span>
+            <select id="custGov" required>
+              <option value="" data-i18n="cart.govPick">اختر المحافظة</option>
+              <option>عمّان</option><option>إربد</option><option>الزرقاء</option><option>البلقاء</option><option>المفرق</option><option>جرش</option>
+              <option>عجلون</option><option>مادبا</option><option>الكرك</option><option>الطفيلة</option><option>معان</option><option>العقبة</option>
+            </select>
+          </label>
+          <label class="field"><span data-i18n="cart.city">العنوان بالتفصيل *</span><input id="custCity" type="text" autocomplete="street-address" required></label>
+          <label class="field field--wide"><span data-i18n="cart.notes">ملاحظات (اختياري)</span><input id="custNotes" type="text"></label>
+        </div>
+        <p class="checkout__error" id="checkoutError" role="alert"></p>
+        <button class="btn btn--primary btn--block btn--wa" id="sendOrder" type="submit">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="wa-ico"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2 1-2.3.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.7-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3Z"/></svg>
+          <span data-i18n="cart.send">إرسال الطلب عبر واتساب</span>
+        </button>
         <p class="drawer__note" data-i18n="cart.note">سيفتح واتساب برسالة جاهزة فيها طلبك، ونرد عليك لتأكيد التوصيل. الدفع عند الاستلام.</p>
-      </div>
+      </form>
     </div>
   </aside>
+
+  <!-- Floating basket bar (shows once something is in the basket) -->
+  <div class="cartbar" id="cartbar" aria-live="polite">
+    <div class="cartbar__info"><b id="cartbarCount">0</b> <span data-i18n="bar.items">قطع في السلة</span> · <b id="cartbarTotal">0</b></div>
+    <button type="button" class="cartbar__btn" id="cartbarBtn"><span data-i18n="bar.checkout">إتمام الطلب</span></button>
+  </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 

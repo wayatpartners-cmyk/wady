@@ -5,7 +5,7 @@ window.SITE_CONFIG = {
   // WhatsApp number in international format, no + or spaces (e.g. 962791234567)
   whatsapp: "962797838721",
   instagram: "https://www.instagram.com/wadiclay/",
-  facebook: "https://www.facebook.com/profile.php?id=61584512424077",
+  facebook: "https://www.facebook.com/p/WADI-CLAY-%D9%88%D8%A7%D8%AF%D9%8A-%D9%83%D9%84%D8%A7%D9%8A-61584512424077/",
 
   // true = show the products listed in assets/js/products.js (admin panel edits are NOT shown).
   // Keep false: products come from the Supabase project (admin panel).

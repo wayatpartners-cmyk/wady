@@ -17,7 +17,7 @@ const I18N = {
     "stock.out": "نفد من المخزون", "stock.outBtn": "غير متوفر حالياً", "cart.add": "أضف إلى الطلب",
     "gift.label": "الهدية", "gift.title": "الهدية", "p.price": "السعر", "p.cur": "دينار", "p.gift": "الهدية", "photo.soon": "الصورة قريباً",
     "wa.hello": "مرحباً وادي كلاي 👋", "wa.order": "أرغب بطلب:",
-    "wa.total": "المجموع", "wa.name": "الاسم", "wa.city": "العنوان", "wa.pay": "الدفع عند الاستلام",
+    "wa.total": "المجموع", "wa.name": "الاسم", "wa.city": "العنوان", "wa.phone": "الهاتف", "wa.gov": "المحافظة", "wa.notes": "ملاحظات", "wa.free": "التوصيل مجاني", "chk.missing": "يرجى تعبئة الحقول المطلوبة (*) لنتمكن من توصيل طلبك.", "chk.phone": "رقم الهاتف غير صحيح — مثال: 0791234567", "bar.inBasket": "بالسلة", "wa.pay": "الدفع عند الاستلام",
     "wa.general": "مرحباً وادي كلاي 👋 حابب أستفسر عن منتجاتكم.",
     "wa.engrave": "مرحباً وادي كلاي 👋 حابب أعرف تفاصيل وأسعار خدمة الحفر بالليزر على الفخارة.",
     "menu": "القائمة", "cartLabel": "سلة الطلب",
@@ -98,15 +98,15 @@ const I18N = {
     "ct.follow": "Follow us",
     "footer.made": "Made with love, from clay to heart.",
     "gift.title": "Included accessories",
-    "cart.add": "Add to order", "cart.quick": "Add to order +", "cart.title": "Your order",
-    "cart.name": "Name", "cart.city": "City / address", "cart.total": "Total",
+    "cart.add": "Add to order", "cart.quick": "Add to order +", "cart.title": "Your basket",
+    "cart.name": "Name *", "cart.city": "Full address *", "cart.total": "Total",
     "cart.send": "Send order on WhatsApp",
     "cart.note": "WhatsApp will open with your order ready to send; we'll reply to confirm delivery. Cash on delivery.",
     "cart.empty": "Your order is empty — pick a piece from the collection.", "cart.remove": "Remove",
     "cart.added": "Added to your order ✓", "cart.needItems": "Add at least one piece",
     "stock.out": "Out of stock", "stock.outBtn": "Currently unavailable", "gift.label": "Gift", "gift.title": "Gift", "p.price": "Price", "p.cur": "JOD", "p.gift": "Gift", "photo.soon": "Photo coming soon",
     "wa.hello": "Hello Wadi Clay 👋", "wa.order": "I'd like to order:",
-    "wa.total": "Total", "wa.name": "Name", "wa.city": "Address", "wa.pay": "Cash on delivery",
+    "wa.total": "Total", "wa.name": "Name", "wa.city": "Address", "wa.phone": "Phone", "wa.gov": "Governorate", "wa.notes": "Notes", "wa.free": "Free delivery", "chk.missing": "Please fill in the required fields (*) so we can deliver your order.", "chk.phone": "That phone number looks wrong — e.g. 0791234567", "bar.inBasket": "in basket", "shop.eyebrow": "Shop", "shop.title": "Choose your clay, order in a minute", "shop.lead": "Add products to your basket and pick quantities, then send your order on WhatsApp — free delivery within 24 hours, cash on delivery.", "shop.s1": "Choose products and quantity", "shop.s2": "Review your basket and address", "shop.s3": "Send the order on WhatsApp", "nav.shop": "Shop", "cart.sub": "Products", "cart.delivery": "Delivery", "cart.free": "Free", "cart.phone": "Phone *", "cart.gov": "Governorate *", "cart.govPick": "Choose your governorate", "cart.notes": "Notes (optional)", "bar.items": "items in basket", "bar.checkout": "Checkout", "wa.pay": "Cash on delivery",
     "wa.general": "Hello Wadi Clay 👋 I'd like to ask about your products.",
     "wa.engrave": "Hello Wadi Clay 👋 I'd like details and prices for laser engraving on a vessel.",
     "menu": "Menu", "cartLabel": "Order basket",
@@ -385,8 +385,20 @@ function cardHTML(p) {
     <article class="pcard ${p.in_stock ? "" : "is-out"} ${activeCat !== "all" && activeCat !== p.category ? "is-hidden" : ""}" data-id="${esc(p.id)}" data-cat="${esc(p.category)}" tabindex="0" aria-label="${esc(L(p, "name"))}" style="--pc:${esc(p.color)};--pw:${esc(p.wall)}">
       ${posterText(p)}
       <div class="pcard__media">${productArt(p)}</div>
-      ${p.in_stock ? `<button class="pcard__add" type="button" data-add="${esc(p.id)}">${t("cart.add")}</button>` : `<span class="pcard__out">${t("stock.out")}</span>`}
+      <div class="pcard__ctl" data-ctl="${esc(p.id)}">${cardControl(p)}</div>
     </article>`;
+}
+
+/* the buy control on a card: "add to basket", or a − qty + stepper once it is in the basket */
+function cardControl(p) {
+  if (!p.in_stock) return `<span class="pcard__out">${t("stock.out")}</span>`;
+  const q = cart[p.id] || 0;
+  return q > 0
+    ? `<div class="pcard__qty"><button type="button" data-dec="${esc(p.id)}" aria-label="-">−</button><span>${q} <small>${t("bar.inBasket")}</small></span><button type="button" data-inc="${esc(p.id)}" aria-label="+">+</button></div>`
+    : `<button class="pcard__add" type="button" data-add="${esc(p.id)}">${t("cart.add")}</button>`;
+}
+function syncCardControls() {
+  $$("[data-ctl]").forEach(el => { const p = byId(el.dataset.ctl); if (p) el.innerHTML = cardControl(p); });
 }
 
 /* The whole range as one gallery of small posters, in the posters' order */
@@ -515,7 +527,17 @@ function renderCart() {
         </div>
       </div>`;
   }).join("") : `<div class="drawer__empty">${vessel("vase", "sand")}<p>${t("cart.empty")}</p></div>`;
-  $("#cartTotal").textContent = money(round(cartTotal()));
+  const total = money(round(cartTotal()));
+  $("#cartTotal").textContent = total;
+  if ($("#cartSub")) $("#cartSub").textContent = total;
+  // floating basket bar + the buy controls on the cards
+  const bar = $("#cartbar");
+  if (bar) {
+    $("#cartbarCount").textContent = count;
+    $("#cartbarTotal").textContent = total;
+    bar.classList.toggle("is-on", count > 0 && !$("#drawer").classList.contains("is-open"));
+  }
+  syncCardControls();
 }
 
 const round = n => Math.round(n * 100) / 100;
@@ -529,13 +551,31 @@ function sendOrder() {
     const gifts = L(p, "gifts");
     return `• ${L(p, "name")}${cap ? ` (${cap})` : ""} × ${q} — ${money(round(p.price * q))}${gifts ? `\n   🎁 ${gifts}` : ""}`;
   });
-  const name = $("#custName").value.trim(), city = $("#custCity").value.trim();
+  const v = id => ($(id)?.value || "").trim();
+  const name = v("#custName"), phone = v("#custPhone").replace(/[^\d+]/g, ""), gov = v("#custGov"), city = v("#custCity"), notes = v("#custNotes");
+  // checkout checks: everything the delivery needs
+  const err = $("#checkoutError"), bad = [];
+  $$(".checkout .field").forEach(f => f.classList.remove("is-bad"));
+  const mark = (sel, ok) => { if (!ok) { bad.push(sel); $(sel)?.closest(".field")?.classList.add("is-bad"); } };
+  mark("#custName", name.length >= 2);
+  mark("#custPhone", /^(\+?962|0)?7\d{8}$/.test(phone));
+  mark("#custGov", !!gov);
+  mark("#custCity", city.length >= 3);
+  if (bad.length) {
+    if (err) err.textContent = bad.includes("#custPhone") && bad.length === 1 ? t("chk.phone") : t("chk.missing");
+    $(bad[0])?.focus();
+    return;
+  }
+  if (err) err.textContent = "";
   const msg = [
     t("wa.hello"), "", t("wa.order"), ...lines, "",
-    `${t("wa.total")}: ${money(round(cartTotal()))} — ${t("wa.pay")}`,
-    name ? `${t("wa.name")}: ${name}` : null,
-    city ? `${t("wa.city")}: ${city}` : null
-  ].filter(v => v !== null).join("\n");
+    `${t("wa.total")}: ${money(round(cartTotal()))} — ${t("wa.free")} — ${t("wa.pay")}`, "",
+    `${t("wa.name")}: ${name}`,
+    `${t("wa.phone")}: ${phone}`,
+    `${t("wa.gov")}: ${gov}`,
+    `${t("wa.city")}: ${city}`,
+    notes ? `${t("wa.notes")}: ${notes}` : null
+  ].filter(x => x !== null).join("\n");
   window.open(waLink(msg), "_blank", "noopener");
 }
 
@@ -601,6 +641,7 @@ function openDrawer() {
   lastFocus = document.activeElement;
   $("#drawer").classList.add("is-open");
   $("#drawer").setAttribute("aria-hidden", "false");
+  $("#cartbar")?.classList.remove("is-on");
   lockScroll(true);
   setTimeout(() => $("#drawer .icon-btn").focus(), 50);
 }
@@ -608,6 +649,7 @@ function closeDrawer() {
   $("#drawer").classList.remove("is-open");
   $("#drawer").setAttribute("aria-hidden", "true");
   lockScroll(false);
+  renderCart();
   lastFocus?.focus?.();
 }
 
@@ -618,6 +660,11 @@ function bindEvents() {
   document.addEventListener("click", e => {
     const add = e.target.closest("[data-add]");
     if (add) { e.stopPropagation(); addToCart(add.dataset.add); return; }
+    // quantity buttons (on cards and in the basket) come before "open the product window"
+    const inc = e.target.closest("[data-inc]"); if (inc) { cart[inc.dataset.inc] = (cart[inc.dataset.inc] || 0) + 1; saveCart(); return; }
+    const dec = e.target.closest("[data-dec]");
+    if (dec) { const id = dec.dataset.dec; cart[id] = (cart[id] || 0) - 1; if (cart[id] <= 0) delete cart[id]; saveCart(); return; }
+    if (e.target.closest(".pcard__ctl")) return;
     const card = e.target.closest(".card, .pcard");
     if (card) { openModal(card.dataset.id); return; }
 
@@ -633,9 +680,6 @@ function bindEvents() {
 
     if (e.target.closest("[data-close]")) { closeModal(); return; }
     if (e.target.closest("[data-close-cart]")) { closeDrawer(); return; }
-    const inc = e.target.closest("[data-inc]"); if (inc) { cart[inc.dataset.inc]++; saveCart(); return; }
-    const dec = e.target.closest("[data-dec]");
-    if (dec) { const id = dec.dataset.dec; cart[id]--; if (cart[id] <= 0) delete cart[id]; saveCart(); return; }
     const rm = e.target.closest("[data-remove]"); if (rm) { delete cart[rm.dataset.remove]; saveCart(); return; }
 
     const wa = e.target.closest(".js-wa, .js-wa-engrave");
@@ -665,7 +709,8 @@ function bindEvents() {
   $("#qtyMinus").addEventListener("click", () => { modalQty = Math.max(1, modalQty - 1); $("#qtyVal").textContent = modalQty; });
   $("#modalAdd").addEventListener("click", () => { if (!modalProduct) return; addToCart(modalProduct.id, modalQty); closeModal(); });
   $("#cartBtn").addEventListener("click", openDrawer);
-  $("#sendOrder").addEventListener("click", sendOrder);
+  $("#checkoutForm").addEventListener("submit", e => { e.preventDefault(); sendOrder(); });
+  $("#cartbarBtn").addEventListener("click", openDrawer);
 
   $("#langBtn").addEventListener("click", () => {
     lang = lang === "ar" ? "en" : "ar";
@@ -887,7 +932,7 @@ function renderHero() {
   $("#picker").innerHTML = list.map((p, k) =>
     `<button type="button" role="tab" data-feat="${k}" style="--bc:${esc(p.color)}"><img src="${esc(p.image_url)}" alt="" loading="lazy"><span>${esc(L(p, "name"))} ${esc(L(p, "capacity"))}</span></button>`).join("");
   renderFeature(featIndex, false);
-  $("#bestGrid").innerHTML = BESTSELLERS.map(findProduct).filter(Boolean).map(cardHTML).join("");
+  if ($("#bestGrid")) $("#bestGrid").innerHTML = BESTSELLERS.map(findProduct).filter(Boolean).map(cardHTML).join("");
 }
 
 function bindHero() {
