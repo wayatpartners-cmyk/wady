@@ -91,7 +91,7 @@ window.PRODUCTS = [
   },
   /* ---- from the owner's copy (no poster yet) ---- */
   {
-    id: "irwa-premium", category: "personal", price: 19.99, old_price: 0, in_stock: true, sort_order: 10,
+    id: "irwa-premium", extra: true, category: "personal", price: 19.99, old_price: 0, in_stock: true, sort_order: 10,
     image_url: "assets/img/products/wc-irwa-premium-1.jpg",
     name_ar: "إرواء بريميوم", name_en: "Irwa Premium", capacity_ar: "1200 مل", capacity_en: "1200 ml",
     desc_ar: "إصدار مطوّر من عائلة إرواء، مستوحى من تصميمها الكلاسيكي، بتفاصيل تمنحه طابعًا أكثر تميزًا وأناقة. السعر شامل التوصيل.",
@@ -99,7 +99,7 @@ window.PRODUCTS = [
     gifts_ar: "صحن فخار، كوب فخار", gifts_en: "Clay plate, clay cup", tag_ar: "شامل التوصيل", tag_en: "Delivery included"
   },
   {
-    id: "irwa-lines", category: "personal", price: 18.99, old_price: 0, in_stock: true, sort_order: 11,
+    id: "irwa-lines", extra: true, category: "personal", price: 18.99, old_price: 0, in_stock: true, sort_order: 11,
     image_url: "assets/img/products/wc-irwa-lines-1.jpg",
     name_ar: "إرواء لاينز", name_en: "Irwa Lines", capacity_ar: "1000 مل", capacity_en: "1000 ml",
     desc_ar: "إصدار مطوّر من عائلة إرواء، يتميز بخطوطه التصميمية التي ترسم شكلًا متفردًا للفخارة وتمنحها هوية بصرية مختلفة عن التصميم الكلاسيكي. السعر شامل التوصيل.",
@@ -107,7 +107,7 @@ window.PRODUCTS = [
     gifts_ar: "صحن فخار، كوب فخار", gifts_en: "Clay plate, clay cup", tag_ar: "شامل التوصيل", tag_en: "Delivery included"
   },
   {
-    id: "irwa-curvy", category: "personal", price: 19.99, old_price: 0, in_stock: true, sort_order: 12,
+    id: "irwa-curvy", extra: true, category: "personal", price: 19.99, old_price: 0, in_stock: true, sort_order: 12,
     image_url: "assets/img/products/wc-irwa-curvy-1.jpg",
     name_ar: "إرواء كيرفي", name_en: "Irwa Curvy", capacity_ar: "1300 مل", capacity_en: "1300 ml",
     desc_ar: "إصدار مطوّر من عائلة إرواء، مستوحى من تصميمها الكلاسيكي، يتميز بانحناءاته الناعمة وتفاصيله المنسابة التي تمنحه حضورًا مختلفًا. السعر شامل التوصيل.",
@@ -115,7 +115,7 @@ window.PRODUCTS = [
     gifts_ar: "صحن فخار، كوب فخار", gifts_en: "Clay plate, clay cup", tag_ar: "شامل التوصيل", tag_en: "Delivery included"
   },
   {
-    id: "petra", category: "personal", price: 22, old_price: 0, in_stock: true, sort_order: 13,
+    id: "petra", extra: true, category: "personal", price: 22, old_price: 0, in_stock: true, sort_order: 13,
     image_url: "assets/img/products/wc-petra-1.jpg",
     name_ar: "بترا", name_en: "Petra", capacity_ar: "1400 مل", capacity_en: "1400 ml",
     desc_ar: "تصميم يستلهم جمال التفاصيل التراثية، ويعكس طابعًا خاصًا يجمع بين الأصالة والحضور المميز.",
@@ -123,7 +123,7 @@ window.PRODUCTS = [
     gifts_ar: "صحن فخار مخصص للترشيح، كوب فخار", gifts_en: "Filtering clay plate, clay cup", tag_ar: "", tag_en: ""
   },
   {
-    id: "irwa-plus", category: "offers", price: 10, old_price: 0, in_stock: true, sort_order: 14,
+    id: "irwa-plus", extra: true, category: "offers", price: 10, old_price: 0, in_stock: true, sort_order: 14,
     image_url: "assets/img/products/wc-irwa-plus-1.jpg",
     name_ar: "إرواء بلس", name_en: "Irwa Plus", capacity_ar: "1000 مل", capacity_en: "1000 ml",
     desc_ar: "تصميم عصري بتفاصيل مميزة، يجمع بين أناقة الشكل وعملية الاستخدام اليومي.",
@@ -131,7 +131,7 @@ window.PRODUCTS = [
     gifts_ar: "", gifts_en: "", tag_ar: "عرض", tag_en: "Offer"
   },
   {
-    id: "cups-offer", category: "offers", price: 5, old_price: 0, in_stock: true, sort_order: 15,
+    id: "cups-offer", extra: true, category: "offers", price: 5, old_price: 0, in_stock: true, sort_order: 15,
     image_url: "assets/img/products/wc-cup-naqaa-1.jpg",
     name_ar: "عرض كاسات نقاء ورواق", name_en: "Naqaa & Riwaq cups offer", capacity_ar: "كوبان", capacity_en: "2 cups",
     desc_ar: "اشتري كوبًا واحصل على الثاني مجانًا! استمتعوا بعرض كاسات نقاء ورواق: كوبان بسعر 5 دنانير فقط. العرض متاح فقط عند شراء إحدى الفخارات المدرجة في قسم العروض.",
@@ -139,7 +139,7 @@ window.PRODUCTS = [
     gifts_ar: "", gifts_en: "", tag_ar: "اشتري واحد والثاني مجانًا", tag_en: "Buy one, get one free"
   },
   {
-    id: "cup-naqaa", category: "accessories", price: 5, old_price: 0, in_stock: true, sort_order: 16,
+    id: "cup-naqaa", extra: true, category: "accessories", price: 5, old_price: 0, in_stock: true, sort_order: 16,
     image_url: "assets/img/products/wc-cup-naqaa-1.jpg",
     name_ar: "كوب نقاء", name_en: "Naqaa cup", capacity_ar: "", capacity_en: "",
     desc_ar: "من ملحقات وادي كلاي المتاحة للشراء بشكل منفصل، لتختاروا ما يناسب فخاراتكم واحتياجاتكم.",
@@ -147,7 +147,7 @@ window.PRODUCTS = [
     gifts_ar: "", gifts_en: "", tag_ar: "", tag_en: ""
   },
   {
-    id: "cup-riwaq", category: "accessories", price: 5, old_price: 0, in_stock: true, sort_order: 17,
+    id: "cup-riwaq", extra: true, category: "accessories", price: 5, old_price: 0, in_stock: true, sort_order: 17,
     image_url: "assets/img/products/wc-cup-riwaq-1.jpg",
     name_ar: "كوب رواق", name_en: "Riwaq cup", capacity_ar: "", capacity_en: "",
     desc_ar: "من ملحقات وادي كلاي المتاحة للشراء بشكل منفصل، لتختاروا ما يناسب فخاراتكم واحتياجاتكم.",
@@ -155,7 +155,7 @@ window.PRODUCTS = [
     gifts_ar: "", gifts_en: "", tag_ar: "", tag_en: ""
   },
   {
-    id: "plate", category: "accessories", price: 1, old_price: 0, in_stock: true, sort_order: 18,
+    id: "plate", extra: true, category: "accessories", price: 1, old_price: 0, in_stock: true, sort_order: 18,
     image_url: "assets/img/products/wc-plate-1.jpg",
     name_ar: "صحن فخار", name_en: "Clay plate", capacity_ar: "", capacity_en: "",
     desc_ar: "من ملحقات وادي كلاي المتاحة للشراء بشكل منفصل، لتختاروا ما يناسب فخاراتكم واحتياجاتكم.",

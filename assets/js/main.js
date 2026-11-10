@@ -332,7 +332,12 @@ async function loadProducts() {
     if (!res.ok) throw new Error(res.status);
     const rows = await res.json();
     if (!Array.isArray(rows) || !rows.length) return false;
-    PRODUCT_LIST = rows.map(normalise);
+    // New products from the owner's copy show even before they are added to the database;
+    // once a row with the same name + size exists there, the database row is used instead.
+    const key = p => `${p.name_en || ""}|${p.capacity_en || ""}`.toLowerCase();
+    const inDb = new Set(rows.map(key));
+    const extras = (window.PRODUCTS || []).filter(p => p.extra && !inDb.has(key(p)));
+    PRODUCT_LIST = [...rows, ...extras].map(normalise);
     return true;
   } catch (err) {
     console.warn("Products: using local list —", err);
