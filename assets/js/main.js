@@ -499,6 +499,7 @@ function addToCart(id, qty = 1) {
   toast(t("cart.added"));
   const btn = $("#cartBtn");
   btn.classList.remove("bump"); void btn.offsetWidth; btn.classList.add("bump");
+  const bar = $("#cartbar"); if (bar) { bar.classList.remove("is-bump"); void bar.offsetWidth; bar.classList.add("is-bump"); }
 }
 
 const cartEntries = () => Object.entries(cart).filter(([id, q]) => byId(id) && q > 0);
@@ -857,6 +858,24 @@ function initMotion() {
   ScrollTrigger.batch(".benefit", { start: "top 90%", once: true, onEnter: b => gsap.fromTo(b, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: .08, ease: "expo.out" }) });
   gsap.from(".how__dot", { scale: 0, duration: .9, stagger: .15, ease: "back.out(3)", scrollTrigger: { trigger: ".how__layout", start: "top 70%" } });
 
+  // round coloured badges pop in as they appear
+  ScrollTrigger.batch(".benefit__ico, .step__num, .guide__steps b, .faq__n, .shop__steps b", {
+    start: "top 92%", once: true,
+    onEnter: b => gsap.fromTo(b, { scale: 0, rotate: -90 }, { scale: 1, rotate: 0, duration: .9, stagger: .07, ease: "back.out(2.2)" })
+  });
+  // headings that are not split word-by-word slide up
+  $$(".section-title:not(.split), .contact__title:not(.split)").filter(el => !el.closest(".why")).forEach(el =>
+    gsap.from(el, { y: 36, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 88%" } }));
+  // why band: text pieces arrive one after another
+  gsap.from(".why__txt > *", { x: document.documentElement.dir === "rtl" ? 40 : -40, opacity: 0, duration: 1, stagger: .12, ease: "expo.out", scrollTrigger: { trigger: ".why", start: "top 70%" } });
+  // trust strip: numbers count up
+  $$(".trust__in b").forEach(el => {
+    const m = el.textContent.match(/^(\d+)(.*)$/); if (!m) { gsap.from(el, { y: 20, opacity: 0, duration: .9, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 95%" } }); return; }
+    const to = +m[1], suffix = m[2], o = { v: 0 };
+    gsap.to(o, { v: to, duration: 1.8, ease: "power2.out", scrollTrigger: { trigger: el, start: "top 95%" }, onUpdate: () => { el.textContent = Math.round(o.v) + suffix; } });
+  });
+  ScrollTrigger.batch(".trust__in > div", { start: "top 95%", once: true, onEnter: b => gsap.fromTo(b, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: .1, ease: "expo.out" }) });
+
   animateCards();
   buildProcessScroll();
   if (window.innerWidth <= 920) $$(".step").forEach(s => gsap.from(s, { y: 50, opacity: 0, duration: 1, ease: "expo.out", scrollTrigger: { trigger: s, start: "top 88%" } }));
@@ -981,7 +1000,7 @@ initMotion();
     setTimeout(heroEntrance, hasGSAP && !reduceMotion ? 450 : 0);
   };
   el.addEventListener("click", leave);
-  setTimeout(leave, seen || reduceMotion ? 350 : 2100);
+  setTimeout(leave, seen || reduceMotion ? 350 : 2800);
 })();
 
 // Live products from the admin panel (if Supabase is configured)

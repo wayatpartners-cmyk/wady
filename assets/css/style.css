@@ -984,3 +984,68 @@ body:has(.cartbar.is-on) .toast { bottom: 96px; }
   .trust__in div { padding: 20px 8px; }
   .trust__in span { font-size: 12.5px; }
 }
+
+/* ============================================================
+   Full logo (never cropped) + richer opening animation
+   ============================================================ */
+.brand__logo--full { width: 66px; height: 66px; object-fit: contain; border-radius: 0; background: none; box-shadow: none; transform: none;
+  filter: drop-shadow(0 4px 8px rgba(60, 40, 30, .18)); transition: width .5s var(--ease), height .5s var(--ease), transform .6s var(--ease); }
+.header.is-scrolled .brand__logo--full { width: 54px; height: 54px; }
+.brand:hover .brand__logo--full { transform: rotate(-4deg) scale(1.06); }
+
+.loader { background: radial-gradient(60% 60% at 50% 42%, #4A2C19 0%, #2E1B10 60%, #1E120A 100%); }
+.loader__mark { position: relative; width: min(300px, 70vw); aspect-ratio: 1; margin-bottom: 26px; opacity: 0; transform: scale(.86); filter: blur(10px);
+  animation: markIn 1.2s .15s cubic-bezier(.19, 1, .22, 1) forwards; }
+.loader__logo { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; background: #fff; object-fit: contain; padding: 9%;
+  opacity: 1; transform: none; animation: none; margin: 0;
+  box-shadow: 0 0 0 1px rgba(201, 160, 74, .6), 0 0 0 10px rgba(201, 160, 74, .08), 0 40px 90px -30px rgba(201, 160, 74, .55); }
+.loader__ring { position: absolute; inset: -18px; border-radius: 50%; border: 1px dashed rgba(201, 160, 74, .55); animation: spin 14s linear infinite; }
+.loader__ring::after { content: ""; position: absolute; top: -4px; left: 50%; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #E8CF97; box-shadow: 0 0 12px 3px rgba(232, 207, 151, .7); }
+.loader__shine { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; pointer-events: none;
+  background: linear-gradient(115deg, transparent 38%, rgba(255, 246, 220, .85) 49%, #fff 50%, rgba(255, 246, 220, .85) 51%, transparent 62%) no-repeat;
+  background-size: 260% 100%; background-position: 130% 0; mix-blend-mode: soft-light; animation: shine 1.4s .9s ease-in-out forwards; }
+.glint { position: absolute; left: var(--x); top: var(--y); width: 30px; height: 30px; margin: -15px; pointer-events: none; opacity: 0; transform: scale(0) rotate(-45deg);
+  background: radial-gradient(circle, #fff 0 8%, rgba(255, 228, 150, .9) 14%, transparent 42%),
+    linear-gradient(90deg, transparent 47%, rgba(255, 240, 200, .95) 50%, transparent 53%),
+    linear-gradient(0deg, transparent 47%, rgba(255, 240, 200, .95) 50%, transparent 53%);
+  animation: glint .9s var(--d) ease-out forwards; }
+.loader__name { opacity: 1; animation: none; }
+.loader__name span { opacity: 0; transform: translateY(16px); animation: rise .9s .7s cubic-bezier(.19, 1, .22, 1) forwards; font-size: 34px; }
+.loader__name small { opacity: 0; letter-spacing: .15em; animation: track 1.4s 1s cubic-bezier(.19, 1, .22, 1) forwards; }
+@keyframes markIn { to { opacity: 1; transform: none; filter: blur(0); } }
+@keyframes shine { to { background-position: -40% 0; } }
+@keyframes glint { 50% { opacity: 1; transform: scale(1.1) rotate(20deg); } 100% { opacity: 0; transform: scale(.4) rotate(70deg); } }
+@keyframes rise { to { opacity: 1; transform: none; } }
+@keyframes track { to { opacity: 1; letter-spacing: .5em; } }
+
+/* ---------- more motion across the page ---------- */
+/* hero product breathes gently */
+.stage__img.is-active { animation: breathe 7s ease-in-out infinite alternate; }
+@keyframes breathe { from { transform: scale(1); } to { transform: scale(1.045); } }
+.hero.poster::after { content: ""; position: absolute; width: 520px; height: 520px; border-radius: 50%; inset-inline-start: -160px; bottom: -220px; pointer-events: none;
+  background: radial-gradient(circle, color-mix(in srgb, var(--pc) 22%, transparent), transparent 65%); transition: background .8s ease; animation: drift 12s ease-in-out infinite alternate; }
+@keyframes drift { to { translate: 60px -40px; } }
+/* poster divider draws itself, icons pop */
+.ptext__divider i { transform-origin: center; animation: drawLine .9s cubic-bezier(.19, 1, .22, 1) both; }
+.ptext__divider span { display: inline-block; animation: spinIn 1s cubic-bezier(.19, 1, .22, 1) both; }
+@keyframes drawLine { from { transform: scaleX(0); } }
+@keyframes spinIn { from { transform: rotate(-180deg) scale(0); } }
+.ptext__ico { transition: transform .5s var(--ease), background .6s ease; }
+.ptext__row:hover .ptext__ico, .pcard:hover .ptext__ico { transform: rotate(-10deg) scale(1.08); }
+/* buttons get a light sweep on hover */
+.btn--poster, .pcard__add, .cartbar__btn, .btn--wa { position: relative; overflow: hidden; }
+.btn--poster::after, .pcard__add::after, .cartbar__btn::after, .btn--wa::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%; transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .35), transparent); transition: left .7s ease; pointer-events: none; }
+.btn--poster:hover::after, .pcard__add:hover::after, .cartbar__btn:hover::after, .btn--wa:hover::after { left: 120%; }
+/* basket bar nudges when something is added */
+.cartbar.is-bump { animation: barBump .6s cubic-bezier(.19, 1, .22, 1); }
+@keyframes barBump { 30% { scale: 1.04; } }
+/* picker chips */
+.picker button.is-active img { animation: spinIn .8s cubic-bezier(.19, 1, .22, 1); }
+.whatsapp-pulse, .wa-float { animation: waPulse 2.6s ease-in-out infinite; }
+@keyframes waPulse { 0%, 100% { box-shadow: 0 14px 30px -10px rgba(37, 211, 102, .6), 0 0 0 0 rgba(37, 211, 102, .45); } 50% { box-shadow: 0 14px 30px -10px rgba(37, 211, 102, .6), 0 0 0 14px rgba(37, 211, 102, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .loader__mark, .loader__name span, .loader__name small { animation: none; opacity: 1; transform: none; filter: none; }
+  .stage__img.is-active, .hero.poster::after, .wa-float { animation: none; }
+}

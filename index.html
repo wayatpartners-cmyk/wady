@@ -45,7 +45,12 @@
 
   <!-- ========== Loader: the emblem as on the first site ========== -->
   <div class="loader" id="loader" aria-hidden="true">
-    <img class="loader__logo" src="assets/img/logo-3d-white.jpg" alt="" width="480" height="480">
+    <div class="loader__mark">
+      <span class="loader__ring" aria-hidden="true"></span>
+      <img class="loader__logo" src="assets/img/logo-3d-white.jpg" alt="" width="480" height="480">
+      <span class="loader__shine" aria-hidden="true"></span>
+      <i class="glint" style="--x:50%;--y:46%;--d:1.1s"></i><i class="glint" style="--x:37%;--y:53%;--d:1.35s"></i><i class="glint" style="--x:63%;--y:53%;--d:1.55s"></i><i class="glint" style="--x:51%;--y:74%;--d:1.8s"></i>
+    </div>
     <p class="loader__name"><span>وادي كلاي</span><small>WADI CLAY · CRAFTED BY NATURE</small></p>
   </div>
 
@@ -55,7 +60,7 @@
   <!-- ========== Header ========== -->
   <header class="header" id="header">
     <a href="#top" class="brand" aria-label="Wadi Clay">
-      <span class="brand__seal"><img class="brand__logo" src="assets/img/logo-3d-sm.png" alt="شعار وادي كلاي Wadi Clay" width="160" height="160"></span>
+      <img class="brand__logo brand__logo--full" src="assets/img/logo-3d-sm.png" alt="شعار وادي كلاي Wadi Clay" width="160" height="160">
       <span class="brand__text"><b data-i18n="brand">وادي كلاي</b><small>WADI CLAY</small></span>
     </a>
     <nav class="nav" id="nav">
