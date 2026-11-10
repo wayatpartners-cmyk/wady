@@ -1049,3 +1049,13 @@ body:has(.cartbar.is-on) .toast { bottom: 96px; }
   .loader__mark, .loader__name span, .loader__name small { animation: none; opacity: 1; transform: none; filter: none; }
   .stage__img.is-active, .hero.poster::after, .wa-float { animation: none; }
 }
+
+/* ===== Bigger full logo (tightly cropped file) ===== */
+.brand__logo--full { width: auto; height: 72px; aspect-ratio: 173 / 200; }
+.header.is-scrolled .brand__logo--full { width: auto; height: 58px; }
+.loader__mark { width: min(360px, 78vw); }
+.loader__logo { padding: 2%; }
+@media (max-width: 600px) {
+  .brand__logo--full { height: 60px; }
+  .header.is-scrolled .brand__logo--full { height: 52px; }
+}
