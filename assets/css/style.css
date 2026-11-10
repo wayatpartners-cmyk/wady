@@ -166,8 +166,8 @@ html[dir="ltr"] .link-line::after { transform-origin: left; }
    warm wall, wood slab photo, a colour per product, bold title,
    a diamond divider, and price / gift pills with round icons.
    ============================================================ */
-:root { --pc: #2E5C3A; --pw: #DEC6AC; --f-poster: "Cairo", "IBM Plex Sans Arabic", sans-serif; }
-html[lang="en"] { --f-poster: "Manrope", "Cairo", sans-serif; }
+:root { --pc: #2E5C3A; --pw: #DEC6AC; --f-poster: "Tajawal", "IBM Plex Sans Arabic", sans-serif; }
+html[lang="en"] { --f-poster: "Manrope", "Tajawal", sans-serif; }
 
 /* poster text block (used by the hero and the cards) */
 .ptext { color: var(--pc); display: grid; gap: 14px; justify-items: start; transition: color .6s ease; }
@@ -775,3 +775,116 @@ html[dir="ltr"] .drawer__panel { transform: translateX(100%); }
 .brand__seal { background: #fff; box-shadow: 0 0 0 1px rgba(201, 160, 74, .45); overflow: hidden; }
 .brand__seal .brand__logo { width: 100%; height: 100%; object-fit: cover; transform: scale(1.12); }
 .header.is-scrolled .brand__seal .brand__logo { width: 100%; }
+
+/* ============================================================
+   Poster theme across the whole site — the brand posters' bold
+   type, diamond dividers, round coloured icons, warm wall with
+   leaf shadows. (Layered last so it restyles every section.)
+   ============================================================ */
+:root {
+  --wall: #EADCC8; --wall-2: #F3EADD;
+  --p1: #7B2D3F; --p2: #1E5D66; --p3: #2E5C3A; --p4: #C4511C; --p5: #2F5BA6; --p6: #4A4542; --p7: #9B2A1C; --p8: #A3245C; --p9: #6B4C3B;
+}
+body { background: var(--wall-2); }
+
+/* section headings in the posters' bold face */
+.section-title, .contact__title, .guarantee__text .section-title {
+  font-family: var(--f-poster); font-weight: 800; letter-spacing: 0; line-height: 1.25;
+}
+html[lang="en"] .section-title { line-height: 1.1; }
+.section-title { font-size: clamp(30px, 3.8vw, 54px); color: var(--clay-deep); }
+.story .section-title { color: var(--ivory); }
+
+/* kicker = small label + poster divider (line ✦ line) */
+.kicker { font: 700 14px/1 var(--f-poster); letter-spacing: .02em; color: var(--clay-2); gap: 10px; }
+html[lang="ar"] .kicker { font-size: 14.5px; }
+.kicker__num { font: 800 14px/1 var(--f-poster); color: var(--terra); }
+.kicker__num::after { width: 0; margin: 0; }
+.kicker__num::before { content: "✦"; margin-inline-end: 8px; font-size: 11px; }
+.kicker__line { background: currentColor; opacity: .7; height: 1.5px; }
+
+/* warm wall sections with the posters' leaf shadows */
+.benefits, .how, .guide, .collection, .gallery, .best { position: relative; isolation: isolate; }
+.benefits::before, .guide::before, .collection::before, .gallery::before {
+  content: ""; position: absolute; z-index: -1; top: 24px; width: min(30vw, 300px); aspect-ratio: 300 / 360; pointer-events: none;
+  inset-inline-end: calc(50% - 50vw); background: url("../img/leaf-shadow.jpg") center / cover no-repeat;
+  mix-blend-mode: multiply; opacity: .5;
+  -webkit-mask: radial-gradient(closest-side, #000 45%, transparent); mask: radial-gradient(closest-side, #000 45%, transparent);
+}
+html[dir="rtl"] .benefits::before, html[dir="rtl"] .guide::before, html[dir="rtl"] .collection::before, html[dir="rtl"] .gallery::before {
+  -webkit-mask: radial-gradient(closest-side, #000 45%, transparent); mask: radial-gradient(closest-side, #000 45%, transparent);
+}
+.collection, .how { background: transparent; }
+.process { background: var(--wall); }
+
+/* five pillars: poster cards with a round coloured number */
+.step { background: #FBF6EE; border: 0; border-radius: 18px; box-shadow: 0 24px 50px -36px rgba(60, 40, 30, .55); }
+.step__num {
+  width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; font: 800 20px/1 var(--f-poster); color: #fff;
+  background: var(--p3); box-shadow: 0 8px 16px -8px rgba(0, 0, 0, .4);
+}
+.step:nth-child(2) .step__num { background: var(--p4); }
+.step:nth-child(3) .step__num { background: var(--p5); }
+.step:nth-child(4) .step__num { background: var(--p7); }
+.step:nth-child(5) .step__num { background: var(--p1); }
+.step h3 { font: 800 24px/1.3 var(--f-poster); color: var(--clay-deep); }
+.step__sub { font: 700 16px/1.5 var(--f-poster) !important; }
+.process__bar i { background: var(--terra); height: 2px; }
+
+/* exclusive benefits: icon inside a coloured circle, like the poster pills */
+.benefits__grid { border: 0; gap: 16px; }
+.benefit { background: #FBF6EE; border: 0 !important; border-radius: 18px; box-shadow: 0 20px 44px -36px rgba(60, 40, 30, .6); }
+.benefit:hover { background: #FFFCF6; }
+.benefit__ico { width: 58px; height: 58px; padding: 13px; border-radius: 50%; color: #fff; background: var(--p5); box-shadow: 0 8px 16px -8px rgba(0, 0, 0, .4); }
+.benefit:nth-child(2) .benefit__ico { background: var(--p3); }
+.benefit:nth-child(3) .benefit__ico { background: var(--p2); }
+.benefit:nth-child(4) .benefit__ico { background: var(--p9); }
+.benefit:nth-child(5) .benefit__ico { background: var(--p1); }
+.benefit:nth-child(6) .benefit__ico { background: var(--p4); }
+.benefit:nth-child(7) .benefit__ico { background: var(--p8); }
+.benefit h3 { font: 800 20px/1.35 var(--f-poster); color: var(--clay-deep); }
+.benefit__num { font: 800 14px/1 var(--f-poster); color: rgba(60, 40, 30, .35); }
+.benefit--cta { background: var(--clay-deep); }
+.benefit--cta:hover { background: #3a2418; }
+.benefit__quote { font: 800 clamp(22px, 2vw, 30px)/1.35 var(--f-poster); }
+
+/* how it works */
+.how__item h3 { font: 800 clamp(20px, 1.8vw, 26px)/1.3 var(--f-poster); color: var(--clay-deep); }
+.how__dot { width: 14px; height: 14px; top: -7px; background: var(--terra); box-shadow: 0 0 0 6px rgba(196, 81, 28, .15); }
+.how__arch { border-radius: 26px; }
+
+/* care steps + FAQ: numbers in round badges */
+.guide__steps li { align-items: center; }
+.guide__steps b {
+  flex: 0 0 auto; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; min-width: 0;
+  font: 800 16px/1 var(--f-poster); color: #fff; background: var(--p2);
+}
+.guide__steps li:nth-child(2) b { background: var(--p4); }
+.guide__steps li:nth-child(3) b { background: var(--p3); }
+.guide__steps li:nth-child(4) b { background: var(--p1); }
+.guide__steps li h3 { font: 800 19px/1.3 var(--f-poster); color: var(--clay-deep); }
+.faq__item summary { font: 700 clamp(17px, 1.4vw, 20px)/1.45 var(--f-poster); color: var(--clay-deep); }
+.faq__n { width: 32px; height: 32px; min-width: 32px; border-radius: 50%; display: grid; place-items: center; font: 800 12px/1 var(--f-poster); color: #fff; background: var(--terra); }
+
+/* engraving, guarantee, contact, gallery */
+.engrave__sub { font: 700 clamp(18px, 1.6vw, 22px)/1.5 var(--f-poster); color: var(--terra); }
+.engrave__arch { border-radius: 26px; }
+.guarantee__inner { background: #FBF6EE; border: 0; border-radius: 22px; box-shadow: 0 30px 60px -44px rgba(60, 40, 30, .6); }
+.guarantee__list b { font-family: var(--f-poster); font-weight: 700; }
+.contact__inner { border-radius: 24px; }
+.contact__title { font-size: clamp(30px, 4vw, 56px); }
+.masonry figure, .masonry figure:nth-child(4n+1) { border-radius: 18px; }
+.marquee { background: var(--wall); border-color: rgba(60, 40, 30, .12); }
+.marquee span { font: 800 clamp(20px, 2.2vw, 30px)/1.3 var(--f-poster); color: var(--clay-2); }
+.story .meaning h3, .stat span { font-family: var(--f-poster); }
+.stat b { font-family: var(--f-poster); font-weight: 800; }
+.filter { font: 700 14px/1 var(--f-poster); }
+.filter.is-active { background: var(--clay-deep); }
+.btn { font-family: var(--f-poster); font-weight: 700; }
+.nav a { font-family: var(--f-poster); font-weight: 600; }
+.modal__body h3, .drawer__head h3, .line-item h4 { font-family: var(--f-poster); font-weight: 800; }
+
+@media (max-width: 600px) {
+  .benefits::before, .guide::before, .collection::before, .gallery::before { width: 46vw; opacity: .3; }
+  .benefits__grid { gap: 12px; }
+}
