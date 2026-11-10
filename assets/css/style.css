@@ -166,8 +166,8 @@ html[dir="ltr"] .link-line::after { transform-origin: left; }
    warm wall, wood slab photo, a colour per product, bold title,
    a diamond divider, and price / gift pills with round icons.
    ============================================================ */
-:root { --pc: #2E5C3A; --pw: #DEC6AC; --f-poster: "Tajawal", "IBM Plex Sans Arabic", sans-serif; }
-html[lang="en"] { --f-poster: "Manrope", "Tajawal", sans-serif; }
+:root { --pc: #2E5C3A; --pw: #DEC6AC; --f-poster: "Almarai", "IBM Plex Sans Arabic", sans-serif; }
+html[lang="en"] { --f-poster: "Manrope", "Almarai", sans-serif; }
 
 /* poster text block (used by the hero and the cards) */
 .ptext { color: var(--pc); display: grid; gap: 14px; justify-items: start; transition: color .6s ease; }
@@ -952,3 +952,35 @@ body:has(.cartbar.is-on) .wa-float { bottom: 92px; }
   .cartbar__btn { padding: 0 16px; font-size: 14px; }
 }
 body:has(.cartbar.is-on) .toast { bottom: 96px; }
+
+/* ============================================================
+   Layout refinements: trust strip + full-width "why" band
+   ============================================================ */
+.hero__trust { display: none; }
+.trust { background: #FBF6EE; border-block: 1px solid rgba(60, 40, 30, .1); }
+.trust__in { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); display: grid; grid-template-columns: repeat(4, 1fr); }
+.trust__in div { padding: 30px 16px; text-align: center; display: grid; gap: 6px; }
+.trust__in div + div { border-inline-start: 1px solid rgba(60, 40, 30, .1); }
+.trust__in b { font: 800 clamp(28px, 2.6vw, 38px)/1 var(--f-poster); }
+.trust__in span { font: 600 14px/1.4 var(--f-poster); color: var(--clay-2); }
+
+.why { display: grid; grid-template-columns: 1fr 1fr; background: var(--wall); min-height: 640px; }
+.why__img { position: relative; overflow: hidden; }
+.why__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.why__txt { padding: clamp(60px, 7vw, 110px) clamp(28px, 6vw, 96px); display: grid; align-content: center; gap: 22px; max-width: 700px; }
+.why__p { font-size: 17px; color: rgba(60, 40, 30, .8); }
+.why .stats { border-top: 1px solid rgba(60, 40, 30, .14); padding-top: 26px; margin-top: 4px; }
+.why .stat b { color: var(--clay-deep); }
+.why .stat:nth-child(1) b { color: var(--p3); } .why .stat:nth-child(2) b { color: var(--p4); } .why .stat:nth-child(3) b { color: var(--p1); }
+.why .stat span { color: var(--clay-2); }
+@media (max-width: 920px) {
+  .why { grid-template-columns: 1fr; min-height: 0; }
+  .why__img { aspect-ratio: 4 / 3; }
+  .trust__in { grid-template-columns: repeat(2, 1fr); }
+  .trust__in div:nth-child(3) { border-inline-start: 0; }
+  .trust__in div:nth-child(n+3) { border-top: 1px solid rgba(60, 40, 30, .1); }
+}
+@media (max-width: 600px) {
+  .trust__in div { padding: 20px 8px; }
+  .trust__in span { font-size: 12.5px; }
+}

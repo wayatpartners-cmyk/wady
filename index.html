@@ -37,7 +37,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@500;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Almarai:wght@400;700;800&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="assets/css/style.css">
   
 </head>
@@ -116,6 +116,16 @@
       <div class="picker" id="picker" role="tablist" aria-label="المنتجات"></div>
     </section>
 
+    <!-- ========== Trust strip ========== -->
+    <div class="trust" aria-label="مميزات الطلب">
+      <div class="trust__in">
+        <div><b style="color:var(--p3)">900°</b><span data-i18n="tr.1">خَبز كهربائي عالي الحرارة</span></div>
+        <div><b style="color:var(--p4)">24h</b><span data-i18n="tr.2">توصيل مجاني لكل المحافظات</span></div>
+        <div><b style="color:var(--p1)">100%</b><span data-i18n="tr.3">كفالة ذهبية على الجودة</span></div>
+        <div><b style="color:var(--p2)">COD</b><span data-i18n="tr.4">الدفع عند الاستلام</span></div>
+      </div>
+    </div>
+
     <!-- ========== Shop: pick, add to basket, send on WhatsApp ========== -->
     <section class="shop section" id="collection">
       <div class="section-head section-head--row">
@@ -142,30 +152,17 @@
       </noscript>
     </section>
 
-    <!-- ========== Marquee ========== -->
-    <div class="marquee" id="marquee" aria-hidden="true">
-      <div class="marquee__track">
-        <span data-i18n="marquee">طين تيراكوتا إسباني ✦ صناعة يدوية بإتقان ✦ خَبز على ٩٠٠°م ✦ تبريد طبيعي بلا كهرباء ✦ ماء قلوي غني بالأكسجين ✦ بلا بلاستيك ✦ Crafted by Nature ✦</span>
-        <span data-i18n="marquee">طين تيراكوتا إسباني ✦ صناعة يدوية بإتقان ✦ خَبز على ٩٠٠°م ✦ تبريد طبيعي بلا كهرباء ✦ ماء قلوي غني بالأكسجين ✦ بلا بلاستيك ✦ Crafted by Nature ✦</span>
-      </div>
-    </div>
-
-    <!-- ========== Why Wadi Clay (emblem band) ========== -->
-    <section class="story" id="why">
-      <div class="story__inner">
-        <div class="story__emblem">
-          <div class="story__halo" aria-hidden="true"></div>
-          <img src="assets/img/logo.png" alt="شعار وادي كلاي: شجرة تحملها يدان وأوراقها أحجار كريمة" width="596" height="590" loading="lazy">
-        </div>
-        <div class="story__text">
-          <p class="kicker kicker--light"><span class="kicker__num">01</span><span data-i18n="why.eyebrow">لماذا وادي كلاي؟</span></p>
-          <h2 class="section-title split" data-i18n="why.title">أكثر من مجرد فخار… هوية صُنعت لتدوم.</h2>
-          <p class="fade-up" data-i18n="why.p">من نقاء طين التيراكوتا الإسباني، إلى توليفة متخصصة طُوّرت استناداً إلى خبرة سنوات طويلة في علوم المياه، تجمع وادي كلاي بين أصالة الخامات، ودقة الصناعة اليدوية مع العناية بأدق التفاصيل، لنقدم لك تجربة صحية مختلفة في كل رشفة.</p>
-          <div class="stats">
-            <div class="stat"><b class="counter" data-to="900" data-suffix="°">0</b><span data-i18n="stat.fire">درجة حرارة الخَبز</span></div>
-            <div class="stat"><b class="counter" data-to="100" data-suffix="%">0</b><span data-i18n="stat.natural">صناعة يدوية</span></div>
-            <div class="stat"><b class="counter" data-to="12" data-suffix="">0</b><span data-i18n="stat.gov">محافظة نوصل لها</span></div>
-          </div>
+    <!-- ========== Why Wadi Clay: full-width photo + text band ========== -->
+    <section class="why" id="why">
+      <div class="why__img"><img src="assets/img/products/wc-mood-2.jpg" alt="ماء بارد يُسكب من زير غيث في كوب فخار — وادي كلاي" width="1000" height="1250" loading="lazy"></div>
+      <div class="why__txt">
+        <p class="kicker"><span class="kicker__num">01</span><span data-i18n="why.eyebrow">لماذا وادي كلاي؟</span></p>
+        <h2 class="section-title" data-i18n="why.title">أكثر من مجرد فخار… هوية صُنعت لتدوم.</h2>
+        <p class="why__p" data-i18n="why.p">من نقاء طين التيراكوتا الإسباني، إلى توليفة متخصصة طُوّرت استناداً إلى خبرة سنوات طويلة في علوم المياه، تجمع وادي كلاي بين أصالة الخامات، ودقة الصناعة اليدوية مع العناية بأدق التفاصيل، لنقدم لك تجربة صحية مختلفة في كل رشفة.</p>
+        <div class="stats">
+          <div class="stat"><b class="counter" data-to="900" data-suffix="°">0</b><span data-i18n="stat.fire">درجة حرارة الخَبز</span></div>
+          <div class="stat"><b class="counter" data-to="100" data-suffix="%">0</b><span data-i18n="stat.natural">صناعة يدوية</span></div>
+          <div class="stat"><b class="counter" data-to="12" data-suffix="">0</b><span data-i18n="stat.gov">محافظة نوصل لها</span></div>
         </div>
       </div>
     </section>

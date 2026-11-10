@@ -33,7 +33,7 @@ const I18N = {
     "trust.1": "Cash on delivery", "trust.2": "Free delivery within 24 hours", "trust.3": "100% golden guarantee",
     "marquee": "Spanish terracotta ✦ Handmade with care ✦ Fired at 900°C ✦ Natural cooling, no electricity ✦ Alkaline, oxygen-rich water ✦ Plastic-free ✦ Crafted by Nature ✦",
 
-    "why.eyebrow": "Why Wadi Clay?", "why.title": "More than pottery… an identity made to last.",
+    "why.eyebrow": "Why Wadi Clay?", "tr.1": "High-temperature electric firing", "tr.2": "Free delivery to every governorate", "tr.3": "Golden quality guarantee", "tr.4": "Cash on delivery", "why.title": "More than pottery… an identity made to last.",
     "why.p": "From the purity of Spanish terracotta clay to a specialised blend developed from long years of expertise in water science, Wadi Clay unites authentic materials, precise handcraft and care for the finest details — to give you a different, healthier experience in every sip.",
     "stat.fire": "Firing temperature", "stat.natural": "Handmade", "stat.gov": "Governorates we deliver to",
 
@@ -832,8 +832,7 @@ function initMotion() {
   $$(".fade-up").forEach(el => gsap.from(el, { y: 36, opacity: 0, duration: 1.1, ease: "expo.out", scrollTrigger: { trigger: el, start: "top 90%" } }));
 
   // Emblem band: logo rises and the halo breathes
-  gsap.fromTo(".story__emblem img", { scale: .86, opacity: 0, y: 60 }, { scale: 1, opacity: 1, y: 0, duration: 1.8, ease: "expo.out", scrollTrigger: { trigger: "#why", start: "top 70%" } });
-  gsap.to(".story__emblem", { yPercent: -10, ease: "none", scrollTrigger: { trigger: "#why", start: "top bottom", end: "bottom top", scrub: true } });
+  if ($(".why__img img")) gsap.fromTo(".why__img img", { scale: 1.15 }, { scale: 1, ease: "none", scrollTrigger: { trigger: "#why", start: "top bottom", end: "bottom top", scrub: true } });
 
   // Counters
   $$(".counter").forEach(el => {
