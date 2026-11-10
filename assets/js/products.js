@@ -88,6 +88,79 @@ window.PRODUCTS = [
     desc_ar: "تصميم بطابع ملكي، يجمع بين الفخامة وأصالة الفخار، ليمنح رواق حضورًا مميزًا ضمن مجموعة وادي كلاي.",
     desc_en: "A regal design that unites luxury with the authenticity of clay — Riwaq's signature presence in the Wadi Clay collection.",
     gifts_ar: "كوب فخار", gifts_en: "Clay cup", tag_ar: "", tag_en: ""
+  },
+  /* ---- from the owner's copy (no poster yet) ---- */
+  {
+    id: "irwa-premium", category: "personal", price: 19.99, old_price: 0, in_stock: true, sort_order: 10,
+    image_url: "assets/img/products/wc-irwa-premium-1.jpg",
+    name_ar: "إرواء بريميوم", name_en: "Irwa Premium", capacity_ar: "1200 مل", capacity_en: "1200 ml",
+    desc_ar: "إصدار مطوّر من عائلة إرواء، مستوحى من تصميمها الكلاسيكي، بتفاصيل تمنحه طابعًا أكثر تميزًا وأناقة. السعر شامل التوصيل.",
+    desc_en: "An elevated edition of the Irwa family, inspired by its classic design, with details that give it a more distinctive, elegant character. Price includes delivery.",
+    gifts_ar: "صحن فخار، كوب فخار", gifts_en: "Clay plate, clay cup", tag_ar: "شامل التوصيل", tag_en: "Delivery included"
+  },
+  {
+    id: "irwa-lines", category: "personal", price: 18.99, old_price: 0, in_stock: true, sort_order: 11,
+    image_url: "assets/img/products/wc-irwa-lines-1.jpg",
+    name_ar: "إرواء لاينز", name_en: "Irwa Lines", capacity_ar: "1000 مل", capacity_en: "1000 ml",
+    desc_ar: "إصدار مطوّر من عائلة إرواء، يتميز بخطوطه التصميمية التي ترسم شكلًا متفردًا للفخارة وتمنحها هوية بصرية مختلفة عن التصميم الكلاسيكي. السعر شامل التوصيل.",
+    desc_en: "An elevated edition of the Irwa family, defined by sculpted lines that give the carafe a unique shape and its own visual identity. Price includes delivery.",
+    gifts_ar: "صحن فخار، كوب فخار", gifts_en: "Clay plate, clay cup", tag_ar: "شامل التوصيل", tag_en: "Delivery included"
+  },
+  {
+    id: "irwa-curvy", category: "personal", price: 19.99, old_price: 0, in_stock: true, sort_order: 12,
+    image_url: "assets/img/products/wc-irwa-curvy-1.jpg",
+    name_ar: "إرواء كيرفي", name_en: "Irwa Curvy", capacity_ar: "1300 مل", capacity_en: "1300 ml",
+    desc_ar: "إصدار مطوّر من عائلة إرواء، مستوحى من تصميمها الكلاسيكي، يتميز بانحناءاته الناعمة وتفاصيله المنسابة التي تمنحه حضورًا مختلفًا. السعر شامل التوصيل.",
+    desc_en: "An elevated edition of the Irwa family, inspired by its classic design, with soft curves and flowing details that give it a different presence. Price includes delivery.",
+    gifts_ar: "صحن فخار، كوب فخار", gifts_en: "Clay plate, clay cup", tag_ar: "شامل التوصيل", tag_en: "Delivery included"
+  },
+  {
+    id: "petra", category: "personal", price: 22, old_price: 0, in_stock: true, sort_order: 13,
+    image_url: "assets/img/products/wc-petra-1.jpg",
+    name_ar: "بترا", name_en: "Petra", capacity_ar: "1400 مل", capacity_en: "1400 ml",
+    desc_ar: "تصميم يستلهم جمال التفاصيل التراثية، ويعكس طابعًا خاصًا يجمع بين الأصالة والحضور المميز.",
+    desc_en: "A design inspired by the beauty of heritage details, with a character that unites authenticity and a distinctive presence.",
+    gifts_ar: "صحن فخار مخصص للترشيح، كوب فخار", gifts_en: "Filtering clay plate, clay cup", tag_ar: "", tag_en: ""
+  },
+  {
+    id: "irwa-plus", category: "offers", price: 10, old_price: 0, in_stock: true, sort_order: 14,
+    image_url: "assets/img/products/wc-irwa-plus-1.jpg",
+    name_ar: "إرواء بلس", name_en: "Irwa Plus", capacity_ar: "1000 مل", capacity_en: "1000 ml",
+    desc_ar: "تصميم عصري بتفاصيل مميزة، يجمع بين أناقة الشكل وعملية الاستخدام اليومي.",
+    desc_en: "A modern design with distinctive details, combining an elegant shape with everyday practicality.",
+    gifts_ar: "", gifts_en: "", tag_ar: "عرض", tag_en: "Offer"
+  },
+  {
+    id: "cups-offer", category: "offers", price: 5, old_price: 0, in_stock: true, sort_order: 15,
+    image_url: "assets/img/products/wc-cup-naqaa-1.jpg",
+    name_ar: "عرض كاسات نقاء ورواق", name_en: "Naqaa & Riwaq cups offer", capacity_ar: "كوبان", capacity_en: "2 cups",
+    desc_ar: "اشتري كوبًا واحصل على الثاني مجانًا! استمتعوا بعرض كاسات نقاء ورواق: كوبان بسعر 5 دنانير فقط. العرض متاح فقط عند شراء إحدى الفخارات المدرجة في قسم العروض.",
+    desc_en: "Buy one cup, get the second free! Two Naqaa or Riwaq cups for just 5 JOD. Available only with the purchase of one of the carafes in the offers section.",
+    gifts_ar: "", gifts_en: "", tag_ar: "اشتري واحد والثاني مجانًا", tag_en: "Buy one, get one free"
+  },
+  {
+    id: "cup-naqaa", category: "accessories", price: 5, old_price: 0, in_stock: true, sort_order: 16,
+    image_url: "assets/img/products/wc-cup-naqaa-1.jpg",
+    name_ar: "كوب نقاء", name_en: "Naqaa cup", capacity_ar: "", capacity_en: "",
+    desc_ar: "من ملحقات وادي كلاي المتاحة للشراء بشكل منفصل، لتختاروا ما يناسب فخاراتكم واحتياجاتكم.",
+    desc_en: "A Wadi Clay accessory, available separately to suit your carafes and your needs.",
+    gifts_ar: "", gifts_en: "", tag_ar: "", tag_en: ""
+  },
+  {
+    id: "cup-riwaq", category: "accessories", price: 5, old_price: 0, in_stock: true, sort_order: 17,
+    image_url: "assets/img/products/wc-cup-riwaq-1.jpg",
+    name_ar: "كوب رواق", name_en: "Riwaq cup", capacity_ar: "", capacity_en: "",
+    desc_ar: "من ملحقات وادي كلاي المتاحة للشراء بشكل منفصل، لتختاروا ما يناسب فخاراتكم واحتياجاتكم.",
+    desc_en: "A Wadi Clay accessory, available separately to suit your carafes and your needs.",
+    gifts_ar: "", gifts_en: "", tag_ar: "", tag_en: ""
+  },
+  {
+    id: "plate", category: "accessories", price: 1, old_price: 0, in_stock: true, sort_order: 18,
+    image_url: "assets/img/products/wc-plate-1.jpg",
+    name_ar: "صحن فخار", name_en: "Clay plate", capacity_ar: "", capacity_en: "",
+    desc_ar: "من ملحقات وادي كلاي المتاحة للشراء بشكل منفصل، لتختاروا ما يناسب فخاراتكم واحتياجاتكم.",
+    desc_en: "A Wadi Clay accessory, available separately to suit your carafes and your needs.",
+    gifts_ar: "", gifts_en: "", tag_ar: "", tag_en: ""
   }
 ];
 
@@ -104,6 +177,15 @@ window.PRODUCT_STYLE = {
   "Naqaa":       { color: "#2F5BA6", wall: "#DDC5AD", gallery: IMGS("naqaa", WC("naqaa", 3)) },
   "Thara":       { color: "#4A4542", wall: "#DFCDBA", gallery: IMGS("thara") },
   "Nada":        { color: "#9B2A1C", wall: "#DDCAB4", gallery: IMGS("nada") },
-  "Riwaq":       { color: "#6B4C3B", wall: "#DFC6AC", gallery: IMGS("riwaq", WC("riwaq", 3)) }
+  "Riwaq":       { color: "#6B4C3B", wall: "#DFC6AC", gallery: IMGS("riwaq", WC("riwaq", 3)) },
+  "Irwa Premium": { color: "#8A3B2E", wall: "#DEC6AE", gallery: WC("irwa-premium", 4) },
+  "Irwa Lines":   { color: "#3E5C6E", wall: "#D9C7B3", gallery: WC("irwa-lines", 4) },
+  "Irwa Curvy":   { color: "#A0522D", wall: "#DFC8AF", gallery: WC("irwa-curvy", 3) },
+  "Petra":        { color: "#9C4A3A", wall: "#E0C9B2", gallery: WC("petra", 3) },
+  "Irwa Plus":    { color: "#B5651D", wall: "#E2CDB4", gallery: WC("irwa-plus", 3) },
+  "Naqaa & Riwaq cups offer": { color: "#5B6B3A", wall: "#DCCDB6", gallery: [...WC("cup-naqaa", 1), ...WC("cup-riwaq", 1)] },
+  "Naqaa cup":    { color: "#2F5BA6", wall: "#DDC5AD", gallery: WC("cup-naqaa", 1) },
+  "Riwaq cup":    { color: "#6B4C3B", wall: "#DFC6AC", gallery: WC("cup-riwaq", 1) },
+  "Clay plate":   { color: "#7A5A43", wall: "#E3D0BA", gallery: WC("plate", 1) }
 };
 window.productStyle = p => (window.PRODUCT_STYLE[`${p.name_en} ${p.capacity_en || ""}`.trim()] || window.PRODUCT_STYLE[p.name_en] || { color: "#4A2E1F", wall: "#E5D4BC", gallery: [] });

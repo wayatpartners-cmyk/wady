@@ -1059,3 +1059,55 @@ body:has(.cartbar.is-on) .toast { bottom: 96px; }
   .brand__logo--full { height: 60px; }
   .header.is-scrolled .brand__logo--full { height: 52px; }
 }
+
+/* ===== Card photo slides: ordered crossfade with slow zoom ===== */
+.pcard__media--slides .pslide { opacity: 0; transform: scale(1.08); transition: opacity .9s var(--ease), transform 3.6s var(--ease); }
+.pcard__media--slides .pslide.is-on { opacity: 1; transform: scale(1); }
+.pcard:hover .pcard__media--slides .pslide.is-on { transform: scale(1.04); }
+.pcard__dots { position: absolute; z-index: 2; bottom: 80px; left: 50%; translate: -50% 0; display: flex; gap: 6px; padding: 6px 9px; border-radius: 99px; background: rgba(251, 248, 243, .72); backdrop-filter: blur(6px); }
+.pcard__dots i { position: relative; width: 7px; height: 7px; border-radius: 99px; background: rgba(60, 40, 30, .28); overflow: hidden; cursor: pointer; transition: width .5s var(--ease), background .4s; }
+.pcard__dots i.is-on { width: 22px; background: rgba(60, 40, 30, .2); }
+.pcard__dots i.is-on::after { content: ""; position: absolute; inset: 0; background: var(--pc); border-radius: inherit; transform-origin: left; }
+html[dir="rtl"] .pcard__dots i.is-on::after { transform-origin: right; }
+.pcard__media.is-playing .pcard__dots i.is-on::after { animation: dotFill var(--slide-ms, 1400ms) linear forwards; }
+@keyframes dotFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.pcard__shots { position: absolute; z-index: 2; top: 22%; inset-inline-end: 14px; display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 99px; background: rgba(251, 248, 243, .82); color: var(--pc); font: 700 12px/1 var(--f-poster); box-shadow: 0 6px 16px -10px rgba(0, 0, 0, .5); transition: transform .5s var(--ease), opacity .4s; }
+.pcard__shots svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.pcard:hover .pcard__shots { transform: translateY(-3px); }
+
+/* ===== Modal photo slider ===== */
+.mgal { position: absolute; inset: 0; overflow: hidden; background: var(--sand); }
+.mgal__stage { position: absolute; inset: 0; touch-action: pan-y; cursor: grab; }
+.mgal__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.1); clip-path: inset(0 0 0 0); transition: opacity 1s var(--ease), transform 1.2s var(--ease); }
+.mgal__img.is-on { opacity: 1; transform: scale(1); animation: kenBurns 7s ease-out forwards; z-index: 1; }
+.mgal__img.is-on.kb-alt { animation-name: kenBurnsAlt; }
+.mgal__img.is-off { opacity: 0; transform: scale(.96); z-index: 0; }
+@keyframes kenBurns { from { transform: scale(1.12) translate(1.5%, 1%); } to { transform: scale(1.02) translate(0, 0); } }
+@keyframes kenBurnsAlt { from { transform: scale(1.02) translate(-1.5%, 0); } to { transform: scale(1.12) translate(1%, -1%); } }
+.mgal__nav { position: absolute; z-index: 3; top: 50%; translate: 0 -50%; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: rgba(251, 248, 243, .85); color: var(--pc); backdrop-filter: blur(6px); box-shadow: 0 10px 24px -12px rgba(0, 0, 0, .5); opacity: 0; transition: opacity .35s, transform .4s var(--ease), background .3s; }
+.mgal__nav svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.mgal__nav--prev { inset-inline-start: 14px; transform: translateX(10px); }
+.mgal__nav--next { inset-inline-end: 14px; transform: translateX(-10px); }
+html[dir="ltr"] .mgal__nav svg { transform: scaleX(-1); }
+html[dir="ltr"] .mgal__nav--prev { transform: translateX(-10px); }
+html[dir="ltr"] .mgal__nav--next { transform: translateX(10px); }
+.mgal:hover .mgal__nav { opacity: 1; transform: none; }
+.mgal__nav:hover { background: #fff; transform: scale(1.08) !important; }
+.mgal__count { position: absolute; z-index: 3; top: 16px; inset-inline-start: 16px; display: flex; align-items: baseline; gap: 4px; padding: 7px 13px; border-radius: 99px; background: rgba(30, 20, 14, .55); color: #fff; backdrop-filter: blur(6px); font: 700 14px/1 var(--f-poster); }
+.mgal__count span { opacity: .7; font-size: 12px; }
+.mgal__count b.tick { animation: tick .5s var(--ease); display: inline-block; }
+@keyframes tick { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+.mgal__bar { position: absolute; z-index: 3; inset-inline: 0; top: 0; height: 3px; background: rgba(255, 255, 255, .25); }
+.mgal__bar i { position: absolute; inset: 0; background: var(--pc); transform-origin: left; animation: dotFill 4.2s linear forwards; }
+html[dir="rtl"] .mgal__bar i { transform-origin: right; }
+.mgal.is-paused .mgal__bar i { animation-play-state: paused; }
+.mgal .modal__thumbs { z-index: 3; overflow-x: auto; justify-content: flex-start; padding: 6px 4px; scrollbar-width: none; }
+.mgal .modal__thumbs::-webkit-scrollbar { display: none; }
+.mgal .modal__thumbs button { flex: 0 0 auto; }
+.mgal .modal__thumbs:has(button:nth-child(-n+6):last-child) { justify-content: center; }
+.mgal .modal__thumbs button.is-active { border-color: var(--pc); box-shadow: 0 0 0 2px #fff; }
+@media (hover: none) { .mgal__nav { opacity: 1; transform: none; width: 40px; height: 40px; } }
+@media (prefers-reduced-motion: reduce) {
+  .mgal__img, .pcard__media--slides .pslide { transition: opacity .3s; transform: none !important; animation: none !important; }
+  .mgal__bar { display: none; }
+}

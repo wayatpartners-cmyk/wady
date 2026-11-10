@@ -17,7 +17,7 @@ const I18N = {
     "stock.out": "نفد من المخزون", "stock.outBtn": "غير متوفر حالياً", "cart.add": "أضف إلى الطلب",
     "gift.label": "الهدية", "gift.title": "الهدية", "p.price": "السعر", "p.cur": "دينار", "p.gift": "الهدية", "photo.soon": "الصورة قريباً",
     "wa.hello": "مرحباً وادي كلاي 👋", "wa.order": "أرغب بطلب:",
-    "wa.total": "المجموع", "wa.name": "الاسم", "wa.city": "العنوان", "wa.phone": "الهاتف", "wa.gov": "المحافظة", "wa.notes": "ملاحظات", "wa.free": "التوصيل مجاني", "chk.missing": "يرجى تعبئة الحقول المطلوبة (*) لنتمكن من توصيل طلبك.", "chk.phone": "رقم الهاتف غير صحيح — مثال: 0791234567", "bar.inBasket": "بالسلة", "wa.pay": "الدفع عند الاستلام",
+    "wa.total": "المجموع", "wa.name": "الاسم", "wa.city": "العنوان", "wa.phone": "الهاتف", "wa.gov": "المحافظة", "wa.notes": "ملاحظات", "wa.free": "التوصيل مجاني", "cart.free": "مجاني", "wa.delivery": "التوصيل", "chk.cups": "عرض كاسات نقاء ورواق متاح فقط عند شراء إحدى الفخارات المدرجة في قسم العروض.", "chk.missing": "يرجى تعبئة الحقول المطلوبة (*) لنتمكن من توصيل طلبك.", "chk.phone": "رقم الهاتف غير صحيح — مثال: 0791234567", "bar.inBasket": "بالسلة", "wa.pay": "الدفع عند الاستلام",
     "wa.general": "مرحباً وادي كلاي 👋 حابب أستفسر عن منتجاتكم.",
     "wa.engrave": "مرحباً وادي كلاي 👋 حابب أعرف تفاصيل وأسعار خدمة الحفر بالليزر على الفخارة.",
     "menu": "القائمة", "cartLabel": "سلة الطلب",
@@ -106,7 +106,7 @@ const I18N = {
     "cart.added": "Added to your order ✓", "cart.needItems": "Add at least one piece",
     "stock.out": "Out of stock", "stock.outBtn": "Currently unavailable", "gift.label": "Gift", "gift.title": "Gift", "p.price": "Price", "p.cur": "JOD", "p.gift": "Gift", "photo.soon": "Photo coming soon",
     "wa.hello": "Hello Wadi Clay 👋", "wa.order": "I'd like to order:",
-    "wa.total": "Total", "wa.name": "Name", "wa.city": "Address", "wa.phone": "Phone", "wa.gov": "Governorate", "wa.notes": "Notes", "wa.free": "Free delivery", "chk.missing": "Please fill in the required fields (*) so we can deliver your order.", "chk.phone": "That phone number looks wrong — e.g. 0791234567", "bar.inBasket": "in basket", "shop.eyebrow": "Shop", "shop.title": "Choose your clay, order in a minute", "shop.lead": "Add products to your basket and pick quantities, then send your order on WhatsApp — free delivery within 24 hours, cash on delivery.", "shop.s1": "Choose products and quantity", "shop.s2": "Review your basket and address", "shop.s3": "Send the order on WhatsApp", "nav.shop": "Shop", "cart.sub": "Products", "cart.delivery": "Delivery", "cart.free": "Free", "cart.phone": "Phone *", "cart.gov": "Governorate *", "cart.govPick": "Choose your governorate", "cart.notes": "Notes (optional)", "bar.items": "items in basket", "bar.checkout": "Checkout", "wa.pay": "Cash on delivery",
+    "wa.total": "Total", "wa.name": "Name", "wa.city": "Address", "wa.phone": "Phone", "wa.gov": "Governorate", "wa.notes": "Notes", "wa.free": "Free delivery", "wa.delivery": "Delivery", "chk.cups": "The Naqaa & Riwaq cups offer is only available with one of the carafes in the offers section.", "chk.missing": "Please fill in the required fields (*) so we can deliver your order.", "chk.phone": "That phone number looks wrong — e.g. 0791234567", "bar.inBasket": "in basket", "shop.eyebrow": "Shop", "shop.title": "Choose your clay, order in a minute", "shop.lead": "Add products to your basket and pick quantities, then send your order on WhatsApp — free delivery within 24 hours, cash on delivery.", "shop.s1": "Choose products and quantity", "shop.s2": "Review your basket and address", "shop.s3": "Send the order on WhatsApp", "nav.shop": "Shop", "cart.sub": "Products", "cart.delivery": "Delivery", "cart.free": "Free", "cart.phone": "Phone *", "cart.gov": "Governorate *", "cart.govPick": "Choose your governorate", "cart.notes": "Notes (optional)", "bar.items": "items in basket", "bar.checkout": "Checkout", "wa.pay": "Cash on delivery",
     "wa.general": "Hello Wadi Clay 👋 I'd like to ask about your products.",
     "wa.engrave": "Hello Wadi Clay 👋 I'd like details and prices for laser engraving on a vessel.",
     "menu": "Menu", "cartLabel": "Order basket",
@@ -384,9 +384,74 @@ function cardHTML(p) {
   return `
     <article class="pcard ${p.in_stock ? "" : "is-out"} ${activeCat !== "all" && activeCat !== p.category ? "is-hidden" : ""}" data-id="${esc(p.id)}" data-cat="${esc(p.category)}" tabindex="0" aria-label="${esc(L(p, "name"))}" style="--pc:${esc(p.color)};--pw:${esc(p.wall)}">
       ${posterText(p)}
-      <div class="pcard__media">${productArt(p)}</div>
+      ${cardMedia(p)}
       <div class="pcard__ctl" data-ctl="${esc(p.id)}">${cardControl(p)}</div>
     </article>`;
+}
+
+/* Card photos: the product's own photos in order (the text poster is kept for the modal).
+   One photo → a still; several → stacked slides with dots that play in order. */
+function cardMedia(p) {
+  const shots = (p.gallery || []).filter(u => !/-poster\.jpg$/.test(u)).slice(0, 5);
+  if (shots.length < 2) return `<div class="pcard__media">${productArt(p)}</div>`;
+  const alt = esc(L(p, "name"));
+  return `<div class="pcard__media pcard__media--slides" data-slides="${shots.length}">
+      ${shots.map((u, i) => `<img class="pslide ${i ? "" : "is-on"}" src="${esc(u)}" alt="${alt} ${i + 1} — وادي كلاي" loading="lazy">`).join("")}
+      <div class="pcard__dots" aria-hidden="true">${shots.map((_, i) => `<i class="${i ? "" : "is-on"}" data-dot="${i}"></i>`).join("")}</div>
+      <span class="pcard__shots" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.4"/><path d="M8 6l1.5-2h5L16 6"/></svg>${shots.length}</span>
+    </div>`;
+}
+/* Play a card's photos in order: on hover (mouse), or slowly while on screen (touch). */
+const cardTimers = new WeakMap();
+function cardShow(media, i) {
+  const slides = $$(".pslide", media), dots = $$(".pcard__dots i", media);
+  const n = slides.length; if (!n) return;
+  const cur = slides.findIndex(s => s.classList.contains("is-on"));
+  const next = (i + n) % n; if (next === cur) return;
+  slides.forEach((s, k) => s.classList.toggle("is-on", k === next));
+  dots.forEach((d, k) => d.classList.toggle("is-on", k === next));
+}
+function cardPlay(media, ms) {
+  cardStop(media);
+  const step = () => { const cur = $$(".pslide", media).findIndex(s => s.classList.contains("is-on")); cardShow(media, cur + 1); };
+  cardTimers.set(media, setInterval(step, ms));
+  media.style.setProperty("--slide-ms", ms + "ms");
+  media.classList.add("is-playing");
+}
+function cardStop(media, reset) {
+  clearInterval(cardTimers.get(media)); cardTimers.delete(media);
+  media.classList.remove("is-playing");
+  if (reset) cardShow(media, 0);
+}
+let cardObserver = null;
+function bindCardSlides() {
+  if (reduceMotion) return;
+  const hoverable = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const all = $$(".pcard__media--slides");
+  all.forEach(m => {
+    $$(".pcard__dots i", m).forEach(d => d.addEventListener("click", e => { e.stopPropagation(); cardShow(m, +d.dataset.dot); }));
+    if (hoverable) {
+      const card = m.closest(".pcard");
+      card.addEventListener("mouseenter", () => { cardShow(m, 1); cardPlay(m, 1400); });
+      card.addEventListener("mouseleave", () => cardStop(m, true));
+    }
+  });
+  if (!hoverable && hasGSAP && window.ScrollTrigger) {
+    // same scroll engine as the rest of the page (works with Lenis smooth scroll)
+    ScrollTrigger.getAll().filter(s => s.vars.id === "cardslides").forEach(s => s.kill());
+    all.forEach(m => ScrollTrigger.create({
+      id: "cardslides", trigger: m, start: "top 80%", end: "bottom 20%",
+      onToggle: self => { clearTimeout(m._wait); if (self.isActive) m._wait = setTimeout(() => cardPlay(m, 3200), Math.random() * 1200); else cardStop(m); }
+    }));
+  } else if (!hoverable && "IntersectionObserver" in window) {
+    cardObserver?.disconnect();
+    cardObserver = new IntersectionObserver(es => es.forEach(e => {
+      // stagger the start a little per card so the grid doesn't flip in unison
+      if (e.isIntersecting) setTimeout(() => cardPlay(e.target, 3200), Math.random() * 1200);
+      else cardStop(e.target);
+    }), { threshold: .6 });
+    all.forEach(m => cardObserver.observe(m));
+  }
 }
 
 /* the buy control on a card: "add to basket", or a − qty + stepper once it is in the basket */
@@ -404,6 +469,7 @@ function syncCardControls() {
 /* The whole range as one gallery of small posters, in the posters' order */
 function renderGrid() {
   $("#grid").innerHTML = `<div class="grid grid--posters">${PRODUCT_LIST.map(cardHTML).join("")}</div>`;
+  bindCardSlides();
 }
 
 /* Structured data (schema.org) so Google understands the store and its products.
@@ -416,7 +482,7 @@ function updateSchema() {
     "@type": "Store", "@id": home + "#store", name: "Wadi Clay", alternateName: "وادي كلاي",
     description: "فخاريات ماء مصنوعة يدوياً من طين التيراكوتا الإسباني وتوليفة خامات مختارة — تنقية وتبريد طبيعي للماء.",
     url: home, logo: abs("assets/img/logo.png"), image: abs("assets/img/og-image.jpg"),
-    telephone: "+" + CONFIG.whatsapp, priceRange: "JOD 18 - 99",
+    telephone: "+" + CONFIG.whatsapp, priceRange: "JOD 1 - 99",
     paymentAccepted: "Cash on delivery", currenciesAccepted: "JOD",
     address: { "@type": "PostalAddress", addressCountry: "JO" },
     areaServed: { "@type": "Country", name: "Jordan" },
@@ -503,7 +569,14 @@ function addToCart(id, qty = 1) {
 }
 
 const cartEntries = () => Object.entries(cart).filter(([id, q]) => byId(id) && q > 0);
-function cartTotal() { return cartEntries().reduce((s, [id, q]) => s + byId(id).price * q, 0); }
+function cartSubtotal() { return cartEntries().reduce((s, [id, q]) => s + byId(id).price * q, 0); }
+/* Delivery is free; an order made only of offer items pays 2 JOD (owner's delivery rule). */
+const isCupsDeal = p => p.category === "offers" && /cup/i.test(p.name_en || "");
+function deliveryFee() {
+  const items = cartEntries().map(([id]) => byId(id));
+  return items.length && items.every(p => p.category === "offers") ? 2 : 0;
+}
+function cartTotal() { return cartSubtotal() + deliveryFee(); }
 
 function renderCart() {
   const entries = cartEntries();
@@ -530,7 +603,9 @@ function renderCart() {
   }).join("") : `<div class="drawer__empty">${vessel("vase", "sand")}<p>${t("cart.empty")}</p></div>`;
   const total = money(round(cartTotal()));
   $("#cartTotal").textContent = total;
-  if ($("#cartSub")) $("#cartSub").textContent = total;
+  if ($("#cartSub")) $("#cartSub").textContent = money(round(cartSubtotal()));
+  const fee = deliveryFee(), del = $("#cartDelivery");
+  if (del) del.textContent = fee ? money(fee) : t("cart.free");
   // floating basket bar + the buy controls on the cards
   const bar = $("#cartbar");
   if (bar) {
@@ -567,10 +642,17 @@ function sendOrder() {
     $(bad[0])?.focus();
     return;
   }
+  // the cups deal only comes with one of the offer carafes
+  const items = entries.map(([id]) => byId(id));
+  if (items.some(isCupsDeal) && !items.some(p => p.category === "offers" && !isCupsDeal(p))) {
+    if (err) err.textContent = t("chk.cups");
+    return;
+  }
   if (err) err.textContent = "";
+  const fee = deliveryFee();
   const msg = [
     t("wa.hello"), "", t("wa.order"), ...lines, "",
-    `${t("wa.total")}: ${money(round(cartTotal()))} — ${t("wa.free")} — ${t("wa.pay")}`, "",
+    `${t("wa.total")}: ${money(round(cartTotal()))} — ${fee ? `${t("wa.delivery")}: ${money(fee)}` : t("wa.free")} — ${t("wa.pay")}`, "",
     `${t("wa.name")}: ${name}`,
     `${t("wa.phone")}: ${phone}`,
     `${t("wa.gov")}: ${gov}`,
@@ -605,17 +687,21 @@ function openModal(id) {
   modalProduct = p; modalQty = 1; lastFocus = document.activeElement;
   const media = $("#modalMedia");
   const alt = esc(L(p, "name"));
-  media.innerHTML = p.gallery.length
-    ? `<img class="modal__main" src="${esc(p.gallery[0])}" alt="${alt} — وادي كلاي">` +
-      (p.gallery.length > 1 ? `<div class="modal__thumbs">${p.gallery.map((u, i) =>
-        `<button type="button" class="${i ? "" : "is-active"}" data-shot="${esc(u)}" aria-label="${i + 1}"><img src="${esc(u)}" alt="" loading="lazy"></button>`).join("")}</div>` : "")
+  const shots = p.gallery;
+  media.innerHTML = shots.length
+    ? `<div class="mgal" style="--pc:${esc(p.color)}">
+        <div class="mgal__stage">${shots.map((u, i) => `<img class="mgal__img ${i ? "" : "is-on"}" src="${esc(u)}" alt="${alt} ${i + 1} — وادي كلاي" ${i ? 'loading="lazy"' : ""}>`).join("")}</div>
+        ${shots.length > 1 ? `
+        <button type="button" class="mgal__nav mgal__nav--prev" data-step="-1" aria-label="السابق"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></button>
+        <button type="button" class="mgal__nav mgal__nav--next" data-step="1" aria-label="التالي"><svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"/></svg></button>
+        <div class="mgal__count"><b>1</b><span>/ ${shots.length}</span></div>
+        <div class="mgal__bar"><i></i></div>
+        <div class="modal__thumbs">${shots.map((u, i) =>
+          `<button type="button" class="${i ? "" : "is-active"}" data-shot="${i}" aria-label="${i + 1}"><img src="${esc(u)}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}
+      </div>`
     : productArt(p);
   media.classList.toggle("has-photo", !!p.image_url);
-  $$("[data-shot]", media).forEach(b => b.addEventListener("click", e => {
-    e.stopPropagation();
-    $(".modal__main", media).src = b.dataset.shot;
-    $$("[data-shot]", media).forEach(x => x.classList.toggle("is-active", x === b));
-  }));
+  initModalGallery(media, shots.length);
   $("#modalCat").textContent = CATEGORIES.find(c => c.id === p.category)?.[lang] || "";
   $("#modalName").textContent = L(p, "name");
   $("#modalSize").textContent = L(p, "capacity");
@@ -632,7 +718,65 @@ function openModal(id) {
   lockScroll(true);
   setTimeout(() => $("#modal .modal__close").focus(), 50);
 }
+/* Product photo slider in the modal: ordered slides, crossfade + slow zoom,
+   arrows, counter, thumbnails, autoplay with a progress line, swipe and arrow keys. */
+let mgalTimer = null, mgalGo = null;
+const MGAL_DELAY = 4200;
+function initModalGallery(media, n) {
+  clearInterval(mgalTimer); mgalTimer = null; mgalGo = null;
+  if (n < 2) return;
+  const imgs = $$(".mgal__img", media), thumbs = $$("[data-shot]", media), bar = $(".mgal__bar i", media), num = $(".mgal__count b", media);
+  let cur = 0;
+  const go = (i, user) => {
+    const prev = cur;
+    cur = (i + n) % n;
+    if (cur === prev) return;
+    imgs[prev].classList.remove("is-on"); imgs[prev].classList.add("is-off");
+    setTimeout(() => imgs[prev].classList.remove("is-off"), 900);
+    imgs[cur].classList.add("is-on");
+    imgs[cur].classList.toggle("kb-alt", cur % 2 === 1);
+    thumbs.forEach((b, k) => b.classList.toggle("is-active", k === cur));
+    thumbs[cur]?.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+    if (num) { num.textContent = cur + 1; num.classList.remove("tick"); void num.offsetWidth; num.classList.add("tick"); }
+    if (user) restart();
+  };
+  const restart = () => {
+    clearInterval(mgalTimer);
+    if (bar) { bar.style.animation = "none"; void bar.offsetWidth; bar.style.animation = ""; }
+    if (reduceMotion) return;
+    mgalTimer = setInterval(() => { go(cur + 1); if (bar) { bar.style.animation = "none"; void bar.offsetWidth; bar.style.animation = ""; } }, MGAL_DELAY);
+  };
+  mgalGo = step => go(cur + step, true);
+  thumbs.forEach(b => b.addEventListener("click", e => { e.stopPropagation(); go(+b.dataset.shot, true); }));
+  $$("[data-step]", media).forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation();
+    // arrows follow reading direction: in RTL "next" points left
+    go(cur + Number(b.dataset.step), true);
+  }));
+  // swipe
+  let x0 = null;
+  const stage = $(".mgal__stage", media);
+  stage.addEventListener("pointerdown", e => { x0 = e.clientX; });
+  stage.addEventListener("pointerup", e => {
+    if (x0 === null) return;
+    const dx = e.clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) go(cur + ((dx < 0) === (document.documentElement.dir === "rtl") ? -1 : 1), true);
+  });
+  // pause while the pointer rests on the photo
+  const gal = $(".mgal", media);
+  gal.addEventListener("mouseenter", () => { clearInterval(mgalTimer); gal.classList.add("is-paused"); });
+  gal.addEventListener("mouseleave", () => { gal.classList.remove("is-paused"); restart(); });
+  restart();
+}
+document.addEventListener("keydown", e => {
+  if (!mgalGo || !$("#modal")?.classList.contains("is-open")) return;
+  const rtl = document.documentElement.dir === "rtl";
+  if (e.key === "ArrowLeft") mgalGo(rtl ? 1 : -1);
+  if (e.key === "ArrowRight") mgalGo(rtl ? -1 : 1);
+});
+
 function closeModal() {
+  clearInterval(mgalTimer); mgalTimer = null; mgalGo = null;
   $("#modal").classList.remove("is-open");
   $("#modal").setAttribute("aria-hidden", "true");
   lockScroll(false);
@@ -912,7 +1056,12 @@ const findProduct = f => PRODUCT_LIST.find(p => p.name_en === f.en && (!f.cap ||
 
 /* the hero is a live poster: every product in turn, in the posters' order */
 let featIndex = 0, featTimer = null;
-function featured() { return PRODUCT_LIST.filter(p => p.in_stock); }
+// the hero shows the poster pieces (they have a studio crop); fall back to everything in stock
+function featured() {
+  const inStock = PRODUCT_LIST.filter(p => p.in_stock);
+  const posters = inStock.filter(p => /\/p-[a-z0-9]+\.jpg$/.test(p.image_url));
+  return posters.length ? posters : inStock;
+}
 
 function renderFeature(i, animate = true) {
   const list = featured();
