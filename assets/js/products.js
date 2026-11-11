@@ -166,7 +166,8 @@ window.PRODUCTS = [
 
 /* Per product: poster colour, the wall tone behind it, and its photo set.
    Keyed by "name_en capacity_en" (Ghaith comes in two sizes), then name_en. */
-const IMGS = (k, more = []) => [`assets/img/products/p-${k}.jpg`, `assets/img/products/p-${k}-poster.jpg`, ...more];
+// studio photo first, then the WhatsApp photos (the price posters are not shown on the site)
+const IMGS = (k, more = []) => [`assets/img/products/p-${k}.jpg`, ...more];
 const WC = (k, n) => Array.from({ length: n }, (_, i) => `assets/img/products/wc-${k}-${i + 1}.jpg`);
 window.PRODUCT_STYLE = {
   "Al Qarora":   { color: "#7B2D3F", wall: "#DEC5AC", gallery: IMGS("qarora", WC("qarora", 5)) },
