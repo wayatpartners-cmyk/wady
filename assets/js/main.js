@@ -373,6 +373,8 @@ function priceHTML(p) {
 const ICON_TAG = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.4"/><path d="m9 16 5-6"/></svg>`;
 const ICON_GIFT = `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="1.5"/><path d="M3 13h18M12 9v12M12 9C10 5 6 5 7 8c.6 1.6 5 1 5 1s4.4.6 5-1c1-3-3-3-5 1"/></svg>`;
 const fmtNum = n => (Number.isInteger(n) ? String(n) : n.toFixed(2));
+// Arabic counts: 3–10 take the plural (5 دنانير), otherwise دينار
+const curWord = n => (lang === "ar" && Number.isInteger(n) && n >= 3 && n <= 10 ? "دنانير" : t("p.cur"));
 function posterText(p) {
   const cap = L(p, "capacity"), gifts = L(p, "gifts");
   const price = hasSale(p) ? `<s>${fmtNum(p.old_price)}</s> <b>${fmtNum(p.price)}</b>` : `<b>${fmtNum(p.price)}</b>`;
@@ -380,7 +382,7 @@ function posterText(p) {
     <div class="ptext">
       <h3 class="ptext__title">${esc(L(p, "name"))}${cap ? ` <em>-</em> <b>${esc(cap)}</b>` : ""}</h3>
       <div class="ptext__divider" aria-hidden="true"><i></i><span>✦</span><i></i></div>
-      <p class="ptext__row"><span class="ptext__ico">${ICON_TAG}</span><span class="ptext__val">${t("p.price")}: ${price} ${t("p.cur")}</span></p>
+      <p class="ptext__row"><span class="ptext__ico">${ICON_TAG}</span><span class="ptext__val">${t("p.price")}: ${price} ${curWord(p.price)}</span></p>
       ${gifts ? `<p class="ptext__row"><span class="ptext__ico">${ICON_GIFT}</span><span class="ptext__val">${t("p.gift")}: ${esc(gifts)}</span></p>` : ""}
     </div>`;
 }
@@ -1045,8 +1047,40 @@ function animateCards() {
   cardTriggers.forEach(st => st.kill());
   cardTriggers = ScrollTrigger.batch(".pcard", {
     start: "top 92%", once: true,
-    onEnter: b => gsap.fromTo(b, { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 1.2, stagger: .08, ease: "expo.out" })
+    onEnter: batch => batch.forEach((card, i) => revealCard(card, i * .12))
   });
+}
+
+/* One card arriving, like a poster being put up: the card rises, the photo
+   settles, the title slides in, the divider draws, the price pill slides in
+   and its number counts up, the gift pill follows, then the button pops. */
+function revealCard(card, delay = 0) {
+  const sx = document.documentElement.dir === "rtl" ? 40 : -40;
+  const img = card.querySelectorAll(".pcard__media img");
+  const title = card.querySelector(".ptext__title");
+  const lines = card.querySelectorAll(".ptext__divider i");
+  const star = card.querySelector(".ptext__divider span");
+  const rows = card.querySelectorAll(".ptext__row");
+  const icons = card.querySelectorAll(".ptext__ico");
+  const ctl = card.querySelector(".pcard__ctl");
+  const num = card.querySelector(".ptext__row .ptext__val b");
+  const tl = gsap.timeline({ delay, defaults: { ease: "expo.out" } });
+  tl.fromTo(card, { y: 80, opacity: 0, scale: .94 }, { y: 0, opacity: 1, scale: 1, duration: 1.1, clearProps: "transform" })
+    .fromTo(img, { scale: 1.18 }, { scale: 1, duration: 1.6, clearProps: "transform" }, 0)
+    .fromTo(title, { x: sx, opacity: 0 }, { x: 0, opacity: 1, duration: .9 }, .2)
+    .fromTo(lines, { scaleX: 0 }, { scaleX: 1, duration: .8, ease: "power3.inOut" }, .35)
+    .fromTo(star, { scale: 0, rotate: -180 }, { scale: 1, rotate: 0, duration: .7, ease: "back.out(3)" }, .5)
+    .fromTo(rows, { x: -sx, opacity: 0 }, { x: 0, opacity: 1, duration: .8, stagger: .12 }, .45)
+    .fromTo(icons, { scale: 0, rotate: -90 }, { scale: 1, rotate: 0, duration: .7, stagger: .12, ease: "back.out(2.4)" }, .5)
+    .fromTo(ctl, { y: 24, opacity: 0, scale: .9 }, { y: 0, opacity: 1, scale: 1, duration: .7, ease: "back.out(2)", clearProps: "transform" }, .75);
+  // count the price up (whole and decimal prices)
+  if (num && !card.querySelector(".ptext__val s")) {
+    const to = parseFloat(num.textContent);
+    if (to > 0) {
+      const o = { v: 0 }, dec = !Number.isInteger(to);
+      tl.to(o, { v: to, duration: 1.1, ease: "power2.out", onUpdate: () => { num.textContent = dec ? o.v.toFixed(2) : Math.round(o.v); }, onComplete: () => { num.textContent = fmtNum(to); card.classList.add("is-priced"); } }, .55);
+    }
+  }
 }
 
 /* ============================================================

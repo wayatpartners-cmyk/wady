@@ -1111,3 +1111,23 @@ html[dir="rtl"] .mgal__bar i { transform-origin: right; }
   .mgal__img, .pcard__media--slides .pslide { transition: opacity .3s; transform: none !important; animation: none !important; }
   .mgal__bar { display: none; }
 }
+
+/* ===== Store cards: price shine, hover lift ===== */
+.pcard .ptext__divider i { transform-origin: center; }
+.pcard .ptext__row:first-of-type .ptext__val { position: relative; overflow: hidden; }
+.pcard .ptext__row:first-of-type .ptext__val::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .75) 50%, transparent 65%);
+  transform: translateX(-120%);
+}
+.pcard.is-priced .ptext__row:first-of-type .ptext__val::after { animation: priceShine 1.2s .1s var(--ease) 1; }
+.pcard:hover .ptext__row:first-of-type .ptext__val::after { animation: priceShine 1s var(--ease) 1; }
+@keyframes priceShine { to { transform: translateX(120%); } }
+.pcard { transition: transform .6s var(--ease), box-shadow .6s var(--ease); }
+.pcard:hover { transform: translateY(-8px); box-shadow: 0 34px 60px -34px rgba(60, 35, 20, .55); }
+.pcard:hover .ptext__ico { transform: rotate(-12deg) scale(1.08); }
+.pcard .ptext__ico { transition: transform .5s var(--ease); }
+@media (prefers-reduced-motion: reduce) {
+  .pcard, .pcard:hover { transform: none; }
+  .pcard .ptext__val::after { display: none; }
+}
