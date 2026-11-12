@@ -91,28 +91,28 @@ window.PRODUCTS = [
   },
   /* ---- from the owner's copy (no poster yet) ---- */
   {
-    id: "irwa-premium", extra: true, category: "personal", price: 19.99, old_price: 0, in_stock: true, sort_order: 10,
-    image_url: "assets/img/products/wc-irwa-premium-1.jpg",
+    id: "irwa-premium", extra: true, category: "personal", price: 20, old_price: 0, in_stock: true, sort_order: 10,
+    image_url: "assets/img/products/p-irwapremium.jpg",
     name_ar: "إرواء بريميوم", name_en: "Irwa Premium", capacity_ar: "1200 مل", capacity_en: "1200 ml",
-    desc_ar: "إصدار مطوّر من عائلة إرواء، مستوحى من تصميمها الكلاسيكي، بتفاصيل تمنحه طابعًا أكثر تميزًا وأناقة. السعر شامل التوصيل.",
-    desc_en: "An elevated edition of the Irwa family, inspired by its classic design, with details that give it a more distinctive, elegant character. Price includes delivery.",
-    gifts_ar: "صحن فخار، كوب فخار", gifts_en: "Clay plate, clay cup", tag_ar: "شامل التوصيل", tag_en: "Delivery included"
+    desc_ar: "إصدار مطوّر من عائلة إرواء، مستوحى من تصميمها الكلاسيكي، بتفاصيل تمنحه طابعًا أكثر تميزًا وأناقة.",
+    desc_en: "An elevated edition of the Irwa family, inspired by its classic design, with details that give it a more distinctive, elegant character.",
+    gifts_ar: "كوب فخار، صحن ترشيح", gifts_en: "Clay cup, filtering plate", tag_ar: "", tag_en: ""
   },
   {
-    id: "irwa-lines", extra: true, category: "personal", price: 18.99, old_price: 0, in_stock: true, sort_order: 11,
-    image_url: "assets/img/products/wc-irwa-lines-1.jpg",
+    id: "irwa-lines", extra: true, category: "personal", price: 19, old_price: 0, in_stock: true, sort_order: 11,
+    image_url: "assets/img/products/p-irwalines.jpg",
     name_ar: "إرواء لاينز", name_en: "Irwa Lines", capacity_ar: "1000 مل", capacity_en: "1000 ml",
-    desc_ar: "إصدار مطوّر من عائلة إرواء، يتميز بخطوطه التصميمية التي ترسم شكلًا متفردًا للفخارة وتمنحها هوية بصرية مختلفة عن التصميم الكلاسيكي. السعر شامل التوصيل.",
-    desc_en: "An elevated edition of the Irwa family, defined by sculpted lines that give the carafe a unique shape and its own visual identity. Price includes delivery.",
-    gifts_ar: "صحن فخار، كوب فخار", gifts_en: "Clay plate, clay cup", tag_ar: "شامل التوصيل", tag_en: "Delivery included"
+    desc_ar: "إصدار مطوّر من عائلة إرواء، يتميز بخطوطه التصميمية التي ترسم شكلًا متفردًا للفخارة وتمنحها هوية بصرية مختلفة عن التصميم الكلاسيكي.",
+    desc_en: "An elevated edition of the Irwa family, defined by sculpted lines that give the carafe a unique shape and its own visual identity.",
+    gifts_ar: "كوب فخار، صحن ترشيح", gifts_en: "Clay cup, filtering plate", tag_ar: "", tag_en: ""
   },
   {
-    id: "irwa-curvy", extra: true, category: "personal", price: 19.99, old_price: 0, in_stock: true, sort_order: 12,
-    image_url: "assets/img/products/wc-irwa-curvy-1.jpg",
+    id: "irwa-curvy", extra: true, category: "personal", price: 20, old_price: 0, in_stock: true, sort_order: 12,
+    image_url: "assets/img/products/p-irwacurvy.jpg",
     name_ar: "إرواء كيرفي", name_en: "Irwa Curvy", capacity_ar: "1300 مل", capacity_en: "1300 ml",
-    desc_ar: "إصدار مطوّر من عائلة إرواء، مستوحى من تصميمها الكلاسيكي، يتميز بانحناءاته الناعمة وتفاصيله المنسابة التي تمنحه حضورًا مختلفًا. السعر شامل التوصيل.",
-    desc_en: "An elevated edition of the Irwa family, inspired by its classic design, with soft curves and flowing details that give it a different presence. Price includes delivery.",
-    gifts_ar: "صحن فخار، كوب فخار", gifts_en: "Clay plate, clay cup", tag_ar: "شامل التوصيل", tag_en: "Delivery included"
+    desc_ar: "إصدار مطوّر من عائلة إرواء، مستوحى من تصميمها الكلاسيكي، يتميز بانحناءاته الناعمة وتفاصيله المنسابة التي تمنحه حضورًا مختلفًا.",
+    desc_en: "An elevated edition of the Irwa family, inspired by its classic design, with soft curves and flowing details that give it a different presence.",
+    gifts_ar: "كوب فخار، صحن ترشيح", gifts_en: "Clay cup, filtering plate", tag_ar: "", tag_en: ""
   },
   {
     id: "petra", extra: true, category: "personal", price: 22, old_price: 0, in_stock: true, sort_order: 13,
@@ -179,9 +179,9 @@ window.PRODUCT_STYLE = {
   "Thara":       { color: "#4A4542", wall: "#DFCDBA", gallery: IMGS("thara") },
   "Nada":        { color: "#9B2A1C", wall: "#DDCAB4", gallery: IMGS("nada") },
   "Riwaq":       { color: "#6B4C3B", wall: "#DFC6AC", gallery: IMGS("riwaq", WC("riwaq", 3)) },
-  "Irwa Premium": { color: "#8A3B2E", wall: "#DEC6AE", gallery: WC("irwa-premium", 4) },
-  "Irwa Lines":   { color: "#3E5C6E", wall: "#D9C7B3", gallery: WC("irwa-lines", 4) },
-  "Irwa Curvy":   { color: "#A0522D", wall: "#DFC8AF", gallery: WC("irwa-curvy", 3) },
+  "Irwa Premium": { color: "#B3202A", wall: "#DEC6AE", gallery: IMGS("irwapremium", WC("irwa-premium", 4)) },
+  "Irwa Lines":   { color: "#1F4F9C", wall: "#D9C7B3", gallery: IMGS("irwalines", WC("irwa-lines", 4)) },
+  "Irwa Curvy":   { color: "#5E3B6E", wall: "#DFC8AF", gallery: IMGS("irwacurvy", WC("irwa-curvy", 3)) },
   "Petra":        { color: "#9C4A3A", wall: "#E0C9B2", gallery: WC("petra", 3) },
   "Irwa Plus":    { color: "#B5651D", wall: "#E2CDB4", gallery: WC("irwa-plus", 3) },
   "Naqaa & Riwaq cups offer": { color: "#5B6B3A", wall: "#DCCDB6", gallery: [...WC("cup-naqaa", 1), ...WC("cup-riwaq", 1)] },
