@@ -564,11 +564,17 @@ const byId = id => PRODUCT_LIST.find(p => p.id === id);
 
 function saveCart() { store.set("wadi-cart", cart); renderCart(); }
 
+/* Meta Pixel events: safe no-op if the pixel didn't load (blocked, offline) */
+function track(ev, data) { try { if (window.fbq) window.fbq("track", ev, data || {}); } catch (_) {} }
+// any WhatsApp contact button counts as a Contact
+document.addEventListener("click", e => { if (e.target.closest && e.target.closest('.js-wa, .js-wa-engrave, a[href*="wa.me"]')) track("Contact"); });
+
 function addToCart(id, qty = 1) {
   const p = byId(id);
   if (!p || !p.in_stock) return;
   cart[id] = (cart[id] || 0) + qty;
   saveCart();
+  track("AddToCart", { content_ids: [String(id)], content_name: L(p, "name"), content_type: "product", value: round(p.price * qty), currency: "JOD" });
   toast(t("cart.added"));
   const btn = $("#cartBtn");
   btn.classList.remove("bump"); void btn.offsetWidth; btn.classList.add("bump");
@@ -666,6 +672,12 @@ function sendOrder() {
     `${t("wa.city")}: ${city}`,
     notes ? `${t("wa.notes")}: ${notes}` : null
   ].filter(x => x !== null).join("\n");
+  track("Purchase", {
+    value: round(cartTotal()), currency: "JOD", content_type: "product",
+    content_ids: entries.map(([id]) => String(id)),
+    contents: entries.map(([id, q]) => ({ id: String(id), quantity: q })),
+    num_items: entries.reduce((s, [, q]) => s + q, 0)
+  });
   window.open(waLink(msg), "_blank", "noopener");
 }
 
