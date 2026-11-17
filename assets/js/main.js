@@ -632,6 +632,22 @@ function renderCart() {
 const round = n => Math.round(n * 100) / 100;
 function waLink(text) { return `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`; }
 
+/* Open WhatsApp reliably: in-app browsers (Facebook/Instagram) and phones often block window.open,
+   so on mobile we navigate directly (after a short delay so the Meta Pixel event can be sent). */
+function openWA(url) {
+  const mobile = /Android|iPhone|iPad|iPod|FBAN|FBAV|FB_IAB|Instagram/i.test(navigator.userAgent) ||
+    (window.matchMedia && matchMedia("(pointer: coarse)").matches);
+  if (mobile) { setTimeout(() => { window.location.href = url; }, 350); return; }
+  const w = window.open(url, "_blank");
+  if (w) { try { w.opener = null; } catch (_) {} } else { window.location.href = url; }
+}
+
+/* Accept Arabic-Indic digits (٠١٢…) and Persian digits (۰۱۲…) typed on Arabic keyboards */
+function toLatinDigits(s) {
+  return String(s || "").replace(/[\u0660-\u0669]/g, d => d.charCodeAt(0) - 0x0660)
+                        .replace(/[\u06F0-\u06F9]/g, d => d.charCodeAt(0) - 0x06F0);
+}
+
 function sendOrder() {
   const entries = cartEntries();
   if (!entries.length) { toast(t("cart.needItems")); return; }
@@ -641,7 +657,7 @@ function sendOrder() {
     return `• ${L(p, "name")}${cap ? ` (${cap})` : ""} × ${q} — ${money(round(p.price * q))}${gifts ? `\n   🎁 ${gifts}` : ""}`;
   });
   const v = id => ($(id)?.value || "").trim();
-  const name = v("#custName"), phone = v("#custPhone").replace(/[^\d+]/g, ""), gov = v("#custGov"), city = v("#custCity"), notes = v("#custNotes");
+  const name = v("#custName"), phone = toLatinDigits(v("#custPhone")).replace(/[^\d+]/g, "").replace(/^00/, "+"), gov = v("#custGov"), city = v("#custCity"), notes = v("#custNotes");
   // checkout checks: everything the delivery needs
   const err = $("#checkoutError"), bad = [];
   $$(".checkout .field").forEach(f => f.classList.remove("is-bad"));
@@ -678,7 +694,7 @@ function sendOrder() {
     contents: entries.map(([id, q]) => ({ id: String(id), quantity: q })),
     num_items: entries.reduce((s, [, q]) => s + q, 0)
   });
-  window.open(waLink(msg), "_blank", "noopener");
+  openWA(waLink(msg));
 }
 
 let toastTimer;
@@ -847,7 +863,7 @@ function bindEvents() {
     const rm = e.target.closest("[data-remove]"); if (rm) { delete cart[rm.dataset.remove]; saveCart(); return; }
 
     const wa = e.target.closest(".js-wa, .js-wa-engrave");
-    if (wa) { e.preventDefault(); window.open(waLink(t(wa.classList.contains("js-wa-engrave") ? "wa.engrave" : "wa.general")), "_blank", "noopener"); return; }
+    if (wa) { e.preventDefault(); openWA(waLink(t(wa.classList.contains("js-wa-engrave") ? "wa.engrave" : "wa.general"))); return; }
 
     const anchor = e.target.closest('a[href^="#"]');
     if (anchor && anchor.getAttribute("href").length > 1) {
