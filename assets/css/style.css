@@ -1141,3 +1141,8 @@ html[dir="rtl"] .mgal__bar i { transform-origin: right; }
 @media (max-width: 600px) {
   .checkout { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ===== Fix: cart items list was squeezed to ~20px on short/mobile screens — let the whole drawer scroll instead ===== */
+.drawer__panel { grid-template-rows: auto auto auto; align-content: start; overflow-y: auto; overscroll-behavior: contain; }
+.drawer__items { overflow: visible; }
+.drawer__head { position: sticky; top: 0; z-index: 2; background: var(--ivory); }
