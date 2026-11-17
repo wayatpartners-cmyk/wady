@@ -1131,3 +1131,13 @@ html[dir="rtl"] .mgal__bar i { transform-origin: right; }
   .pcard, .pcard:hover { transform: none; }
   .pcard .ptext__val::after { display: none; }
 }
+
+/* ===== Fix: checkout form overflowed the cart drawer (fields + submit button were cut off) ===== */
+.checkout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.checkout > * { min-width: 0; }
+.field input,
+.field select,
+.field textarea { width: 100%; min-width: 0; box-sizing: border-box; }
+@media (max-width: 600px) {
+  .checkout { grid-template-columns: minmax(0, 1fr); }
+}
