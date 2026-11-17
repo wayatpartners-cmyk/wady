@@ -1215,3 +1215,26 @@ loadProducts().then(ok => {
   animateCards();
   if (hasGSAP) ScrollTrigger.refresh();
 });
+
+/* Meta Pixel: ViewContent when a product opens, InitiateCheckout when the order drawer opens */
+(function () {
+  function watchOpen(sel, onOpen) {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    let open = el.classList.contains("is-open");
+    new MutationObserver(() => {
+      const now = el.classList.contains("is-open");
+      if (now && !open) { try { onOpen(el); } catch (_) {} }
+      open = now;
+    }).observe(el, { attributes: true, attributeFilter: ["class"] });
+  }
+  watchOpen("#modal", (el) => {
+    const h = el.querySelector("h1, h2, h3");
+    track("ViewContent", { content_type: "product", content_name: h ? h.textContent.trim() : undefined, currency: "JOD" });
+  });
+  watchOpen("#drawer", () => {
+    const ids = Object.keys(cart || {});
+    if (!ids.length) return;
+    track("InitiateCheckout", { value: round(cartTotal()), currency: "JOD", content_type: "product", content_ids: ids.map(String), num_items: ids.reduce((s, id) => s + (cart[id] || 0), 0) });
+  });
+})();
